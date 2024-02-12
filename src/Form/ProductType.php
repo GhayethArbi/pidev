@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Product;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+class ProductType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name')
+            ->add('slug', null, [
+                'constraints' => [
+                    new Assert\Regex([
+                        'pattern' => '/^[a-zA-Z0-9-]+$/',
+                        'message' => 'Le slug ne peut contenir que des lettres, des chiffres et des tirets.'
+                    ]),
+                ],
+            ])
+            ->add('illustrationFile', FileType::class, [
+                'mapped' =>false,
+                'label' => 'Illustration (Image file)',
+                'required' => false, // Optional, makes the field not required
+            ])
+            ->add('subtitle')
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+            ])
+            ->add('price', MoneyType::class, [
+                'label' => 'Price',
+                'currency' => 'USD', // or any other currency you want to use
+            ])
+            ->add('category')
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Product::class,
+        ]);
+    }
+}
