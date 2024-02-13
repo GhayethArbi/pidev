@@ -26,16 +26,16 @@
                 <td>{{ product.slug }}</td>
                 <td>
                     {% if product.illustration %}
-                        <img src="{{ asset('Uploads/' ~ product.illustration) }}" alt="Illustration">
+                        <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px">
                     {% endif %}
 
                 <td>{{ product.subtitle }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                    <a href="{{ path('app_product_delete',{'id':product.id}) }}">delete</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">show</a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">edit</a>
+                    <a href="{{ path('app_product_delete',{'id':product.id}) }}" class="btn btn-danger">delete</a>
                 </td>
 
             </tr>
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    <a href="{{ path('app_product_new') }}"class="btn btn-dark">Create new</a>
 {% endblock %}
