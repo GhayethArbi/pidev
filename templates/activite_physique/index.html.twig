@@ -1,0 +1,47 @@
+{% extends 'dashboard/baseD.html.twig'  %}
+{% block title %}
+<title>Activite_Physique</title>
+{% endblock %}
+{% block body %}
+    <h1>Physical activity</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_activite</th>
+                <th>Type_activite</th>
+                <th>Calories_brules</th>
+                <th>Duree_activite</th>
+                <th>Nb_serie</th>
+                <th>Nb_rep_serie</th>
+                <th>Poids_par_serie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activite_physique in activite_physiques %}
+            <tr>
+                <td>{{ activite_physique.id }}</td>
+                <td>{{ activite_physique.NomActivite }}</td>
+                <td>{{ activite_physique.typeActivite }}</td>
+                <td>{{ activite_physique.caloriesBrules }}</td>
+                <td>{{ activite_physique.dureeActivite }}</td>
+                <td>{{ activite_physique.nbSerie }}</td>
+                <td>{{ activite_physique.nbRepSerie }}</td>
+                <td>{{ activite_physique.poidsParSerie }}</td>
+                <td>
+                    <a href="{{ path('app_activite_physique_show', {'id': activite_physique.id}) }}">show</a>
+                    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_activite_physique_new') }}">Create new</a>
+{% endblock %}

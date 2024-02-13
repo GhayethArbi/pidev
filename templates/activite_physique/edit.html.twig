@@ -1,0 +1,10 @@
+{% extends 'dashboard/baseD.html.twig' %}
+{% block body %}
+ <h1>Edit ActivitePhysique</h1>
+
+    {{ include('activite_physique/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_activite_physique_index') }}">back to list</a>
+
+    {{ include('activite_physique/_delete_form.html.twig') }}
+{% endblock %}
