@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ActivitePhysique;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,11 @@ class ActivitePhysiqueType extends AbstractType
     {
         $builder
             ->add('Nom_activite')
-            ->add('type_activite')
+            ->add('typeActivite', ChoiceType::class, [
+                'choices' => [
+                    'Cardiovasculaire' => 'cardiovasculaire',
+                    'Musculation' => 'musculation',
+                ]])
             ->add('calories_brules')
             ->add('duree_activite')
             ->add('nb_serie')

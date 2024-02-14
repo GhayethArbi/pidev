@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ActivitePhysiqueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert ;
 
 #[ORM\Entity(repositoryClass: ActivitePhysiqueRepository::class)]
 class ActivitePhysique
@@ -12,29 +13,61 @@ class ActivitePhysique
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le nom de l'activité ne doit pas etre vide")]
+    #[Assert\Regex(
+    pattern:"/^[a-zA-Z]+$/",
+    message:"le nom de l'activité physique ne doit contenir que des lettres.")]
     private ?string $Nom_activite = null;
 
     #[ORM\Column(length: 255)]
     private ?string $type_activite = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
+    #[Assert\Regex(
+        pattern:"/^\d+$/",
+        message:"Le nombre de calories brûlées doit contenir uniquement des chiffres."
+    )]
+    #[Assert\GreaterThan(value:0, message:"Le nombre de calories brûlées doit être supérieur à zéro.")]
     private ?int $calories_brules = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
+    #[Assert\Regex(
+        pattern:"/^\d+$/",
+        message:"La duréé doit contenir uniquement des chiffres."
+    )]
     private ?int $duree_activite = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
+    #[Assert\Regex(
+        pattern:"/^\d+$/",
+        message:"le nombre de series doit contenir uniquement des chiffres."    
+    )]
+    #[Assert\GreaterThan(value:0, message:"Le nombre de série doit être supérieur à zéro.")]
+    #[Assert\LessThan(value:20,message:"Le nombre de series doit inférieur à 20.")]
     private ?int $nb_serie = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
+    #[Assert\Regex(
+        pattern:"/^\d+$/",
+        message:"le nombre de répétition de series doit contenir uniquement des chiffres."    
+    )]
+    #[Assert\GreaterThan(value:1, message:"Le nombre de répétition série doit être supérieur à 1.")]
+    #[Assert\LessThan(value:6,message:"Le nombre de répéttion series doit inférieur à 6.")]
     private ?int $nb_rep_serie = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
+    #[Assert\Regex(
+        pattern:"/^\d+$/",
+        message:"la valeur du poids doit contenir uniquement des chiffres/KGs."    
+    )]
+    #[Assert\GreaterThan(value:0, message:"la valeur du poids doit être supérieur à 0/KGs.")]
+    #[Assert\LessThan(value:20,message:"la valeur du poids doit inférieur à 200KGs.")]
     private ?int $poids_par_serie = null;
 
     #[ORM\ManyToOne(inversedBy: 'activites')]
+    #[ORM\JoinColumn(nullable:false)]
     private ?Objectif $objectif = null;
 
     public function getId(): ?int

@@ -3,8 +3,17 @@
 <title>form_Activite_Physique</title>
 {% endblock %}
 {% block body %}
-{{ form_start(form) }}
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_row(form.Nom_activite) }}
+    {{ form_row(form.typeActivite, {'attr': {'class': 'type-activite-field'}}) }}
+    {{ form_row(form.calories_brules, {'attr': {'class': 'calories-field', 'data-type': 'musculation cardiovasculaire'}}) }}
+    {{ form_row(form.duree_activite, {'attr': {'class': 'duree-field', 'data-type': 'musculation cardiovasculaire'}}) }}
+    {{ form_row(form.nb_serie, {'attr': {'class': 'nb-series-field', 'data-type': 'musculation cardiovasculaire'}}) }}
+    {{ form_row(form.nb_rep_serie, {'attr': {'class': 'nb-rep-series-field', 'data-type': 'musculation cardiovasculaire'}}) }}
+    {{ form_row(form.poids_par_serie, {'attr': {'class': 'poids-par-serie-field', 'data-type': 'musculation cardiovasculaire'}}) }} 
+    {{ form_row(form.objectif) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
+    <a href="{{ path('app_activite_physique_index') }}">back to list</a>
 {{ form_end(form) }}
 {% endblock %}
