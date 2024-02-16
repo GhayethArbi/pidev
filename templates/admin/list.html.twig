@@ -1,0 +1,25 @@
+<table border=1>
+    <tr>
+        <td>id</td>
+        <td>picture</td>
+        <td>username</td>
+        <td>email</td>
+        <td>nb_books</td>
+        <td>Détails</td>
+    </tr>
+    {%set totalBooks=0%}
+    {%for a in authors %}
+    <tr>
+        <td>{{a.id}}</td>
+        <td><img src="{{a.picture }}" width="100"></td>
+        <td>{{a.username|upper}}</td>
+        <td>{{a.email}}</td>
+        <td>{{a.nb_books}}</td>
+        <td><a href="{{ path('showbyid', { 'id': a.id }) }}">Détails</a></td>
+    </tr>
+    {%set totalBooks=totalBooks+a.nb_books%}
+    {%endfor%}
+    <tr> 
+        <td colspan="5" container="center" style="text-align: center;">On a {{authors|length}} auteurs et {{totalBooks}} livres</td>
+    </tr>
+</table>
