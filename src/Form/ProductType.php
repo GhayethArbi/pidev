@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class ProductType extends AbstractType
@@ -18,18 +19,20 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('slug', null, [
+            ->add('slug', TextType::class, [
                 'constraints' => [
                     new Assert\Regex([
                         'pattern' => '/^[a-zA-Z0-9-]+$/',
                         'message' => 'Le slug ne peut contenir que des lettres, des chiffres et des tirets.'
                     ]),
                 ],
+                'required' => false, // We'll set it manually
+                'disabled' => true,  // Disable the slug field
             ])
             ->add('illustrationFile', FileType::class, [
                 'mapped' =>false,
                 'label' => 'Illustration (Image file)',
-                'required' => false, // Optional, makes the field not required
+                'required' => false,
             ])
             ->add('subtitle')
             ->add('description', TextareaType::class, [
@@ -40,6 +43,7 @@ class ProductType extends AbstractType
                 'currency' => 'USD', // or any other currency you want to use
             ])
             ->add('category')
+
         ;
     }
 

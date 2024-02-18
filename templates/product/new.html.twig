@@ -8,4 +8,17 @@
     {{ include('product/_form.html.twig') }}
 
     <a href="{{ path('app_product_index') }}" class="btn btn-warning">back to list</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var nameInput = document.getElementById('product_name');
+            var slugInput = document.getElementById('product_slug');
+
+            nameInput.addEventListener('input', function() {
+                var name = nameInput.value.trim().toLowerCase();
+                var slug = name.replace(/\s+/g, '-'); // Replace spaces with dashes
+                slugInput.value = slug;
+            });
+        });
+    </script>
 {% endblock %}

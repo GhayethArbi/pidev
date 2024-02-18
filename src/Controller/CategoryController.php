@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +15,47 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/category')]
 class CategoryController extends AbstractController
 {
-    #[Route('/', name: 'app_category_index', methods: ['GET'])]
-    public function index(CategoryRepository $categoryRepository): Response
+    private $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager=$entityManager;
+    }
+
+    #[Route('/', name: 'app_category_index', methods: ['GET'])]
+    public function index(CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
+    {
+        // Récupérer toutes les catégories depuis la base de données
+        $categories = $categoryRepository->findAll();
+
+        // Récupérer les produits associés à chaque catégorie
+        $categoryProducts = [];
+        foreach ($categories as $category) {
+            // Fetch products associated with the current category
+            $products = $productRepository->findBy(['category' => $category]);
+            $categoryProducts[$category->getName()] = $products;
+        }
+
+        // Récupérer tous les produits
+        $products = $productRepository->findAll();
+
+        // Récupérer uniquement les noms des catégories
+        $categoryNames = [];
+        foreach ($categories as $category) {
+            $categoryNames[] = $category->getName();
+        }
+
         return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $categories,
+            'categoryNames' => json_encode($categoryNames), // Convertir le tableau en chaîne JSON pour JavaScript
+            'categoryProducts' => $categoryProducts, // Passer les produits associés à chaque catégorie à la vue
+            'products' => $products, // Passer tous les produits à la vue
         ]);
     }
+
+
+
+
+
 
     #[Route('/new', name: 'app_category_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -39,6 +74,19 @@ class CategoryController extends AbstractController
         return $this->renderForm('category/new.html.twig', [
             'category' => $category,
             'form' => $form,
+        ]);
+    }
+    #[Route('/search', name: 'app_search_products_by_category', methods: ['GET'])]
+    public function searchProductsByCategory(Request $request, ProductRepository $productRepository): Response
+    {
+        $searchedCategory = $request->query->get('category');
+
+        // Fetch products associated with the searched category
+        $products = $productRepository->findByCategory($searchedCategory);
+
+        return $this->render('category/search_results.html.twig', [
+            'products' => $products,
+            'searchedCategory' => $searchedCategory, // Pass the searched category to the template
         ]);
     }
 

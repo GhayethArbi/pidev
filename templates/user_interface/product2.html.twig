@@ -1,0 +1,128 @@
+{% extends 'base_user.html.twig' %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ asset('assets_user/css/style.css') }}">
+
+    <div class="container" style="margin-top: 50px">
+        <div class="row">
+            <!-- Main content -->
+            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-category grid-style">
+                    <div id="top-functions-area" class="top-functions-area">
+                        <div class="flt-item to-left group-on-mobile">
+                            <span class="flt-title">Refine</span>
+                            <a href="#" class="icon-for-mobile">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </a>
+                            <div class="wrap-selectors">
+                                <form action="#" name="frm-refine" method="get">
+                                    <span class="title-for-mobile">Refine Products By</span>
+                                    <div data-title="Price:" class="selector-item">
+                                        <select name="price" class="selector">
+                                            <option value="all">Price</option>
+                                            <option value="class-1st">Less than 5$</option>
+                                            <option value="class-2nd">$5-10$</option>
+                                            <option value="class-3rd">$10-20$</option>
+                                            <option value="class-4th">$20-45$</option>
+                                            <option value="class-5th">$45-100$</option>
+                                            <option value="class-6th">$100-150$</option>
+                                            <option value="class-7th">More than 150$</option>
+                                        </select>
+                                    </div>
+                                    <div data-title="Brand:" class="selector-item">
+                                        <select name="brand" class="selector">
+                                            <option value="all">Top brands</option>
+                                            <option value="br2">Brand first</option>
+                                            <option value="br3">Brand second</option>
+                                            <option value="br4">Brand third</option>
+                                            <option value="br5">Brand fourth</option>
+                                            <option value="br6">Brand fifth</option>
+                                        </select>
+                                    </div>
+                                    <div class="header-search-bar layout-01">
+                                        <form  class="form-search" name="desktop-seacrh" >
+                                            <input type="text" name="s" id="category-search" class="input-text" value="" placeholder="Search here...">
+
+                                            <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
+                                        </form>
+                                        <select name="selectedCategoryId" id="categorySelect" style="display: none;">
+                                            <option value="categorySelect" selected="">All Categories</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        {% for product in products %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="{{ product.category|lower }}">
+                                <div class="product-thumb">
+                                    <a href="#" class="link-to-product">
+                                        {% if product.illustration %}
+                                            <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" width="270" height="270" class="product-thumbnail">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <b class="categories">{{ product.category }}</b>
+                                    <h4 class="product-title"><a href="#" class="pr-name">{{ product.name }}</a></h4>
+                                    <div class="price">
+                                        <center>
+                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>{{ product.price }}</span></ins>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+
+                    <div class="biolife-panigations-block">
+                        <ul class="panigation-contain">
+                            <li><span class="current-page">1</span></li>
+                            <li><a href="#" class="link-page">2</a></li>
+                            <li><a href="#" class="link-page">3</a></li>
+                            <li><span class="sep">....</span></li>
+                            <li><a href="#" class="link-page">20</a></li>
+                            <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            var categorySelect = document.getElementById('categorySelect');
+            var categorySearch = document.getElementById('category-search');
+
+            categorySelect.addEventListener('change', function() {
+                categorySearch.value = categorySelect.options[categorySelect.selectedIndex].text;
+                filterProducts();
+            });
+
+            categorySearch.addEventListener('input', filterProducts);
+
+            function filterProducts() {
+                var searchText = categorySearch.value.toLowerCase();
+                var products = document.querySelectorAll(".product-item");
+                products.forEach(function(product) {
+                    var category = product.dataset.category;
+                    if (category.includes(searchText)) {
+                        product.style.display = "";
+                    } else {
+                        product.style.display = "none";
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

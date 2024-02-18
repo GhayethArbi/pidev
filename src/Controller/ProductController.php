@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -11,27 +11,55 @@ use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
-
-#[Route('/product')]
-class ProductController extends AbstractController
-{
-    #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    #[Route('/product')]
+    class ProductController extends AbstractController
     {
-        return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
-        ]);
-    }
+        private $entityManager;
+        public function __construct(EntityManagerInterface $entityManager)
+        {
+            $this->entityManager=$entityManager;
+        }
+        /*#[Route('/ff', name: 'app_product_index')]
+        public function index(): Response
+        {
+            // Récupère toutes les catégories
+            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+            // Récupère tous les produits
+            $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+
+            return $this->render('test.html.twig', [
+                'categories' => $categories,
+                'products' => $products,
+            ]);
+        }*/
+       #[Route('/', name: 'app_product_index', methods: ['GET'])]
+        public function index(ProductRepository $productRepository): Response
+        {
+            $categories = $this->entityManager->getRepository(Category::class)->findAll();
+            return $this->render('product/index.html.twig', [
+                'products' => $productRepository->findAll(),
+                'categories' => $categories,
+
+            ]);
+        }
+
+
+
+
+
+
+        #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager,SluggerInterface $slugger): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Handle file upload
+            $product->setSlug($slugger->slug($product->getName())->lower());
             $uploadedFile = $form['illustrationFile']->getData(); // Corrected to match your form field name
 
             if ($uploadedFile) { // Check if a file was uploaded

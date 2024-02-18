@@ -5,26 +5,27 @@
 {% block body %}
     <h1>Category index</h1>
 
+    <div class="form-group">
+        <input type="text" id="category-search" class="form-control" placeholder="Search category...">
+
+    </div>
+
     <table class="table" border="1">
         <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th><center>Actions</center>s</th>
+            <th><center>Actions</center></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="category-table-body">
         {% for category in categories %}
-            <tr>
+            <tr data-category="{{ category.name }}">
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
                     <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-primary">Show</a>
-                </td>
-                <td>
                     <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-primary">Edit</a>
-                </td>
-                <td>
                     <a href="{{ path('app_category_delete', {'id': category.id}) }}" class="btn btn-primary">delete</a>
                 </td>
             </tr>
@@ -34,6 +35,31 @@
             </tr>
         {% endfor %}
         </tbody>
+
     </table>
-    <center><a href="{{ path('app_category_new') }}" class="btn btn-danger">Create new</a></center>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('category-search').addEventListener('input', function() {
+                var searchText = this.value.toLowerCase();
+                var rows = document.querySelectorAll("#category-table-body tr");
+                rows.forEach(function(row) {
+                    var name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    if (name.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+
+                // Set the searched category
+                var searchedCategory = searchText;
+
+            });
+        });
+
+
+    </script>
+
+
 {% endblock %}

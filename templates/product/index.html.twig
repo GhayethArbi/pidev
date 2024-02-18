@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Product index</h1>
 
+    <input type="text" id="category-search" placeholder="Search by category">
+
     <table class="table">
         <thead>
         <tr>
@@ -15,12 +17,13 @@
             <th>Subtitle</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Category</th>
             <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="product-table-body">
         {% for product in products %}
-            <tr>
+            <tr class="product-row">
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.slug }}</td>
@@ -28,24 +31,41 @@
                     {% if product.illustration %}
                         <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px">
                     {% endif %}
-
+                </td>
                 <td>{{ product.subtitle }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
+                <td>{{ product.category }}</td>
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">show</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">edit</a>
                     <a href="{{ path('app_product_delete',{'id':product.id}) }}" class="btn btn-danger">delete</a>
                 </td>
-
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">No records found</td>
+                <td colspan="9">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     <a href="{{ path('app_product_new') }}"class="btn btn-dark">Create new</a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('category-search').addEventListener('input', function() {
+                var searchText = this.value.toLowerCase();
+                var rows = document.querySelectorAll(".product-row");
+                rows.forEach(function(row) {
+                    var category = row.querySelector('td:nth-child(8)').textContent.toLowerCase();
+                    if (category.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
