@@ -1231,3 +1231,8 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.button-group{
+  display: inline-flex;
+  gap: 10px;
+}

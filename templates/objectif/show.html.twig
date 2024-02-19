@@ -1,0 +1,43 @@
+{% extends 'dashboard/baseD.html.twig'  %}
+{% block title %}
+	<title>show_Objectif</title>
+{% endblock %}
+{% block body %}
+	<h1>Objectif</h1>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ objectif.id }}</td>
+			</tr>
+			<tr>
+				<th>Nom_bjectif</th>
+				<td>{{ objectif.NomObjectif }}</td>
+			</tr>
+			<tr>
+				<th>Date_objectif</th>
+				<td>{{ objectif.DateObjectif ? objectif.DateObjectif|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Note</th>
+				<td>{{ objectif.note }}</td>
+			</tr>
+			<tr>
+				<th>Total_duree</th>
+				<td>{{ objectif.totalDuree }}</td>
+			</tr>
+			<tr>
+				<th>Total_calories</th>
+				<td>{{ objectif.totalCalories }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="button-group">
+		<a href="{{ path('app_objectif_edit', {'id': objectif.id}) }}" class="btn btn-primary">Edit</a>
+		<a href="{{ path('app_objectif_index') }}" class="btn btn-secondary">Back to List</a>
+		{{ include('objectif/_delete_form.html.twig') }}
+	</div>
+
+
+{% endblock %}

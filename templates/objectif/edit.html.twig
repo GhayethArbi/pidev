@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+{% block title %}
+<title>Edit Objectif</title>
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Objectif</h1>
+    {{ include('objectif/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('app_objectif_index') }}">back to list</a>
+{% endblock %}

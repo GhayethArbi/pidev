@@ -16,6 +16,7 @@
                 <th>Nb_serie</th>
                 <th>Nb_rep_serie</th>
                 <th>Poids_par_serie</th>
+                <th>Image_Activite</th> 
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,8 +32,12 @@
                 <td>{{ activite_physique.nbRepSerie }}</td>
                 <td>{{ activite_physique.poidsParSerie }}</td>
                 <td>
-                    <a href="{{ path('app_activite_physique_show', {'id': activite_physique.id}) }}">show</a>
-                    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}">edit</a>
+                {% if activite_physique.getImageActivite() %}
+                        <img src="{{ asset('Uploads/' ~ activite_physique.getImageActivite())}}" alt="image d'activite" style="width:100px">
+                    {% endif %}</td>
+                <td>
+                    <a href="{{ path('app_activite_physique_show', {'id': activite_physique.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}" class="btn btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +48,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_activite_physique_new') }}">Create new</a>
+    <a href="{{ path('app_activite_physique_new') }}" class="btn btn-success">Create new</a>
 {% endblock %}

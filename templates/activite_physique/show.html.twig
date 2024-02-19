@@ -1,10 +1,10 @@
 {% extends 'dashboard/baseD.html.twig'  %}
 {% block title %}
-<title>show_Activite_Physique</title>
+show_Activite_Physique
 {% endblock %}
 {% block body %}
     <h1>show_Activite_Physique</h1>
-
+    
     <table class="table">
         <tbody>
             <tr>
@@ -39,9 +39,19 @@
                 <th>Poids_par_serie</th>
                 <td>{{ activite_physique.poidsParSerie }}</td>
             </tr>
+            <tr>
+                <th>Image_Activte</th>
+               <td>
+                {% if activite_physique.getImageActivite() %}
+                        <img src="{{ asset('Uploads/' ~ activite_physique.getImageActivite())}}" alt="image d'activite" style="width:100px">
+                    {% endif %}</td>
+                <td>
+            </tr>
         </tbody>
     </table>
-    <a href="{{ path('app_activite_physique_index') }}">back to list</a>
-    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}">edit</a>
+    <div class="button-group">
+    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}" class="btn btn-primary">edit</a>
+    <a href="{{ path('app_activite_physique_index') }}" class="btn btn-secondary">back to list</a>
     {{ include('activite_physique/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

@@ -1,19 +1,48 @@
 {% extends 'dashboard/baseD.html.twig'  %}
 {% block title %}
-<title>form_Activite_Physique</title>
+    <title>form_Activite_Physique</title>
 {% endblock %}
 {% block body %}
-{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
-    {{ form_row(form.Nom_activite) }}
-    {{ form_row(form.typeActivite, {'attr': {'class': 'type-activite-field'}}) }}
-    {{ form_row(form.calories_brules, {'attr': {'class': 'calories-field', 'data-type': 'musculation cardiovasculaire'}}) }}
-    {{ form_row(form.duree_activite, {'attr': {'class': 'duree-field', 'data-type': 'musculation cardiovasculaire'}}) }}
-    {{ form_row(form.nb_serie, {'attr': {'class': 'nb-series-field', 'data-type': 'musculation cardiovasculaire'}}) }}
-    {{ form_row(form.nb_rep_serie, {'attr': {'class': 'nb-rep-series-field', 'data-type': 'musculation cardiovasculaire'}}) }}
-    {{ form_row(form.poids_par_serie, {'attr': {'class': 'poids-par-serie-field', 'data-type': 'musculation cardiovasculaire'}}) }} 
-    {{ form_row(form.objectif) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-    <a href="{{ path('app_activite_physique_index') }}">back to list</a>
-{{ form_end(form) }}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Formulaire d'Activité Physique</h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_row(form.Nom_activite,{'attr': {'class': 'form-control nom-activite-field', 'placeholder': 'Nom de l\'activité'}})  }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.typeActivite, {'attr': {'class': 'form-control type-activite-field', 'placeholder': 'Type d\'activité'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.calories_brules, {'attr': {'class': 'form-control calories-field', 'placeholder': 'Calories brûlées', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.duree_activite, {'attr': {'class': 'form-control duree-field', 'placeholder': 'Durée de l\'activité', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.nb_serie, {'attr': {'class': 'form-control nb-series-field', 'placeholder': 'Nombre de séries', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.nb_rep_serie, {'attr': {'class': 'form-control nb-rep-series-field', 'placeholder': 'Nombre de répétitions par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.poids_par_serie, {'attr': {'class': 'form-control poids-par-serie-field', 'placeholder': 'Poids par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.objectif, {'attr': {'class': 'form-control', 'placeholder': 'Objectif'}}) }}
+                </div>
+                 <div class="form-group">
+                    {{ form_row(form.Image_Activite, {'attr': {'class': 'form-control'}}) }}
+                </div>
+				<button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+                <a href="{{ path('app_activite_physique_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
