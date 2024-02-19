@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -27,15 +28,18 @@ class RegistrationController extends AbstractController
         $user = new User();
 
         $form = $this->createForm(UserType::class, $user);
-
+        $form->add('submit', SubmitType::class, [
+            'label' => 'Create Account',
+            'attr' => ['class' => 'btn btn-primary w-100'],],);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Encode the new users password
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
-
+            $user->setLoyalityPoints(0);
             // Set their role
-            $user->setRoles('ROLE_USER');
+            $user->setRoles(['ROLE_USER']);
 
             // Save
             
@@ -49,4 +53,5 @@ class RegistrationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
 }
