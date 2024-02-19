@@ -5,13 +5,15 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Mime\Message;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Validator\Constraints\Unique;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Ce nom de catégorie est déjà utilisé.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,9 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;//1
 
-    #[ORM\Column(length: 180, unique: true)]
-    //#[Assert\NotBlank(message:"Your email address cannot be empty.")]
-    #[Assert\Unique(message:"this email is already exist")]
+    #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message:"Your email address cannot be empty.")]
     private ?string $email = null;//2
 
     #[ORM\Column(length: 255)]
@@ -30,13 +31,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $name = null;//3
 
     #[ORM\Column(length: 255)]
+   
     #[Assert\NotBlank(message:"Your last name cannot be empty.")]
     #[Assert\Length(min:4, minMessage:"Your last name must contain at least {{ limit }} characters.")]
     private ?string $lastName = null;//4
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Please select a valid gender.")]
-    #[Assert\Choice(choices:['Male','female'], message:"Please select a valid gender")]
+    #[Assert\Choice(choices:['Male','Female'], message:"Please select a valid gender")]
     private ?string $gender = null;//5
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]

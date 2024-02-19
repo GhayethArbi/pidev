@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,13 +18,13 @@ class ChangePasswordType extends AbstractType
         ->add('currentPassword', PasswordType::class,[
         'constraints' => [
             new Assert\Length([
-                'min' => 10,
+                'min' => 8,
                 'minMessage' => 'Your password must be at least {{ limit }} characters long.',
             ]),],])
         ->add('password', PasswordType::class,[
             'constraints' => [
                 new Assert\Length([
-                    'min' => 10,
+                    'min' => 8,
                     'minMessage' => 'Your password must be at least {{ limit }} characters long.',
                 ]),],
         ])
@@ -34,11 +34,12 @@ class ChangePasswordType extends AbstractType
             'second_options' => ['label' => 'Confirm Password'],
             'constraints' => [
                 new Assert\Length([
-                    'min' => 10,
+                    'min' => 8,
                     'minMessage' => 'Your password must be at least {{ limit }} characters long.',
                 ]),],
             
-        ]);
+        ])
+        ;
         
     }
 

@@ -29,11 +29,11 @@
                 <th scope="col">#</th>
                 <th scope="col">Full name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Password</th>
+                <th scope="col">Points Fidele</th>
                 <th scope="col">Birthday</th>
                 <th scope="col">Phone</th>
                 <th>Actions</th>
-                
+
               </tr>
             </thead>
             <tbody>
@@ -42,21 +42,22 @@
                 <th scope="row">{{user.id}}</th>
                 <td>{{user.name}} {{user.lastName}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.password}}</td>
+                <td>{{user.address}}</td>
                 <td>{{user.birthDay|date}}</td>
                 <td>{{user.phoneNumber}}</td>
-                <td><button class="btn btn-success" >Edit</button></td>
+                <td>
+                  <button class="btn btn-success mr-2">Edit</button><button class="btn btn-danger">Delete</button>
+                </td>
+
+
               </tr>
               {%endfor%}
+              {%if users is empty%}
               <tr>
-                <th scope="row">5</th>
-                <td>Raheem Lehner</td>
-                <td>Dynamic Division Officer</td>
-                <td>47</td>
-                <td>2011-04-19</td>
-                <td>555</td>
-                <td><button></button></td>
+                <td colspan="6" align="center">No users found</td>
               </tr>
+              {%endif%}
+              
             </tbody>
           </table>
           <!-- End Default Table Example -->
@@ -316,16 +317,16 @@
 
 <!-- DataTables Initialization Script -->
 <script>
-    $(document).ready( function () {
-        $('#dataTable').DataTable({
-            "initComplete": function(settings, json) {
-                // Customize the search input field
-                var searchInput = $('#dataTable_filter input[type="search"]');
-                searchInput.addClass('form-control');
-                searchInput.attr('placeholder', 'Search...'); // Set placeholder text
-            }
-        });
-    } );
-    
+  $(document).ready(function () {
+    $('#dataTable').DataTable({
+      "initComplete": function (settings, json) {
+        // Customize the search input field
+        var searchInput = $('#dataTable_filter input[type="search"]');
+        searchInput.addClass('form-control');
+        searchInput.attr('placeholder', 'Search...'); // Set placeholder text
+      }
+    });
+  });
+
 </script>
 {%endblock%}

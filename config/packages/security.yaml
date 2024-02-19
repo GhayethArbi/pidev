@@ -40,8 +40,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/list, roles: ROLE_ADMIN }
-        - { path: ^/show, roles: ROLE_USER }
+        - { path: ^/adminProfile, roles: ROLE_ADMIN }
 
+        - { path: ^/show, roles: ROLE_USER }
 when@test:
     security:
         password_hashers:
