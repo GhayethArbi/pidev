@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>FitKeep</title>
-    
     <!-- =================== META =================== -->
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -103,13 +102,8 @@
                     <li><a href="blog.html">News</a></li>
                     <li><a href="product2">Product</a></li>
                     <li><a href="contacts.html">Contacts</a></li>
-                    <li class="dropdown">
-                        <a href="#">Porfile <i class="fa fa-caret-down"></i></a>
-                        <ul>
-                            <li><a href="{{path('user')}}">Account setting</a></li>
-                            <li><a href="{{path('app_logout')}}">Logout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{path('registration')}}">Sign up</a></li>
+                    <li><a href="{{path('app_login')}}">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -117,12 +111,10 @@
 </header>
 <!-- =============== HEADER END =============== -->
 
-<div class="container">
-    <div class="card">
+
 {% block content %}
 {% endblock %}
-</div>
-</div>
+
 
 <!-- ================== FOOTER ================== -->
 <footer>

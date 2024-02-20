@@ -5,12 +5,12 @@
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1>Data Tables</h1>
+    <h1>Users Tables</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item">Tables</li>
-        <li class="breadcrumb-item active">Data</li>
+        <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+        <li class="breadcrumb-item">Users</li>
+     
       </ol>
     </nav>
   </div><!-- End Page Title -->
@@ -38,6 +38,7 @@
             </thead>
             <tbody>
               {% for user in users %}
+              {%if user.id != 4%}
               <tr>
                 <th scope="row">{{user.id}}</th>
                 <td>{{user.name}} {{user.lastName}}</td>
@@ -46,11 +47,17 @@
                 <td>{{user.birthDay|date}}</td>
                 <td>{{user.phoneNumber}}</td>
                 <td>
-                  <button class="btn btn-success mr-2">Edit</button><button class="btn btn-danger">Delete</button>
+                  <a href="{{path('app_user_edit', {'id': user.id})}}">
+                    <button class="btn btn-success mr-2">Edit</button>
+                </a>
+                <a href="{{path('app_user_delete', {'id': user.id})}}">
+                  <button class="btn btn-danger">Delete</button>
+              </a>
                 </td>
 
 
               </tr>
+              {%endif%}
               {%endfor%}
               {%if users is empty%}
               <tr>

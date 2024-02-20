@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\ProfileFormType;
+use App\Form\User1Type;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,10 +50,7 @@ class AdminController extends AbstractController
     public function editAdminProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //*********change details************
-        $this->addFlash(
-            'notice',
-            'test alert!',
-        );
+       
         $user = $this->getUser();
         $form = $this->createForm(ProfileFormType::class, $user);
         //can make submit button here ...
@@ -113,5 +111,36 @@ class AdminController extends AbstractController
         return $this->render('admin/profile.html.twig', [
             'form' => $form->createView(), 'formPassword' => $formPassword->createView(), 'user' => $user,
         ]);
+    }
+
+    //**********Edit User*************
+    #[Route('/edit/{id}', name: 'app_user_edit')]
+    public function edit(UserRepository $repo, Request $request, $id, EntityManagerInterface $entityManager): Response
+    {
+        $user = $repo->find($id);
+        $form = $this->createForm(User1Type::class, $user);
+        $form->add('submit', SubmitType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('notice', "User has changed with success!");
+            return $this->redirectToRoute('app_users');
+        }
+
+        return $this->render('admin/editUser.html.twig', [
+            'users' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/delete/{id}', name: 'app_user_delete')]
+    public function delete(UserRepository $repo, $id, EntityManagerInterface $entityManager): Response
+    {
+        $user = $repo->find($id);
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('notice',"User is deleted!");
+        return $this->redirectToRoute('app_users');
     }
 }

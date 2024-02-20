@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Validator\Constraints\UniqueEmail;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProfileFormType extends AbstractType
 {
@@ -20,20 +21,19 @@ class ProfileFormType extends AbstractType
         $builder
             ->add('name')
             ->add('lastName')
-           
-            
             ->add('gender', ChoiceType::class, [
                 'choices' => [
                     'Male' => 'Male',
                     'Female' => 'Female',
                 ],
                 'placeholder' => 'Select your gender',
+                
             ])
             ->add('birthDay',BirthdayType::class,[
                 'widget'=>'single_text',],)
             ->add('address')
             
-            ->add('phoneNumber')
+            ->add('phoneNumber',TextType::class)
             ->add('email')
            ;
           
