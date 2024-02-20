@@ -13,19 +13,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NameController extends AbstractController
 {
-    #[Route('/recette', name: 'app_name_index', methods: ['GET'])]
+    #[Route('/recette_admin', name: 'app_name_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
-        return $this->render('name/index.html.twig', [
+        return $this->render('admin/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_name_new', methods: ['GET', 'POST'])]
+    #[Route('/new_recette_admin', name: 'app_name_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $recette = new Recette();
-        $form = $this->createForm(RecetteType::class, $recette);
+        // Set the current date and time
+        $recette->setDate(new \DateTime());
+
+        $form = $this->createForm(RecetteType::class, $recette, 
+        [ 'exclude_date_field' => true
+    ]);
+        //form submission
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -35,24 +41,26 @@ class NameController extends AbstractController
             return $this->redirectToRoute('app_name_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('name/new.html.twig', [
+        return $this->renderForm('admin/new.html.twig', [
             'recette' => $recette,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_name_show', methods: ['GET'])]
+    #[Route('/{id}/recette_admin', name: 'app_name_show', methods: ['GET'])]
     public function show(Recette $recette): Response
     {
-        return $this->render('name/show.html.twig', [
+        return $this->render('admin/show.html.twig', [
             'recette' => $recette,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_name_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit_recette_admin', name: 'app_name_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recette $recette, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(RecetteType::class, $recette);
+        $form = $this->createForm(RecetteType::class, $recette,
+        [ 'exclude_date_field' => true
+    ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,7 +69,7 @@ class NameController extends AbstractController
             return $this->redirectToRoute('app_name_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('name/edit.html.twig', [
+        return $this->renderForm('admin/edit.html.twig', [
             'recette' => $recette,
             'form' => $form,
         ]);

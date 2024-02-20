@@ -1,21 +1,20 @@
 <?php
 
 namespace App\Entity;
-use App\Repository\RecetteRepository;
+use App\Entity\Recette;
+use App\Repository\PlanNutritionnelRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Mime\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: RecetteRepository::class)]
-class Recette
+#[ORM\Entity(repositoryClass: PlanNutritionnelRepository::class)]
+class PlanNutritionnel
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
     #[Assert\NotBlank(message : "Name cannot be blank ! please fill the form  ")]
     #[Assert\Length(min: 5, max:20)]
     #[Assert\Regex(
@@ -23,19 +22,14 @@ class Recette
         htmlPattern: '^[a-zA-Z]+$',
         message:'The name must contain only letters and spaces',
     )]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    #[Assert\NotBlank(message : "category cannot be blank ! please fill the form ")]
-    private ?string $category = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[Assert\Length(min: 20, max:225)]
-    #[Assert\NotBlank(message : "Description cannot be blank! please fill the form ")]
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    #[ORM\ManyToOne]
+    private ?Recette $recettes = null;
 
     public function getId(): ?int
     {
@@ -47,21 +41,9 @@ class Recette
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?string $category): static
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -78,14 +60,14 @@ class Recette
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getRecettes(): ?Recette
     {
-        return $this->description;
+        return $this->recettes;
     }
 
-    public function setDescription(?string $description): static
+    public function setRecettes(?Recette $recettes): static
     {
-        $this->description = $description;
+        $this->recettes = $recettes;
 
         return $this;
     }
