@@ -1,0 +1,72 @@
+{% extends 'baseback.html.twig' %}
+{% block title %}Ajouter {% endblock %}
+{% block body %}
+
+
+{{ form_start(formA) }}
+<table>
+    <tr>
+               
+        <td>{{form_label(formA.TitreE,"titre") }} </td> 
+        <td>{{form_widget(formA.TitreE) }} </td> 
+		    <td>{{form_errors(formA.TitreE) }} </td> 
+    </tr> 
+
+    <tr>
+          
+        <td>{{form_label(formA.Localisation_E,"Adresse") }} </td> 
+        <td>{{form_widget(formA.Localisation_E) }} </td> 
+		    <td>{{form_errors(formA.Localisation_E) }} </td> 
+    </tr>  
+
+    <tr>
+          
+        <td>{{form_label(formA.Description_E,"Description") }} </td> 
+        <td>{{form_widget(formA.Description_E) }} </td> 
+		<td>{{form_errors(formA.Description_E) }} </td> 
+    </tr> 
+
+  <tr>
+          
+        <td>{{form_label(formA.Date_DebutE,"DATE  DEBUT") }} </td> 
+        <td>{{form_widget(formA.Date_DebutE) }} </td> 
+		<td>{{form_errors(formA.Date_DebutE) }} </td> 
+    </tr> 
+
+
+  <tr>
+          
+        <td>{{form_label(formA.Date_fin_E,"DATE FIN ") }} </td> 
+        <td>{{form_widget(formA.Date_fin_E) }} </td> 
+		<td>{{form_errors(formA.Date_fin_E) }} </td> 
+    </tr>
+
+
+  <tr>
+          
+        <td>{{form_label(formA.Nbr_max_P,"NOMBRE MAX DE PARTICIPANTS ") }} </td> 
+        <td>{{form_widget(formA.Nbr_max_P) }} </td> 
+		<td>{{form_errors(formA.Nbr_max_P) }} </td> 
+    </tr>
+
+
+  <tr>
+          
+        <td>{{form_label(formA.StatusE,"StatusE ") }} </td> 
+        <td>{{form_widget(formA.StatusE) }} </td> 
+		<td>{{form_errors(formA.StatusE) }} </td> 
+    </tr>
+
+
+
+    
+</table>
+    <tr>
+              
+        <td>{{form_widget(formA) }} </td> 
+				
+    </tr>  
+
+
+{{ form_end(formA) }}
+{% endblock %}
