@@ -71,6 +71,7 @@
                                     <div class="form-group">
                                         <label for="yourAddress">Address</label>
                                         {{ form_widget(form.address, { 'attr': {'class': 'form-control'} }) }}
+                                        <a style="color:red">{{ form_errors(form.address) }}</a>
                                         <div class="invalid-feedback">Please enter your address!</div>
 
                                     </div>
@@ -79,6 +80,7 @@
                                     <div class="form-group">
                                         <label for="yourPhoneNumber">Phone Number</label>
                                         {{ form_widget(form.phoneNumber, { 'attr': {'class': 'form-control'} }) }}
+                                        <a style="color:red">{{ form_errors(form.phoneNumber) }}</a>
                                         <div class="invalid-feedback">Please enter your phone number!</div>
                                     </div>
                                 </div>

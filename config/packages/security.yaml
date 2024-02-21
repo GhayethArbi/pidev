@@ -23,6 +23,7 @@ security:
                 target: /
                 # where to redirect after logout
                 # target: app_any_route
+            access_denied_handler: App\Security\AccessDeniedHandler
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -40,7 +41,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: '^/users', roles: 'ROLE_ADMIN' }
-        - { path: '^/dashboard', roles: 'ROLE_ADMIN' }
+        - { path: '^/dashbord', roles: 'ROLE_ADMIN' }
         - { path: '^/adminProfile', roles: 'ROLE_ADMIN' }
         - { path: '^/list', roles: 'ROLE_ADMIN' }
         - { path: '^/edit', roles: 'ROLE_ADMIN' }

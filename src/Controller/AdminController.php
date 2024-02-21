@@ -119,7 +119,10 @@ class AdminController extends AbstractController
     {
         $user = $repo->find($id);
         $form = $this->createForm(User1Type::class, $user);
-        $form->add('submit', SubmitType::class);
+        $form->add('submit', SubmitType::class, [
+            'label' => 'Save Changes',
+            'attr' => ['class' => 'btn btn-primary']
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

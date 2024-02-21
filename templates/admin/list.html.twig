@@ -14,6 +14,17 @@
       </ol>
     </nav>
   </div><!-- End Page Title -->
+  {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
   <section class="section">
     <div class="row">
 

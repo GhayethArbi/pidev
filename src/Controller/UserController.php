@@ -24,7 +24,7 @@ class UserController extends AbstractController
         ]);
     }
     #[Route('/user/Profile', name: 'user')]
-    public function editAdminProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function editUserProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //*********change details************
        
@@ -93,5 +93,10 @@ class UserController extends AbstractController
     public function indexx(): Response
     {
         return $this->render('Client/index.html.twig');
+    }
+    #[Route('/access-denied/error404', name: 'app_access')]
+    public function accessDenied(): Response
+    { 
+        return $this->render('Client/access.html.twig');
     }
 }

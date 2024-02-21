@@ -13,13 +13,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Validator\Constraints\UniqueEmail;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, [
+                'constraints' => [
+                    new NotBlank(['message' => 'Your first name cannot be empty.']),
+                    new Length([
+                        'min' => 4,
+                        'minMessage' => 'Your first name must contain at least {{ limit }} characters.',
+                    ]),
+                ],
+            ])
             ->add('lastName')
             ->add('gender', ChoiceType::class, [
                 'choices' => [

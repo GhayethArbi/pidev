@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
+    
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
@@ -28,6 +29,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
+        
+        
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
@@ -44,23 +47,27 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            
             return new RedirectResponse($targetPath);
         }
-        $user=$token->getUser();
-        if(in_array('ROLE_ADMIN',$user->getRoles(), true)){
+        
+        $user = $token->getUser();
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            
             return new RedirectResponse($this->urlGenerator->generate('app_dashbord'));
-
         }
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
         return new RedirectResponse($this->urlGenerator->generate('app_user'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
     {
+        
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }
