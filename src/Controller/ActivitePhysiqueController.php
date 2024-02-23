@@ -15,10 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivitePhysiqueController extends AbstractController
 {
     #[Route('/', name: 'app_activite_physique_index', methods: ['GET'])]
-    public function index(ActivitePhysiqueRepository $activitePhysiqueRepository): Response
+    public function index(ActivitePhysiqueRepository $activitePhysiqueRepository,EntityManagerInterface $entityManager): Response
     {
+        $musculationCount = $entityManager->getRepository(ActivitePhysique::class)->count(['type_activite' => 'musculation']);
+        $cardioCount = $entityManager->getRepository(ActivitePhysique::class)->count(['type_activite' => 'cardiovasculaire']);
         return $this->render('activite_physique/index.html.twig', [
             'activite_physiques' => $activitePhysiqueRepository->findAll(),
+            'musculationCount' => $musculationCount,
+            'cardioCount' => $cardioCount,
         ]);
     }
 

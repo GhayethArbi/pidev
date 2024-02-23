@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
     var nomActiviteField = document.querySelector('.nom-activite-field')
     var typeActiviteField = document.querySelector('.type-activite-field');
@@ -10,8 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var poidsSerieField = document.querySelector('.poids-par-serie-field');
     var originalBorderColorCalories = window.getComputedStyle(caloriesField).borderColor;
     var originalBorderColorDuree = window.getComputedStyle(dureeField).borderColor;
-    var totalCaloriesField = document.querySelector('.total-calories-field');
-    var totalDureeField = document.querySelector('.total-duree-field');
+
 
     function validateRegEx(field, regex) {
         return regex.test(field.value.trim());
@@ -26,17 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             field.style.borderWidth = '2px';
         }
     }
-    function validateTotalCaloriesField() {
-        var regex = /^\d+$/;
-        var isValid = validateRegEx(totalCaloriesField, regex);
-        updateFieldValidity(totalCaloriesField, isValid);
-    }
-
-    function validateTotalDureeField() {
-        var regex = /^\d+$/;
-        var isValid = validateRegEx(totalDureeField, regex);
-        updateFieldValidity(totalDureeField, isValid);
-    }
+   
     function validatecaloriesField() {
         var regex = /^\d+$/;
         var isValid = validateRegEx(caloriesField, regex);
@@ -79,8 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     nbSerieField.addEventListener('input', validateNbSerieField);
     nbRepSerieField.addEventListener('input', validateNbRepSerieField);
     poidsSerieField.addEventListener('input', validatePoidsSerieField);
-    totalCaloriesField.addEventListener('input', validateTotalCaloriesField);
-    totalDureeField.addEventListener('input', validateTotalDureeField);
+    
 
     function disableFieldsBasedOnActivityType() {
         var selectedType = typeActiviteField.value;
@@ -100,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
             nbSerieField.value = "";
             nbRepSerieField.value = "";
             poidsSerieField.value = "";
-            nbSerieField.disabled = true; // don    
+            nbSerieField.disabled = true;   
             nbRepSerieField.disabled = true;
             poidsSerieField.disabled = true;
         }

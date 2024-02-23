@@ -5,8 +5,74 @@
 {% block body %}
 
     <h1>Objectif</h1>
-
-    <table class="table">
+        <div class="col-lg-4">
+		   <!-- Website Traffic -->
+            <div class="card">
+              <div class="card-body pb-0">
+              <h5 class="card-title">Stats</h5>
+              <div id="trafficChart" style="min-height: 700px; min-width:400px" class="echart"></div>
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  echarts.init(document.querySelector("#trafficChart")).setOption({
+                    tooltip: {
+                      trigger: 'item'
+                    },
+                    legend: {
+                      top: '5%',
+                      left: 'center'
+                    },
+                    series: [{
+                      name: 'Access From',
+                      type: 'pie',
+                      radius: ['40%', '70%'],
+                      avoidLabelOverlap: false,
+                      label: {
+                        show: false,
+                        position: 'center'
+                      },
+                      emphasis: {
+                        label: {
+                          show: true,
+                          fontSize: '18',
+                          fontWeight: 'bold'
+                        }
+                      },
+                      labelLine: {
+                        show: false
+                      },
+                      data: [{
+                          value: {{pertePoidsCount}},
+                          name: 'Perte de Poids'
+                        },
+                        {
+                          value: {{RenforcementCount}},
+                          name: 'Renforcement Musculaire'
+                        },
+                        {
+                          value: {{AmeliorationECount}},
+                          name: 'Amelioration Endurance'
+                        },
+                        {
+                          value: {{ReductionSCount}},
+                          name: 'Reduction du Stress'
+                        },
+                        {
+                          value: {{AugmentationMCount}},
+                          name: 'Augmentation de La Masse Musculaire'
+                        },
+                        {
+                          value: {{MaintienFPCount}},
+                          name: 'Maintien de La Forme Physique'
+                        }
+                      ]
+                    }]
+                  });
+                });
+              </script>
+            </div>
+          </div><!-- End Website Traffic -->
+	</div>
+    <table class="table" id="dataTable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -28,8 +94,8 @@
                 <td>{{ objectif.totalDuree }}</td>
                 <td>{{ objectif.totalCalories }}</td>    
                 <td>
-                    <a href="{{ path('app_objectif_show', {'id': objectif.id}) }}" class="btn btn-info">show</a>
-                    <a href="{{ path('app_objectif_edit', {'id': objectif.id}) }}" class="btn btn-warning">edit</a>
+                    <a href="{{ path('app_objectif_show', {'id': objectif.id}) }}" class="btn btn-outline-secondary">show</a>
+                    <a href="{{ path('app_objectif_edit', {'id': objectif.id}) }}" class="btn btn-dark">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -40,5 +106,24 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_objectif_new') }}"class="btn btn-success">Create new</a>
+    <a href="{{ path('app_objectif_new') }}"class="btn btn-dark" ><i class="ri-add-circle-line"> &nbsp Create new</i></a>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include DataTables library -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- DataTables Initialization Script -->
+<script>
+  $(document).ready(function () {
+    $('#dataTable').DataTable({
+      "initComplete": function (settings, json) {
+        // Customize the search input field
+        var searchInput = $('#dataTable_filter input[type="search"]');
+        searchInput.addClass('form-control');
+        searchInput.attr('placeholder', 'Search...'); // Set placeholder text
+      }
+    });
+  });
+
+</script>
 {% endblock %}

@@ -26,7 +26,9 @@ class ObjectifType extends AbstractType
                     'Réduction du stress'=>'reduction du stress',
                     'Augmentation de la masse musculaire'=>'augmentation de la masse musculaire',
                     "Maintien de la forme physique"=>"maintien de la forme physique",
-                ]]);   
+                ]])
+               
+                ;   
     }
 
     public function configureOptions(OptionsResolver $resolver): void

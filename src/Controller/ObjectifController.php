@@ -15,10 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class ObjectifController extends AbstractController
 {
     #[Route('/', name: 'app_objectif_index', methods: ['GET'])]
-    public function index(ObjectifRepository $objectifRepository): Response
+    public function index(ObjectifRepository $objectifRepository, EntityManagerInterface $entityManager): Response
     {
+        $PertePoidsCount = $entityManager->getRepository(Objectif::class)->count(['Nom_Objectif' => 'perte de poids']);
+        $RenforcementMCount = $entityManager->getRepository(Objectif::class)->count(['Nom_Objectif' => 'renforcement musculaire']);
+        $AmeliorationECount=$entityManager->getRepository(Objectif::class)->count(['Nom_Objectif' => 'amelioration endurance']);
+        $ReductionSCount=$entityManager->getRepository(Objectif::class)->count(['Nom_Objectif' => 'reduction du stress']);
+        $AugmentationmMCount=$entityManager->getRepository(Objectif::class)->count(['Nom_Objectif' => 'augmentation de la masse musculaire']);
+        $MaintienFPCount=$entityManager->getRepository(Objectif::class)->count(['Nom_Objectif' => 'maintien de la forme physique']);
         return $this->render('objectif/index.html.twig', [
             'objectifs' => $objectifRepository->findAll(),
+            'pertePoidsCount'=>$PertePoidsCount,
+            'RenforcementCount' =>$RenforcementMCount,
+            'AmeliorationECount'=>$AmeliorationECount,
+            'ReductionSCount'=>$ReductionSCount,
+            'AugmentationMCount'=>$AugmentationmMCount,
+            'MaintienFPCount'=>$MaintienFPCount,
         ]);
     }
 
