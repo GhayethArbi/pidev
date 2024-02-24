@@ -68,7 +68,7 @@ class ActivitePhysique
     private ?int $poids_par_serie = null;
 
     #[ORM\ManyToOne(inversedBy: 'activites')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Objectif $objectif = null;
 
     #[ORM\Column(length: 255)]

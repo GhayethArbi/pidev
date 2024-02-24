@@ -12,7 +12,7 @@
 		<meta content="" name="description">
 		<meta
 		content="" name="keywords">
-
+    {% block Admincss %}
 		<!-- Favicons -->
 
 		<link href="{{asset('assets/img/favicon.png')}}" rel="icon">
@@ -37,7 +37,7 @@
 		<!-- Template Main CSS File -->
 		<link
 		href="{{asset('assets/css/style.css')}}" rel="stylesheet">
-
+     {% endblock %}
 	<!-- =======================================================
 			  * Template Name: NiceAdmin
 			  * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -633,7 +633,7 @@
 			<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
 				<i class="bi bi-arrow-up-short"></i>
 			</a>
-
+        {% block Adminjs %}
 			<!-- Vendor JS Files -->
 			<script src="{{asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
 			<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -643,10 +643,9 @@
 			<script src="{{asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
 			<script src="{{asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
 			<script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
-            <script src="{{ asset('js/disableFields.js') }}"></script>
 			<!-- Template Main JS File -->
 			<script src="{{asset('assets/js/main.js')}}"></script>
-
+        {% endblock %}
 		</body>
 
 	</html>

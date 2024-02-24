@@ -1,0 +1,158 @@
+{% extends 'user_interface/base_user.html.twig' %}
+{% block Usercss %}
+    <link rel="stylesheet" href="{{asset('assets_user/css/bootstrap-grid.css')}}">
+	<link rel="stylesheet" href="{{asset('assets_user/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('assets_user/css/style.css')}}">
+{% endblock %}
+{% block content %}
+    <section class="s-contacts" style="background-image: url('{{ asset('assets_user/img/bg-contacts.svg') }}');">
+    <div class="container">
+        <h2 class="title-decor" style='color:white'>Create <span>Your Objective</span></h2>
+        <p class="slogan">Please select at least one activity to create your objective.</p> <!-- Updated slogan -->
+        <div class="row">
+            <div class="col-md-7 col-lg-8">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id': 'contactform'}}) }}
+                    <ul class="form-cover">
+                        <li class="inp-name">
+                           {{ form_row(form.NomObjectif, {'attr': { 'disabled': 'disabled', 'style': 'display: none'}, 'label': false }) }}
+                        </li>
+                        <li class="inp-email">
+                            {{ form_row(form.Date_objectif, {'attr': {'placeholder': 'Date de l\'objectif'}}) }}
+                        </li>
+                        <li class="inp-text">
+                            {{ form_row(form.note, {'attr': { 'placeholder': 'Note'}}) }}
+                        </li>
+                        <li class="inp-text">
+                            {{ form_row(form.total_duree, {'attr': { 'placeholder': 'Total de durée', 'style': 'display: none'},'label':false}) }}
+                        </li>
+                        <li class="inp-text">
+                            {{ form_row(form.total_calories, {'attr': { 'placeholder': 'Total de calories', 'style': 'display: none'},'label':false}) }}
+                        </li>
+                   </ul>
+                    <div class="btn-form-cover">
+                        <button id="#submit" type="submit" class="btn">Save</button>
+                    </div>    
+                {{ form_end(form) }}
+                <div id="message"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============== S-OUR-PROGRAMS ============== -->
+	<section class="s-our-programs" style="background-image: url('{{ asset('assets_user/img/bg-programs.jpg') }}');"> 
+		<div class="mask"></div>
+		<div class="our-programs-effect" style="background-image: url('{{ asset('assets_user/img/bg-programs.svg') }}');"></div>
+		<div class="container">
+			<h2 class="title-decor">Our <span>Activites</span></h2>
+			<p class="slogan">Please select at least one activity to create your objective.</p>
+			<div class="row">
+            {% for activity in activities %}
+				<div class="col-sm-6 col-md-3 program-col">
+					<div class="program-item">
+						<div class="program-item-front" style="background-image: url('{{ asset('assets_user/img/programs-1.jpg') }}');">
+                        	<div class="program-item-inner">
+								<h3>Personal trainer</h3>
+							</div>
+						</div>
+						<div class="program-item-back" style="background-image: url(assets/img/programs-1.jpg);">
+							<div class="program-item-inner">
+								<h3>Personal trainer</h3>
+								<a href="program.html" class="btn">More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3 program-col">
+					<div class="program-item">
+						<div class="program-item-front" style="background-image: url(assets/img/programs-2.jpg);">
+							<div class="program-item-inner">
+								<h3>Free workout</h3>
+							</div>
+						</div>
+						<div class="program-item-back" style="background-image: url(assets/img/programs-2.jpg);">
+							<div class="program-item-inner">
+								<h3>Free workout</h3>
+								<a href="program.html" class="btn">More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3 program-col">
+					<div class="program-item">
+						<div class="program-item-front" style="background-image: url(assets/img/programs-3.jpg);">
+							<div class="program-item-inner">
+								<h3>CrossFit</h3>
+							</div>
+						</div>
+						<div class="program-item-back" style="background-image: url(assets/img/programs-3.jpg);">
+							<div class="program-item-inner">
+								<h3>CrossFit</h3>
+								<a href="program.html" class="btn">More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-3 program-col">
+					<div class="program-item">
+						<div class="program-item-front" style="background-image: url(assets/img/programs-4.jpg);">
+							<div class="program-item-inner">
+								<h3>Martial Arts</h3>
+							</div>
+						</div>
+						<div class="program-item-back" style="background-image: url(assets/img/programs-4.jpg);">
+							<div class="program-item-inner">
+								<h3>Martial Arts</h3>
+								<a href="program.html" class="btn">More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ============ S-OUR-PROGRAMS END ============ -->
+{% endblock %}
+{% block Userjs %}
+    <script src="{{asset('assets_user/js/jquery-2.2.4.min.js')}}"></script>
+	<script src="{{asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyB4fusEY9kSwNHgtK8KOgyoTsyP5Tb2NXo')}}"></script>
+	<script src="{{asset('assets_user/js/scripts.js')}}"></script>
+    <!-- JS here -->
+    <script src="{{asset('assets_ActivityArea/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{{asset('assets_ActivityArea/js/vendor/jquery-1.12.4.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/popper.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/bootstrap.min.js')}}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{{asset('assets_ActivityArea/js/jquery.slicknav.min.js')}}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{{asset('assets_ActivityArea/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/slick.min.js')}}}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{{asset('assets_ActivityArea/js/wow.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/animated.headline.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/jquery.magnific-popup.js')}}"></script>
+
+<!-- Date Picker -->
+<script src="{{asset('assets_ActivityArea/js/gijgo.min.js')}}"></script>
+<!-- Nice-select, sticky -->
+<script src="{{asset('assets_ActivityArea/js/jquery.nice-select.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/jquery.sticky.js')}}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{{asset('assets_ActivityArea/js/jquery.counterup.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/waypoints.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/jquery.countdown.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/hover-direction-snake.min.js')}}"></script>
+
+<!-- contact js -->
+<script src="{{asset('assets_ActivityArea/js/contact.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/jquery.form.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/mail-script.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/jquery.ajaxchimp.min.js')}}"></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src="{{asset('assets_ActivityArea/js/plugins.js')}}"></script>
+<script src="{{asset('assets_ActivityArea/js/main.js')}}"></script>
+{% endblock %}

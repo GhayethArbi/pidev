@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Objectif;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,9 @@ class ObjectifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Date_objectif')
+            ->add('Date_objectif', DateTimeType::class, [
+                'widget' => 'single_text', // You can customize the widget according to your preference
+            ])
             ->add('note')
             ->add('total_duree')
             ->add('total_calories')

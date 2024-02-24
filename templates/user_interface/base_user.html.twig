@@ -9,22 +9,10 @@
     <meta name="description" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--CSS de ActivityArea -->
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/slicknav.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/flaticon.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/gijgo.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/animate.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/animated-headline.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/magnific-popup.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/fontawesome-all.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/slick.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/nice-select.css')}}">
-    <link rel="stylesheet" href="{{asset('assets_ActivityArea/css/style.css')}}">
+    
+    {% block Usercss %}
     <!-- =================== MAin STYLE =================== -->
-<link rel="stylesheet" href="{{ asset('assets_user/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_user/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets_user/img/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets_user/css/slick.min.css') }}">
     <link rel="stylesheet" href="{{asset('asset/css/bootstrap.min.css')}}">
@@ -41,6 +29,7 @@
     <link rel="stylesheet" href="{{asset('asset/css/slick.min.css')}}">
     <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('asset/css/main-color03-green.css')}}">
+    {% endblock %}
 </head>
 
 <body id="home">
@@ -104,7 +93,7 @@
                         </ul>
                     </li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="http://127.0.0.1:8000/user/interface/activities">Activities</a></li>
+                    <li><a href="http://127.0.0.1:8000/user/interface/objectifs">objectives</a></li>
                     <li class="dropdown">
                         <a href="#">Pages <i class="fa fa-caret-down"></i></a>
                         <ul>
@@ -183,7 +172,7 @@
             <ul class="footer-menu">
                 <li class="active"><a href="index-2.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Activities</a></li>
+                <li><a href="services.html">Objectives</a></li>
                 <li><a href="blog.html">News</a></li>
                 <li><a href="contacts.html">Contacts</a></li>
             </ul>
@@ -201,11 +190,12 @@
 <!--=================== SCRIPT	===================-->
 
 </body>
-
+{% block Userjs %}
 <script src="{{ asset('assets_user/js/jquery-2.2.4.min.js') }}"></script>
 <script src="{{ asset('assets_user/js/slick.min.js') }}"></script>
 <script src="{{ asset('assets_user/js/rx-lazy.js') }}"></script>
 <script src="{{ asset('assets_user/js/parallax.min.js') }}"></script>
 <script src="{{ asset('assets_user/js/scripts.js') }}"></script>
 
+{% endblock %}
 </html>
