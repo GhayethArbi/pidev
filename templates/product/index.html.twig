@@ -3,6 +3,7 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+    
     <h1>Product index</h1>
 
     <input type="text" id="category-search" placeholder="Search by category">
@@ -10,20 +11,20 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Slug</th>
+            <th class="sortable" data-column="id">Id</th>
+            <th class="sortable" data-column="name">Name</th>
+            <th class="sortable" data-column="slug">Slug</th>
             <th>Illustration</th>
-            <th>Subtitle</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
+            <th class="sortable" data-column="subtitle">Subtitle</th>
+            <th class="sortable" data-column="description">Description</th>
+            <th class="sortable" data-column="price">Price</th>
+            <th class="sortable" data-column="category">Category</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody id="product-table-body">
         {% for product in products %}
-            <tr class="product-row">
+            <tr class="product-row category-{{ product.category|replace({' ': '-', '|': '-'}) }}">
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.slug }}</td>
@@ -50,22 +51,54 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}"class="btn btn-dark">Create new</a>
+    <canvas id="categoryChart" width="400" height="200"></canvas>
 
+    <a href="{{ path('app_product_new') }}" class="btn btn-dark">Create new</a>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('category-search').addEventListener('input', function() {
-                var searchText = this.value.toLowerCase();
-                var rows = document.querySelectorAll(".product-row");
-                rows.forEach(function(row) {
-                    var category = row.querySelector('td:nth-child(8)').textContent.toLowerCase();
-                    if (category.includes(searchText)) {
-                        row.style.display = "";
+            document.getElementById('category-search').addEventListener('input', function () {
+                const searchValue = this.value.trim().toLowerCase();
+                const productRows = document.querySelectorAll('.product-row');
+
+                productRows.forEach(row => {
+                    const categoryName = row.querySelector('td:nth-child(8)').textContent.toLowerCase();
+                    if (categoryName.includes(searchValue)) {
+                        row.style.display = 'table-row';
                     } else {
-                        row.style.display = "none";
+                        row.style.display = 'none';
                     }
                 });
             });
+
+            var categoryData = {{ categoryData|json_encode|raw }};
+
+            var ctx = document.getElementById('categoryChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(categoryData),
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: Object.values(categoryData),
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
         });
     </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 {% endblock %}

@@ -51,9 +51,22 @@ class CategoryController extends AbstractController
             'products' => $products, // Passer tous les produits à la vue
         ]);
     }
+    #[Route('/category/{categoryId}', name: 'app_category_show')]
+    public function show(Request $request, EntityManagerInterface $entityManager, int $categoryId): Response
+    {
+        // Retrieve the Category object from the database
+        $category = $entityManager->getRepository(Category::class)->find($categoryId);
 
+        // Check if the Category object exists
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
 
-
+        // Render the template with the Category object
+        return $this->render('category/show.html.twig', [
+            'category' => $category,
+        ]);
+    }
 
 
 
@@ -70,7 +83,6 @@ class CategoryController extends AbstractController
 
             return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('category/new.html.twig', [
             'category' => $category,
             'form' => $form,
@@ -89,15 +101,6 @@ class CategoryController extends AbstractController
             'searchedCategory' => $searchedCategory, // Pass the searched category to the template
         ]);
     }
-
-    #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category): Response
-    {
-        return $this->render('category/show.html.twig', [
-            'category' => $category,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_category_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Category $category, EntityManagerInterface $entityManager): Response
     {

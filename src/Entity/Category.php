@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[UniqueEntity(fields: ['name'], message: 'Ce nom de catégorie est déjà utilisé.')]
+
 class Category
 {
     #[ORM\Id]
@@ -27,6 +27,7 @@ class Category
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
+
 
     public function __construct()
     {

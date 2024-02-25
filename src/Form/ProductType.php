@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Form;
-
 use App\Entity\Product;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -12,13 +12,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class, [
+                'constraints' => [
+                    new Assert\Regex([
+                        'pattern' => '/^[a-zA-Z\s]*$/',
+                        'message' => 'Le nom ne peut contenir que des lettres et des espaces.'
+                    ]),
+                    new Assert\Length([
+                        'max' => 12,
+                        'maxMessage' => 'Le nom ne peut pas dépasser {{ limit }} caractères.',
+                    ]),
+                ],
+            ])
             ->add('slug', TextType::class, [
                 'constraints' => [
                     new Assert\Regex([
@@ -30,11 +40,21 @@ class ProductType extends AbstractType
                 'disabled' => true,  // Disable the slug field
             ])
             ->add('illustrationFile', FileType::class, [
-                'mapped' =>false,
+                'mapped' => false, // This tells Symfony not to try to map this field to any entity property
                 'label' => 'Illustration (Image file)',
-                'required' => false,
+                'required' => false,])
+            ->add('subtitle', TextType::class, [
+                'constraints' => [
+                    new Assert\Regex([
+                        'pattern' => '/^[a-zA-Z\s]*$/',
+                        'message' => 'Le nom ne peut contenir que des lettres et des espaces.'
+                    ]),
+                    new Assert\Length([
+                        'max' => 12,
+                        'maxMessage' => 'Le sous-titre ne peut pas dépasser {{ limit }} caractères.',
+                    ]),
+                ],
             ])
-            ->add('subtitle')
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
             ])
@@ -42,9 +62,8 @@ class ProductType extends AbstractType
                 'label' => 'Price',
                 'currency' => 'USD', // or any other currency you want to use
             ])
-            ->add('category')
+            ->add('category');
 
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

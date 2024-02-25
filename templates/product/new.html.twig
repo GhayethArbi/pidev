@@ -14,8 +14,18 @@
             var nameInput = document.getElementById('product_name');
             var slugInput = document.getElementById('product_slug');
 
-            nameInput.addEventListener('input', function() {
-                var name = nameInput.value.trim().toLowerCase();
+            nameInput.addEventListener('input', function(event) {
+                // Get the value entered by the user
+                var inputValue = event.target.value;
+
+                // Replace numbers with an empty string
+                var sanitizedValue = inputValue.replace(/[0-9]/g, '');
+
+                // Update the input field value with the sanitized value
+                event.target.value = sanitizedValue;
+
+                // Generate slug
+                var name = sanitizedValue.trim().toLowerCase();
                 var slug = name.replace(/\s+/g, '-'); // Replace spaces with dashes
                 slugInput.value = slug;
             });

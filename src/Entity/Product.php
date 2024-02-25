@@ -7,8 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
- #[ORM\Entity(repositoryClass: ProductRepository::class)]
-
+#[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
     #[ORM\Id]
@@ -37,19 +36,12 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
-     private $imageFilename;
 
-     public function getImageFilename(): ?string
-     {
-         return $this->imageFilename;
-     }
+    // New property to store the uploaded file
+    private ?File $illustrationFile = null;
 
-     public function setImageFilename(?string $imageFilename): self
-     {
-         $this->imageFilename = $imageFilename;
-
-         return $this;
-     }
+    // New property to store the image filename
+    private ?string $imageFilename = null;
 
     public function getId(): ?int
     {
@@ -140,14 +132,27 @@ class Product
         return $this;
     }
 
-     public function getIllustrationFile(): File
-     {
-         return $this->illustrationFile;
-     }
+    // Getter and setter for illustrationFile
+    public function getIllustrationFile(): ?File
+    {
+        return $this->illustrationFile;
+    }
 
-     public function setIllustrationFile(File $illustrationFile): void
-     {
-         $this->illustrationFile = $illustrationFile;
-     }
+    public function setIllustrationFile(?File $illustrationFile): void
+    {
+        $this->illustrationFile = $illustrationFile;
+    }
 
- }
+    // Getter and setter for imageFilename
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): self
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+}

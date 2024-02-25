@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -17,9 +18,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
     class ProductController extends AbstractController
     {
         private $entityManager;
+        private $notificationService;
+
+      
         public function __construct(EntityManagerInterface $entityManager)
         {
             $this->entityManager=$entityManager;
+           
         }
         /*#[Route('/ff', name: 'app_product_index')]
         public function index(): Response
@@ -35,60 +40,97 @@ use Symfony\Component\String\Slugger\SluggerInterface;
                 'products' => $products,
             ]);
         }*/
-       #[Route('/', name: 'app_product_index', methods: ['GET'])]
+        #[Route('/', name: 'app_product_index', methods: ['GET'])]
         public function index(ProductRepository $productRepository): Response
         {
-            $categories = $this->entityManager->getRepository(Category::class)->findAll();
+            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
+            // Aggregate data for chart
+            $categoryData = [];
+            foreach ($categories as $category) {
+                $categoryData[$category->getName()] = count($category->getProducts());
+            }
+
             return $this->render('product/index.html.twig', [
                 'products' => $productRepository->findAll(),
                 'categories' => $categories,
+                'categoryData' => $categoryData, // Pass aggregated data to Twig
+            ]);
+        }
+        #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
+        public function new(Request $request, EntityManagerInterface $entityManager,SluggerInterface $slugger): Response
+        {
+            $product = new Product();
+            $form = $this->createForm(ProductType::class, $product);
+            $form->handleRequest($request);
 
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Handle file upload
+                $product->setSlug($slugger->slug($product->getName())->lower());
+                $uploadedFile = $form['illustrationFile']->getData(); // Corrected to match your form field name
+
+                if ($uploadedFile) { // Check if a file was uploaded
+                    $uploadsDirectory = $this->getParameter('uploads_directory');
+                    $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+                    $uploadedFile->move(
+                        $uploadsDirectory,
+                        $filename
+                    );
+
+                    // Set the filename to your entity
+                    $product->setIllustration($filename); // Assuming 'illustration' is the property where you store the filename
+                }
+
+                // Persist the product entity regardless of whether a file was uploaded or not
+                $entityManager->persist($product);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('product/new.html.twig', [
+                'product' => $product,
+                'form' => $form->createView(),
+            ]);
+        }
+
+        #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
+        public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+        {
+            $form = $this->createForm(ProductType::class, $product);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Handle file upload for edit action
+                $uploadedFile = $form['illustrationFile']->getData(); // Corrected to match your form field name
+
+                if ($uploadedFile) { // Check if a new file was uploaded
+                    $uploadsDirectory = $this->getParameter('uploads_directory');
+                    $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+                    $uploadedFile->move(
+                        $uploadsDirectory,
+                        $filename
+                    );
+
+                    // Set the new filename to your entity
+                    $product->setIllustration($filename); // Assuming 'illustration' is the property where you store the filename
+                }
+
+                // Persist the product entity regardless of whether a file was uploaded or not
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('product/edit.html.twig', [
+                'product' => $product,
+                'form' => $form,
             ]);
         }
 
 
 
-
-
-
-        #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,SluggerInterface $slugger): Response
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle file upload
-            $product->setSlug($slugger->slug($product->getName())->lower());
-            $uploadedFile = $form['illustrationFile']->getData(); // Corrected to match your form field name
-
-            if ($uploadedFile) { // Check if a file was uploaded
-                $uploadsDirectory = $this->getParameter('uploads_directory');
-                $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $uploadsDirectory,
-                    $filename
-                );
-
-                // Set the filename to your entity
-                $product->setIllustration($filename); // Assuming 'illustration' is the property where you store the filename
-            }
-
-            $entityManager->persist($product);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-
-        return $this->render('product/new.html.twig', [
-            'product' => $product,
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
+        #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
@@ -96,38 +138,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Handle file upload for edit action
-            $uploadedFile = $form['illustrationFile']->getData(); // Corrected to match your form field name
-
-            if ($uploadedFile) { // Check if a new file was uploaded
-                $uploadsDirectory = $this->getParameter('uploads_directory');
-                $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $uploadsDirectory,
-                    $filename
-                );
-
-                // Set the new filename to your entity
-                $product->setIllustration($filename); // Assuming 'illustration' is the property where you store the filename
-            }
-
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {

@@ -6,7 +6,14 @@
     <div class="container" style="margin-top: 50px">
         <div class="row">
             <!-- Main content -->
-            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-3">
+                <h1>
+                    Filtrer
+                </h1>
+                colonne de filtre
+                {{ form(form) }}
+            </div>
+            <div id="main-content" class="main-content  col-md-9 ">
                 <div class="product-category grid-style">
                     <div id="top-functions-area" class="top-functions-area">
                         <div class="flt-item to-left group-on-mobile">
@@ -55,8 +62,13 @@
                                         </select>
 
                                     </div>
+
                                 </form>
+
                             </div>
+                            <a href="{{ path ('app_cart')}}">
+                            <img src="{{ asset('assets/img/shopping-cart.png') }}">
+                            </a>
                         </div>
                     </div>
 
@@ -79,6 +91,15 @@
                                         </center>
                                     </div>
                                 </div>
+                                <div class="slide-down-box">
+                                    <p class="message">All products are carefully selected to ensure food safety.</p>
+                                    <div class="buttons">
+                                        <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                        <a href="{{path('add_cart_item',{'id':product.id}) }}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                        <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+
                             </div>
                         {% endfor %}
                     </div>

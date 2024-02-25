@@ -24,9 +24,9 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
-                    <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-primary">Show</a>
                     <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-primary">Edit</a>
-                    <a href="{{ path('app_category_delete', {'id': category.id}) }}" class="btn btn-primary">delete</a>
+                    <a href="{{ path('app_category_delete', {'id': category.id}) }}" class="btn btn-primary">Delete</a>
+                    <a href="{{ path('app_category_index') }}" class="btn btn-secondary">Back to Category List</a>
                 </td>
             </tr>
         {% else %}
@@ -37,6 +37,7 @@
         </tbody>
 
     </table>
+    <a href="{{ path('app_category_new') }}" class="btn btn-warning btn-block">Add category</a>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -60,6 +61,7 @@
 
 
     </script>
+
 
 
 {% endblock %}
