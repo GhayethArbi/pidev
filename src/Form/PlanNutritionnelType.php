@@ -20,7 +20,7 @@ class PlanNutritionnelType extends AbstractType
                 'class' => Recette ::class,
                 'choice_label' => 'name', 
                 'placeholder' => 'Choisir une recette',
-                #'multiple' => true, 
+                'multiple' => false, 
                 
             ])
         ;

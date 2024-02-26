@@ -89,4 +89,8 @@ class Recette
 
         return $this;
     }
+    public function _toString() : string
+    {
+        return $this->getId();
+    }
 }

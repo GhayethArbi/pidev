@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PlanNutritionnel;
+use App\Entity\Recette;
 use App\Form\PlanNutritionnelType;
 use App\Repository\PlanNutritionnelRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,14 +21,8 @@ class PlanNutrtionnelController extends AbstractController
             'plan_nutritionnels' => $planNutritionnelRepository->findAll(),
         ]);
     } 
-    #[Route('/plan_user', name: 'app_plan_nutrtionnel_index', methods: ['GET'])]
-    public function index_user(PlanNutritionnelRepository $planNutritionnelRepository): Response
-    {
-        return $this->render('/user/plan_nutrtionnel/index.html.twig', [
-            'plan_nutritionnels' => $planNutritionnelRepository->findAll(),
-        ]);
-    }
 
+   
     #[Route('/new_planN', name: 'app_plan_nutrtionnel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -36,8 +31,8 @@ class PlanNutrtionnelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer la recette associée à partir du formulaire
-        $recette = $form->get('recette')->getData();
+
+
 
 
             $entityManager->persist($planNutritionnel);
@@ -52,7 +47,7 @@ class PlanNutrtionnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_plan_nutrtionnel_show', methods: ['GET'])]
+    #[Route('/{id}/show_plan', name: 'app_plan_nutrtionnel_show', methods: ['GET'])]
     public function show(PlanNutritionnel $planNutritionnel): Response
     {
         return $this->render('plan_nutrtionnel/show.html.twig', [
@@ -78,7 +73,7 @@ class PlanNutrtionnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_plan_nutrtionnel_delete', methods: ['POST'])]
+    #[Route('/{id}/delete_plan', name: 'app_plan_nutrtionnel_delete', methods: ['POST'])]
     public function delete(Request $request, PlanNutritionnel $planNutritionnel, EntityManagerInterface $entityManager): Response
     {
        

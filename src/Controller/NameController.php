@@ -61,11 +61,11 @@ class NameController extends AbstractController
         $form = $this->createForm(RecetteType::class, $recette,
         [ 'exclude_date_field' => true
     ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_name_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -75,7 +75,7 @@ class NameController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_name_delete', methods: ['POST'])]
+    #[Route('/{id}/delete_recette', name: 'app_name_delete', methods: ['POST'])]
     public function delete(Request $request, Recette $recette, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$recette->getId(), $request->request->get('_token'))) {

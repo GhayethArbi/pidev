@@ -1,4 +1,4 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base_user.html.twig' %}
 {% block body %}
 <form method="post" action="{{ path('app_plan_nutrtionnel_delete', {'id': plan_nutritionnel.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ plan_nutritionnel.id) }}">

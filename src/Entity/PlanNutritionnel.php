@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 #[ORM\Entity(repositoryClass: PlanNutritionnelRepository::class)]
 class PlanNutritionnel
 {
@@ -15,6 +16,7 @@ class PlanNutritionnel
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank(message : "Name cannot be blank ! please fill the form  ")]
     #[Assert\Length(min: 5, max:20)]
     #[Assert\Regex(
@@ -22,13 +24,12 @@ class PlanNutritionnel
         htmlPattern: '^[a-zA-Z]+$',
         message:'The name must contain only letters and spaces',
     )]
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: Recette::class , cascade:["remove"])]//cascade deletion
     private ?Recette $recettes = null;
 
     public function getId(): ?int
@@ -68,7 +69,12 @@ class PlanNutritionnel
     public function setRecettes(?Recette $recettes): static
     {
         $this->recettes = $recettes;
-
         return $this;
     }
+    
+    public function _toString(): string 
+    {
+        return $this->getId();
+    }
+
 }
