@@ -1,0 +1,52 @@
+{% extends 'AdminTpl/baseD.html.twig' %}
+{% block Dtitle %}
+Activitee physique
+{% endblock %}
+{% block Adminbody%}
+    <h1>Objectif</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ objectif.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_Objectif</th>
+                <td>{{ objectif.NomObjectif }}</td>
+            </tr>
+            <tr>
+                <th>Date_Objectif</th>
+                <td>{{ objectif.DateObjectif ? objectif.DateObjectif|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Total_Calories</th>
+                <td>{{ objectif.TotalCalories }}</td>
+            </tr>
+            <tr>
+                <th>Total_Duree</th>
+                <td>{{ objectif.TotalDuree }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ objectif.Note }}</td>
+            </tr>
+            <tr>
+                <th>Activites Associées</th>
+                <td>
+                    {% for activite_physique in objectif.activites %}
+                        {{ activite_physique.id }} - {{ activite_physique.NomActivite }}
+                        {# Afficher d'autres propriétés de l'entité activite_physique si nécessaire #}
+                        <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_objectif_index') }}"  class="btn btn-outline-secondary">back to list</a>
+
+    <a href="{{ path('app_objectif_edit', {'id': objectif.id}) }}" class="btn btn-outline-warning">edit</a>
+
+    {{ include('objectif/_delete_form.html.twig') }}
+{% endblock %}

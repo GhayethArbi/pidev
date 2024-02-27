@@ -1,0 +1,66 @@
+{% extends 'AdminTpl/baseD.html.twig' %}
+{% block Dtitle %}
+Activitee physique
+{% endblock %}
+ {% block Adminbody%}
+    <h1>ActivitePhysique</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ activite_physique.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_Activite</th>
+                <td>{{ activite_physique.NomActivite }}</td>
+            </tr>
+            <tr>
+                <th>Type_Activite</th>
+                <td>{{ activite_physique.TypeActivite }}</td>
+            </tr>
+            <tr>
+                <th>Duree_Activite</th>
+                <td>{{ activite_physique.DureeActivite }}</td>
+            </tr>
+            <tr>
+                <th>Calories_Brules</th>
+                <td>{{ activite_physique.CaloriesBrules }}</td>
+            </tr>
+            <tr>
+                <th>Nb_Series</th>
+                <td>{{ activite_physique.NbSeries }}</td>
+            </tr>
+            <tr>
+                <th>Nb_Rep_Series</th>
+                <td>{{ activite_physique.NbRepSeries }}</td>
+            </tr>
+            <tr>
+                <th>Poids_Par_Serie</th>
+                <td>{{ activite_physique.PoidsParSerie }}</td>
+            </tr>
+            <tr>
+                <th>Image_Activte</th>
+               <td>
+                {% if activite_physique.getImageActivite() %}
+                        <img src="{{ asset('Uploads/' ~ activite_physique.getImageActivite())}}" alt="image d'activite" style="width:100px">
+                    {% endif %}</td>
+                <td>
+            </tr>
+            <tr>
+                <th>Id_Objectifs_associés</th>
+                <td>{% for objectif in activite_physique.objectifs %}
+                    {{ objectif.id }} - {{ objectif.nomObjectif }}
+                    {# Display other properties of the objectif entity as needed #}
+                   <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  <div class="button-group" id="btnnn">
+    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}" class="btn btn-outline-dark">edit</a>
+    <a href="{{ path('app_activite_physique_index') }}" class="btn btn-outline-warning">back to list</a>
+    {{ include('activite_physique/_delete_form.html.twig') }}
+</div>
+{% endblock %}

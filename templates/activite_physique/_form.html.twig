@@ -1,0 +1,67 @@
+{% extends 'AdminTpl/baseD.html.twig' %}
+{% block Dtitle %}
+    Form Activite Physique
+{% endblock %}
+{% block Adminbody %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Formulaire d'Activité Physique</h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                <div class="form-group">   
+                    {{ form_row(form.Nom_Activite, {'attr': {'class': 'form-control nom-activite-field', 'placeholder': 'Nom de l\'activité'}}) }}
+                </div>
+                  {{ form_errors(form.Nom_Activite,{'attr':{'class':''}}) }}
+                <div class="form-group">
+                    {{ form_row(form.Type_Activite, {'attr': {'class': 'form-control type-activite-field', 'placeholder': 'Type d\'activité'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Calories_Brules, {'attr': {'class': 'form-control calories-field', 'placeholder': 'Calories brûlées', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Duree_Activite, {'attr': {'class': 'form-control duree-field', 'placeholder': 'Durée de l\'activité', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Nb_Series, {'attr': {'class': 'form-control nb-series-field', 'placeholder': 'Nombre de séries', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Nb_Rep_Series, {'attr': {'class': 'form-control nb-rep-series-field', 'placeholder': 'Nombre de répétitions par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Poids_Par_Serie, {'attr': {'class': 'form-control poids-par-serie-field', 'placeholder': 'Poids par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.objectifs) }}
+                    <div class="row">
+                        {% for objective in form.objectifs %}
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    {{ form_widget(objective) }}
+                                    {{ form_label(objective) }}
+                                    {{ form_errors(objective) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Image_Activite, {'attr': {'class': 'form-control image-activite'}}) }}
+                </div>
+                <br>
+                <div class="button-group" style="text-align: center;">
+                    <button type="submit" class="btn btn-outline-primary" style="margin-right: 10px;" class="btn btn-outline-primary">{{ button_label|default('Save') }}</button>
+                    <a href="{{ path('app_activite_physique_index') }}" class="btn btn-outline-secondary" style="margin-left: 10px;">Retour à la liste</a>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+{% endblock %}
+{% block Adminjs %}
+      <script src="{{ asset('Jsmbm/ActivitesChampsC.js') }}"></script> 
+{% endblock %}

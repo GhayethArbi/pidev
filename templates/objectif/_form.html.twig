@@ -1,0 +1,56 @@
+{% extends 'adminTpl/baseD.html.twig' %}
+{% block titleD %}
+    formulaire_Objectif
+{% endblock %}
+{% block Adminbody %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Formulaire d'Objectif</h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_row(form.Nom_Objectif, {'attr': {'class': 'form-control nom-objectif-field' }}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Date_objectif, {'attr': {'class': 'form-control date-objectif-field', 'placeholder': 'Date de l\'objectif'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Note, {'attr': {'class': 'form-control note-field', 'placeholder': 'Note'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Total_Duree, {'attr': {'class': 'form-control total-duree-field', 'placeholder': 'Total de durée'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.Total_Calories, {'attr': {'class': 'form-control total-calories-field', 'placeholder': 'Total de calories'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.Activites) }}
+                    <div class="row">
+                        {% for activite in form.Activites %}
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    {{ form_widget(activite) }}
+                                    {{ form_label(activite) }}
+                                    {{ form_errors(activite) }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+                <a href="{{ path('app_objectif_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block Adminjs %}
+     <script src="{{ asset('Jsmbm/ObjectifChampsC.js') }}"></script> 
+{% endblock %}
