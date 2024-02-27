@@ -26,4 +26,5 @@ class PlanNutritionnelUserController extends AbstractController
             'plan_nutritionnel' => $PlanNutritionnel->findAll(),
         ]);
     }
+  
 }

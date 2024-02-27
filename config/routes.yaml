@@ -42,3 +42,18 @@ app_plan_nutrtionnel_edit:
 app_plan_nutrtionnel_delete:
   path: /{id}/delete_plan
   controller: App\Controller\PlanNutrtionnelController::delete
+
+##############################_recette_User_ ##############################
+
+app_reccete_user:
+  path: /recette/user
+  controller: App\Controller\RecceteUserController::index
+  
+app_user_reccette_plan:
+  path: /recette_user
+  controller: App\Controller\RecceteUserController::display_pics
+
+   
+app_user_recette_show:
+  path: /{id}/recette_user
+  controller: App\Controller\RecceteUserController::show_recette

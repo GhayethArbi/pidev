@@ -2,29 +2,43 @@
 
 {% block title %}Hello RecceteUserController!{% endblock %}
 
-{% block body %}
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ recette.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ recette.name }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{{ recette.category }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ recette.date ? recette.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ recette.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block content %}
+   <section class="s-header-title" style="background-image: url(assets_user/img/bg-1-min.png);">
+		<div class="container">
+			<h1 class="title">Module Nutrition</h1>
+			<ul class="breadcrambs">
+				<li><a href="index-2.html">Home</a></li>
+				<li>Module Nutritionnelle</li>
+				<li>Recipes</li>
+			</ul>
+		</div>
+	</section>
+<section class="s-crossfit" >
+		<div class="container">
+			<h2 class="title-decor">Notre <span>Recettes</span></h2>
+			<p class="slogan">Maecenas consequat ex id lobortis venenatis. Mauris id erat enim. Morbi dolor dolor, auctor tincidunt lorem ut, venenatis dapibus miq.</p>
+			<div class="row">
+			{% for recette in recettes %}   
+            <div class="col-sm-6 col-md-3 program-col">
+					<div class="program-item">
+						<div class="program-item-front" style="background-image: url(assets_user/img/oatmeal.jpg);">
+							<div class="program-item-inner">
+								<h3>{{recette.name}}</h3>
+                                 <h5 style="color: #fcbd56;" >{{recette.category}}</h5>
+							</div>
+						</div>
+						<div class="program-item-back" style="background-image: url(assets/img/programs-1.jpg);">
+							<div class="program-item-inner">
+								<h3>{{recette.name}}</h3>
+								<a href="{{path ('app_user_recette_show', {'id': recette.id}) }}" class="btn">More</a>
+							</div>
+						</div>
+					</div>
+				</div>
+             {% endfor %}
+			</div>
+		</div>
+</section>
+	<!-- ============ S-OUR-PROGRAMS END ============ -->
+
 {% endblock %}

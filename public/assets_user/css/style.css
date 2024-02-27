@@ -151,7 +151,9 @@ h6 {
   padding-bottom: 20px;
   margin-bottom: 20px; }
   .title-decor span {
-    color: #f23849; }
+    color: #f23849; } 
+    
+
   .title-decor:before {
     content: '';
     position: absolute;
@@ -3755,6 +3757,8 @@ blockquote:before {
     height: 270px; }
     .program-item .program-item-inner h3 {
       font-size: 18px; }
+  .program-item .program-item-inner  {
+        font-size: 18px;}
     .program-item .program-item-back .program-item-inner {
       transform: translateZ(80px); }
       .program-item .program-item-back .program-item-inner h3 {
