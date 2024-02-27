@@ -12,14 +12,28 @@
 	<meta name="description" content="">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	{% block Usercss %}
-	<link rel="shortcut icon" href="{{asset('assetsU/img/favicon.png')}}">
-	<!-- =================== STYLE =================== -->
-	<link rel="stylesheet" href="{{asset('assetsU/css/slick.min.css')}}">
-	<link rel="stylesheet" href="{{asset('assetsU/css/bootstrap-grid.css')}}">
-	<link rel="stylesheet" href="{{asset('assetsU/css/font-awesome.min.css')}}">
-	<link rel="stylesheet" href="{{asset('assetsU/css/style.css')}}">
-    {% endblock %}
+	{% block Usercss %} {% endblock %}
+	 <!-- start Main css -->
+    <link rel="stylesheet" href="{{ asset('assetsU/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assetsU/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('assetsU/css/slick.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assetsU/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assetsU/css/bootstrap-grid.css') }}">
+    <link rel="stylesheet" href="{{ asset('assetsU/css/font-awesome.min.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assetsU/images/favicon.png')}}"/>
+    <link rel="stylesheet" href="{{asset('assetsU/css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assetsU/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assetsU/css/nice-select.css')}}">
+    <link rel="stylesheet" href="{{asset('assetsU/css/slick.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assetsU/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assetsU/css/main-color03-green.css')}}">
+    <!-- end Main css -->
+
+   
 </head>
 
 <body id="home">
@@ -811,6 +825,8 @@
 	<script src="{{asset('assetsU/js/rx-lazy.js')}}"></script>
 	<script src="{{asset('assetsU/js/parallax.min.js')}}"></script>
 	<script src="{{asset('assetsU/js/scripts.js')}}"></script>
+
+	
   {% endblock %}
 </body>
 
