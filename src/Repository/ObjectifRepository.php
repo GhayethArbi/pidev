@@ -45,4 +45,12 @@ class ObjectifRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+      public function listActivitesbyIdObj(int $idObj){
+        return $this->createQueryBuilder('o')
+        ->select('o.Activites')
+        ->where('o.id = :idObj')
+        ->setParameter('idObj', $idObj)
+        ->getQuery()
+        ->getResult();
+    }
 }

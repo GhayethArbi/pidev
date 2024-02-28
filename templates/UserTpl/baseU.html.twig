@@ -20,17 +20,7 @@
     <link rel="stylesheet" href="{{asset('assetsU/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assetsU/css/bootstrap-grid.css') }}">
     <link rel="stylesheet" href="{{ asset('assetsU/css/font-awesome.min.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assetsU/images/favicon.png')}}"/>
-    <link rel="stylesheet" href="{{asset('assetsU/css/animate.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assetsU/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assetsU/css/nice-select.css')}}">
-    <link rel="stylesheet" href="{{asset('assetsU/css/slick.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assetsU/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('assetsU/css/main-color03-green.css')}}">
+    
     <!-- end Main css -->
 
    
@@ -715,7 +705,7 @@
 		</div>
 	</section>
 	<!-- ========= S-TRAINING-SCHEDULE END ========= -->
-  {% endblock %}
+ 
 	<!-- ================== FOOTER ================== -->
 	<section class="s-counter" style="background-image: url('{{asset('assetsU/img/bg-2.jpg')}}');">
 		<div class="mask"></div>
@@ -746,8 +736,7 @@
 			</form>
 		</div>
 	</section>
-	<!-- ================== FOOTER ================== -->
-
+	 {% endblock %}
 	<!-- ================== FOOTER ================== -->
 	<footer>
 		<div class="container">
@@ -818,16 +807,17 @@
 		<i class="fa fa-chevron-up" aria-hidden="true"></i>
 	</a>
 	<!--================= TO TOP END =================-->
-  {% block Userjs %}
+ 
 	<!--=================== SCRIPT	===================-->
 	<script src="{{asset('assetsU/js/jquery-2.2.4.min.js')}}"></script>
 	<script src="{{asset('assetsU/js/slick.min.js')}}"></script>
 	<script src="{{asset('assetsU/js/rx-lazy.js')}}"></script>
 	<script src="{{asset('assetsU/js/parallax.min.js')}}"></script>
 	<script src="{{asset('assetsU/js/scripts.js')}}"></script>
-
+    <script src="{{ asset('Jsmbm/ObjectifChampsC.js') }}"></script> 
+	  {% block Userjs %}{% endblock %}
 	
-  {% endblock %}
+  
 </body>
 
 </html>

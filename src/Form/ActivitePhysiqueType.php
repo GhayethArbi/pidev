@@ -31,7 +31,8 @@ class ActivitePhysiqueType extends AbstractType
             ->add('Nb_Rep_Series')
             ->add('Poids_Par_Serie')
             ->add('Image_Activite', FileType::class, [
-                'label' => 'Image activité',
+                'mapped' => false,
+                'label' => 'Image activite',
                 'required' => False,
             ])
             ->add('objectifs', EntityType::class, [
@@ -42,7 +43,7 @@ class ActivitePhysiqueType extends AbstractType
                 'multiple' => true,
                 'expanded' => true, // Render checkboxes instead of a select input
             ]);
-            $builder->get('Image_Activite')->addModelTransformer(new class implements DataTransformerInterface {
+          $builder->get('Image_Activite')->addModelTransformer(new class implements DataTransformerInterface {
                 public function transform($value)
                 {
                     // Transform the File object into a string path

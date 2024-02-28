@@ -1,0 +1,50 @@
+{% extends 'UserTpl/baseU.html.twig' %}
+{% block titleU %}
+	formulaire_Activite
+{% endblock %}
+{% block Userbody %}
+	<section class="s-contacts" style="background-image: url('{{ asset('assets_user/img/bg-contacts.svg') }}');">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 col-lg-8">
+					{{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}}) }}
+					<ul class="form-cover">
+						<li class="inp-name">
+							{{ form_row(form.Nom_Activite, {'label': false, 'attr': { 'style': 'display: none' , 'value' : activite.getNomActivite() }}) }}
+						</li>
+						<li class="inp-email">
+							{{ form_row(form.Type_Activite, {'attr': {'disabled': 'disabled'}}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.Calories_Brules, {'attr': { 'placeholder': 'calories brules'}}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.Duree_Activite, {'attr': { 'placeholder': 'durée activité'}}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.Nb_Series, {'attr': { 'placeholder': 'nombre de serie'}}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.Nb_Rep_Series, {'attr': { 'placeholder': 'nombre de répetition serie'}}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.Poids_Par_Serie, {'attr': { 'placeholder': 'poids par série'}}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.Image_Activite, {'attr': {   'value' : activite.getImageActivite() },'label': false}) }}
+						</li>
+						<li class="inp-text">
+							{{ form_row(form.objectifs, {'attr': {'style': 'display: none;' },'label':false}) }}
+						</li>
+					</ul>
+					<div class="btn-form-cover">
+						<button type="submit" class="btn">Save</button>
+						<!--a href="{#{ path('app_user_select_activite')}#}" class="btn">return to list Activities</a-->
+					</div>
+					{{ form_end(form) }}
+					<div id="message"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

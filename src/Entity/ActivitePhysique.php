@@ -20,7 +20,7 @@ class ActivitePhysique
         pattern: "/^[a-zA-Z]+$/",
         message: "le nom de l'activité physique ne doit contenir que des lettres."
     )]
-    #[ORM\Column(length: 255,unique:true)]
+    #[ORM\Column(length: 255)]
    
     private ?string $Nom_Activite = null;
 
@@ -65,9 +65,9 @@ class ActivitePhysique
     #[Assert\GreaterThan(value: 0, message: "la valeur du poids doit être supérieur à 0/KGs.")]
     #[Assert\LessThan(value: 200, message: "la valeur du poids doit inférieur à 200KGs.")]
     private ?int $Poids_Par_Serie = null;
-
-    #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:'Tu dois choisir une image')]
+    #[ORM\Column(length: 255)]
+  
     private ?string $Image_Activite = null;
 
     #[ORM\ManyToMany(targetEntity: Objectif::class, mappedBy: 'Activites')]
@@ -88,7 +88,7 @@ class ActivitePhysique
         return $this->Nom_Activite;
     }
 
-    public function setNomActivite(string $Nom_Activite): static
+    public function setNomActivite(?string $Nom_Activite): static
     {
         $this->Nom_Activite = $Nom_Activite;
 

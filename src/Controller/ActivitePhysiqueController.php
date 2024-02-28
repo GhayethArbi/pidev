@@ -79,28 +79,22 @@ $form->handleRequest($request);
 
 // Traiter le formulaire soumis
 if ($form->isSubmitted() && $form->isValid()) {
-     $file = $form->get('Image_Activite')->getData();
-if ($file) {
-    // Supprimer l'ancienne image si nécessaire
-    $oldFileName = $activitePhysique->getImageActivite();
-    if ($oldFileName) {
-        $oldFilePath = $this->getParameter('uploads_directory') . '/' . $oldFileName;
-        if (file_exists($oldFilePath)) {
-            unlink($oldFilePath);
-        }
-    }
-    // Générer un nouveau nom de fichier unique pour l'image
-    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-    // Déplacer le fichier téléchargé vers le répertoire spécifié
-    $file->move(
-        $this->getParameter('uploads_directory'),
-        $fileName
-    );
-    // Définir le nom du fichier dans l'entité ActivitePhysique
-    $activitePhysique->setImageActivite($fileName);
-}
-    // Persister les changements dans la base de données
-    $entityManager->flush();
+      // Handle file upload for edit action
+      $uploadedFile = $form['Image_Activite']->getData(); // Corrected to match your form field name
+
+      if ($uploadedFile) { // Check if a new file was uploaded
+          $uploadsDirectory = $this->getParameter('uploads_directory');
+          $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+          $uploadedFile->move(
+              $uploadsDirectory,
+              $filename
+          );
+
+          // Set the new filename to your entity
+          $activitePhysique->setImageActivite($filename); // Assuming 'illustration' is the property where you store the filename
+      }
+      // Persist the product entity regardless of whether a file was uploaded or not
+      $entityManager->flush();
 
             return $this->redirectToRoute('app_activite_physique_index', [], Response::HTTP_SEE_OTHER);
         }

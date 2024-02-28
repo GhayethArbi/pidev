@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ActivitePhysique;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,7 +21,26 @@ class ActivitePhysiqueRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ActivitePhysique::class);
     }
+    public function findActivitiesWithUniqueNames()
+    {
+        $result = $this->createQueryBuilder('a')
+        ->select('a.Nom_Activite', 'a.Type_Activite', 'a.Image_Activite')
+        ->groupBy('a.Nom_Activite')
+        ->getQuery()
+        ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
 
+    $hydratedObjects = [];
+    foreach ($result as $row) {
+        $hydratedObjects[] = (new ActivitePhysique())
+            ->setNomActivite($row['Nom_Activite'])
+            ->setTypeActivite($row['Type_Activite'])
+            ->setImageActivite($row['Image_Activite']);
+        // Set other properties as needed
+    }
+    //dd($hydratedObjects) ;
+    return $hydratedObjects;
+        // Extrait uniquement les colonnes Nom_Activite, Type_Activite et Image_Activie
+    }
 //    /**
 //     * @return ActivitePhysique[] Returns an array of ActivitePhysique objects
 //     */
