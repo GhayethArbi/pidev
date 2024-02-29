@@ -62,10 +62,17 @@
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                                 <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" value="true"
-                                            id="rememberMe">
-                                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto">
+                                            <div class="form-check">
+                                                <label>
+                                                <input class="form-check-input" type="checkbox" name="_remember_me" value="true">
+                                               Remember me</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a href="{{ path('app_forgot_password_request') }}">Forgot password?</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">

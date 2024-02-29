@@ -40,6 +40,7 @@ class RegistrationController extends AbstractController
             $user->setLoyalityPoints(0);
             // Set their role
             $user->setRoles(['ROLE_USER']);
+            $user->setIsEnable(false);
 
             // Save
             

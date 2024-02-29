@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Your email address cannot be empty.')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -65,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $medicalRecord = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $authCode = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reset_token = null;
 
@@ -74,7 +78,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\NotBlank(message:"Votre mot de passe ne contient pas {{ limit }} caractères.")]
     #[Assert\Length(min:8, minMessage:"Votre mot de passe ne contient pas {{limit }} caractères.")]
-    private ?string $password = null;//9
+    private ?string $password = null;
+
+    #[ORM\Column]
+    private ?bool $isEnable = null;//9
 
     public function getId(): ?int
     {
@@ -269,6 +276,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(string $address): static
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+   
+    public function isEmailAuthEnabled(): bool
+    {
+        return true;
+    }
+
+ 
+    public function getEmailAuthRecipient(): string
+    {
+        return $this->email;
+    }
+
+  
+    public function getEmailAuthCode(): string
+    {
+        if(null === $this->authCode){
+            throw new \LogicException('The email authentication code was not set');
+        }
+        return $this->authCode;
+    }
+
+ 
+    public function setEmailAuthCode(string $authCode): void
+    {
+        $this->authCode=$authCode;
+    }
+
+    public function isIsEnable(): ?bool
+    {
+        return $this->isEnable;
+    }
+
+    public function setIsEnable(bool $isEnable): static
+    {
+        $this->isEnable = $isEnable;
 
         return $this;
     }

@@ -2,19 +2,15 @@
 
 namespace App\Controller;
 
+use App\Form\EmailType;
 use App\Form\ForgotPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\MonologBundle\DependencyInjection\Compiler\AddSwiftMailerTransportPass;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,12 +29,8 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, UserRepository $repo): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -56,8 +48,8 @@ class SecurityController extends AbstractController
     #[Route(path: '/forgot', name: 'forgot')]
     public function forgotPassword(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $em): Response
     {
-        
-       
+
+
         $this->addFlash('danger', "this email is not exist");
         $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
@@ -89,6 +81,31 @@ class SecurityController extends AbstractController
             }
             return $this->redirectToRoute("app_home");
         }
-        return $this->render("security/forgotPassword.html.twig",['form'=>$form->createView()]);
+        return $this->render("security/forgotPassword.html.twig", ['form' => $form->createView()]);
+    }
+    #[Route(path: '/mailer', name: 'app_mailer')]
+    public function test(Request $request, MailerInterface $mailer): Response
+    {
+        $form = $this->createForm(EmailType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData(['email']);
+            //dd($user['email']);
+            $email = (new Email())
+                ->from('ghayeth.arbi@esprit.tn')
+                ->to($user['email'])
+                ->subject('test Succeful')
+                ->text('Sending emails is fun')
+                ->html('<p>See Twig integration for better HTML integration!</p>');
+            try{
+                $mailer->send($email);
+                dd($mailer, $email);
+        }catch (TransportExceptionInterface $e) {
+            dd($e);
+            // some error prevented the email sending; display an
+            // error message or try to resend the message
+        }
+        }
+        return $this->render("security/test.html.twig", ['form' => $form->createView()]);
     }
 }

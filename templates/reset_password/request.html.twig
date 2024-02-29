@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Reset your password{% endblock %}
 {% block header %}
-{% endblock %}
-{% block footer %}
 {% endblock %}
 {% block sidebar %}
 {% endblock %}
+{% block footer %}
+{% endblock %}
 {% block body %}
+
 
 
 <div class="container">
@@ -16,7 +17,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                     <div class="d-flex justify-content-center py-4">
-                        <a href="index.html" class="logo d-flex align-items-center w-auto">
+                        <a href="/" class="logo d-flex align-items-center w-auto">
                             <img src="assets/img/logo.png" alt="">
                             <span class="d-none d-lg-block">FitKeep</span>
                         </a>
@@ -27,32 +28,29 @@
                         <div class="card-body">
 
                             <div class="pt-4 pb-2">
-                                <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                <p class="text-center small">Enter your personal details to create account</p>
+                                <h5 class="card-title text-center pb-0 fs-4">Forgot Password</h5>
+                                <p class="text-center small">Enter your Email to reset your account</p>
                             </div>
 
-                            {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
-                            
+                            {{ form_start(requestForm,{attr:{novalidate:'novalidate'}}) }}
+
 
                             <div class="col-12">
-                                <label for="yourEmail" class="form-label">Your Email</label>
-                                {{form_widget(form.email,{attr:{'class':'form-control'}})}}
-                                <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                {{form_label(requestForm.email,"Your Email",{attr:{'class':'form-label'}})}}
+
+                                {{form_widget(requestForm.email,{attr:{'class':'form-control mb-3'}})}}
+                                {{form_errors(requestForm.email)}}
                             </div>
 
-
-                            
-                           
-                            
                             <div class="col-12">
-                                <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                                <button class="btn btn-primary w-100" type="submit">Reset password</button>
                             </div>
                             <div class="col-12">
-                                <p class="small mb-0">Already have an account? <a href="{{path('app_login')}}">Log
+                                <p class="small mb-0">return to log in page? <a href="{{path('app_login')}}">Log
                                         in</a>
                                 </p>
                             </div>
-                            {{form_end(form)}}
+                            {{form_end(requestForm)}}
 
                         </div>
                     </div>
