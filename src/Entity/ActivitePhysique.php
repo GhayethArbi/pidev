@@ -14,56 +14,48 @@ class ActivitePhysique
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[Assert\NotBlank(message: "Le nom de l'activité ne doit pas etre vide")]
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     #[Assert\Regex(
         pattern: "/^[a-zA-Z]+$/",
-        message: "le nom de l'activité physique ne doit contenir que des lettres."
     )]
-    #[ORM\Column(length: 255)]
-   
     private ?string $Nom_Activite = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Type_Activite = null;
-    #[Assert\Regex(
-        pattern: "/^\d+$/",
-        message: "La duree doit contenir uniquement des chiffres."
-    )]
-    #[Assert\GreaterThan(value: 6, message: "Le nombre de durée doit être supérieur à 6 minutes.")]
-    #[ORM\Column(nullable: true)]
 
+    #[ORM\Column(nullable: true)]
+    #[Assert\Regex(
+        pattern: "/^\d+$/"
+    )]
+    #[Assert\GreaterThan(value: 6, message : 'The number must be')]
     private ?int $Duree_Activite = null;
 
     #[ORM\Column(nullable: true)]
-    
     private ?int $Calories_Brules = null;
-
+    
     #[ORM\Column(nullable: true)]
     #[Assert\Regex(
         pattern: "/^\d*$/",
-        message: "Le nombre de series doit contenir uniquement des chiffres."
     )]
-    #[Assert\GreaterThan(value: 0, message: "Le nombre de série doit être supérieur à zéro.")]
-    #[Assert\LessThan(value: 20, message: "Le nombre de series doit inférieur à 20.")]
+    #[Assert\GreaterThan(value: 0)]
+    #[Assert\LessThan(value: 20)]
     private ?int $Nb_Series = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Regex(
         pattern: "/^\d+$/",
-        message: "le nombre de répétition de series doit contenir uniquement des chiffres."
     )]
-    #[Assert\GreaterThan(value: 1, message: "Le nombre de répétition série doit être supérieur à 1.")]
-    #[Assert\LessThan(value: 6, message: "Le nombre de répéttion series doit inférieur à 6.")]
+    #[Assert\GreaterThan(value: 1)]
+    #[Assert\LessThan(value: 6)]
     private ?int $Nb_Rep_Series = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Regex(
         pattern: "/^\d+$/",
-        message: "la valeur du poids doit contenir uniquement des chiffres/KGs."
     )]
-    #[Assert\GreaterThan(value: 0, message: "la valeur du poids doit être supérieur à 0/KGs.")]
-    #[Assert\LessThan(value: 200, message: "la valeur du poids doit inférieur à 200KGs.")]
+    #[Assert\GreaterThan(value: 0)]
+    #[Assert\LessThan(value: 200)]
     private ?int $Poids_Par_Serie = null;
 
    // #[Assert\NotBlank(message:'Tu dois choisir une image')]

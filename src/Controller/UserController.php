@@ -10,9 +10,11 @@ use App\Repository\ActivitePhysiqueRepository;
 use App\Repository\ObjectifRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -98,12 +100,22 @@ class UserController extends AbstractController
         $actualobjectif = $objectifRepository->find($idObj);
         $newactivite = new ActivitePhysique();
         $form = $this->createForm(ActivitePhysiqueType::class, $newactivite);
+        $form->add('Nom_Activite') 
+        ->add('Type_Activite', ChoiceType::class, [
+            'choices' => [
+                'Cardiovasculaire' => 'cardiovasculaire',
+                'Musculation' => 'musculation',
+            ]])
+            ->add('Image_Activite', FileType::class, [
+                'mapped' => false,
+                'label' => 'Image activité',
+                'required' => False,
+            ]) ;
         $form->handleRequest($request);
         $newactivite->setNomActivite($actualactivite->getNomActivite());
         $newactivite->setTypeActivite($actualactivite->getTypeActivite());
         $newactivite->setImageActivite($actualactivite->getImageActivite());
         $newactivite->addObjectif($actualobjectif);
-        //dd($newactivite);
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form['Image_Activite']->getData();
 
@@ -115,10 +127,8 @@ class UserController extends AbstractController
                     $uploadsDirectory,
                     $filename
                 );
-        
                 // Assurez-vous que le nom du fichier est correctement défini dans l'entité
-                $newactivite->setImageActivite($filename);}
-
+               $newactivite->setImageActivite($filename);}
                $entityManagerInterface->persist($newactivite);
                $entityManagerInterface->flush();
                return $this->redirectToRoute('app_user_select_activites', ['idObj' => $idObj, 'data' => $data]);

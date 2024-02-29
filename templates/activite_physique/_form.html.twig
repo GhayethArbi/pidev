@@ -12,26 +12,39 @@
             <div class="card-body">
                 {{ form_start(form,{'attr':{'enctype': 'multipart/form-data', 'novalidate':'novalidate'}}) }}
                 <div class="form-group">   
-                    {{ form_row(form.Nom_Activite, {'attr': {'class': 'form-control nom-activite-field', 'placeholder': 'Nom de l\'activité'}}) }}
-                </div>
-                  {{ form_errors(form.Nom_Activite,{'attr':{'class':''}}) }}
-                <div class="form-group">
-                    {{ form_row(form.Type_Activite, {'attr': {'class': 'form-control type-activite-field', 'placeholder': 'Type d\'activité'}}) }}
+                    {{ form_label(form.Nom_Activite) }}
+                    {{ form_widget(form.Nom_Activite, {'attr': {'class': 'form-control nom-activite-field', 'placeholder': 'Nom de l\'activité'}}) }}
+                    <a style="color:red"> {{ form_errors(form.Nom_Activite) }}</a>
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.Calories_Brules, {'attr': {'class': 'form-control calories-field', 'placeholder': 'Calories brûlées', 'data-type': 'musculation cardiovasculaire'}}) }}
+                   {{ form_label(form.Type_Activite) }}
+                    {{ form_widget(form.Type_Activite, {'attr': {'class': 'form-control type-activite-field'}}) }}
+                    {{ form_errors(form.Type_Activite, {'attr': {'style' : "color:red"}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.Duree_Activite, {'attr': {'class': 'form-control duree-field', 'placeholder': 'Durée de l\'activité', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_label(form.Calories_Brules) }}
+                    {{ form_widget(form.Calories_Brules, {'attr': {'class': 'form-control calories-field', 'placeholder': 'Calories brûlées', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_errors(form.Calories_Brules, {'attr': {'style' : "color:red"}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.Nb_Series, {'attr': {'class': 'form-control nb-series-field', 'placeholder': 'Nombre de séries', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_label(form.Duree_Activite) }}
+                    {{ form_widget(form.Duree_Activite, {'attr': {'class': 'form-control duree-field', 'placeholder': 'Durée de l\'activité', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_errors(form.Duree_Activite, {'attr': {'style' : "color:red"}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.Nb_Rep_Series, {'attr': {'class': 'form-control nb-rep-series-field', 'placeholder': 'Nombre de répétitions par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_label(form.Nb_Series) }}
+                    {{ form_widget(form.Nb_Series, {'attr': {'class': 'form-control nb-series-field', 'placeholder': 'Nombre de séries', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_errors(form.Nb_Series, {'attr': {'style' : "color:red"}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.Poids_Par_Serie, {'attr': {'class': 'form-control poids-par-serie-field', 'placeholder': 'Poids par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_label(form.Nb_Rep_Series) }}
+                    {{ form_widget(form.Nb_Rep_Series, {'attr': {'class': 'form-control nb-rep-series-field', 'placeholder': 'Nombre de répétitions par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_errors(form.Nb_Rep_Series, {'attr': {'style' : "color:red"}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.Poids_Par_Serie) }}
+                    {{ form_widget(form.Poids_Par_Serie, {'attr': {'class': 'form-control poids-par-serie-field', 'placeholder': 'Poids par série', 'data-type': 'musculation cardiovasculaire'}}) }}
+                    {{ form_errors(form.Poids_Par_Serie, {'attr': {'style' : "color:red"}}) }}
                 </div>
                 <div class="form-group">
                     {{ form_label(form.objectifs) }}
@@ -48,7 +61,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.Image_Activite, {'attr': {'class': 'form-control image-activite'}}) }}
+                    {{ form_label(form.Image_Activite) }}
+                    {{ form_widget(form.Image_Activite, {'attr': {'class': 'form-control image-activite'}}) }}
+                    {{ form_errors(form.Image_Activite, {'attr': {'style' : "color:red"}}) }}
                 </div>
                 <br>
                 <div class="button-group" style="text-align: center;">

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\ActivitePhysique;
 use App\Entity\Objectif;
 use App\Form\ObjectifType;
 use App\Repository\ObjectifRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +42,25 @@ class ObjectifController extends AbstractController
     {
         $objectif = new Objectif();
         $form = $this->createForm(ObjectifType::class, $objectif);
+        $form->add('Nom_Objectif', ChoiceType::class, [
+            'choices' => [
+                'Perte de poids' => 'perte de poids',
+                'Renforcement musculaire' => 'renforcement musculaire',
+                'Amélioration endurance'=>'amelioration endurance',
+                'Réduction du stress'=>'reduction du stress',
+                'Augmentation de la masse musculaire'=>'augmentation de la masse musculaire',
+                "Maintien de la forme physique"=>"maintien de la forme physique",
+            ]])->add('Total_Calories')
+        ->add('Total_Duree')
+        ->add('Note')
+        ->add('Activites', EntityType::class, [
+            'class' => ActivitePhysique::class,
+            'choice_label' => function ($activite) {
+                return $activite->getId() . ' - ' . $activite->getNomActivite(); // Modify this according to your Objectif entity properties
+            }, // Assuming "nom" is the property to display for objectives/ Assuming "nom" is the property to display for objectives
+            'multiple' => true,
+            'expanded' => true, // Render checkboxes instead of a select input
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,8 +88,26 @@ class ObjectifController extends AbstractController
     public function edit(Request $request, Objectif $objectif, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ObjectifType::class, $objectif);
+        $form->add('Nom_Objectif', ChoiceType::class, [
+            'choices' => [
+                'Perte de poids' => 'perte de poids',
+                'Renforcement musculaire' => 'renforcement musculaire',
+                'Amélioration endurance'=>'amelioration endurance',
+                'Réduction du stress'=>'reduction du stress',
+                'Augmentation de la masse musculaire'=>'augmentation de la masse musculaire',
+                "Maintien de la forme physique"=>"maintien de la forme physique",
+            ]])->add('Total_Calories')
+        ->add('Total_Duree')
+        ->add('Note')
+        ->add('Activites', EntityType::class, [
+            'class' => ActivitePhysique::class,
+            'choice_label' => function ($activite) {
+                return $activite->getId() . ' - ' . $activite->getNomActivite(); // Modify this according to your Objectif entity properties
+            }, // Assuming "nom" is the property to display for objectives/ Assuming "nom" is the property to display for objectives
+            'multiple' => true,
+            'expanded' => true, // Render checkboxes instead of a select input
+        ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 

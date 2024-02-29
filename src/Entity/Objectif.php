@@ -19,8 +19,9 @@ class Objectif
     #[ORM\Column(length: 255)]
     private ?string $Nom_Objectif = null;
 
-    #[Assert\GreaterThanOrEqual('now', message: "La date de l'objectif doit être aujourd'hui ou ultérieure.")]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\GreaterThanOrEqual('now', message: "La date de l'objectif doit être aujourd'hui ou ultérieure.")]
+
     private ?\DateTimeInterface $Date_Objectif = null;
     #[Assert\PositiveOrZero(message: "La calories brules totale doit être supérieure ou égale à zéro.")]
     #[ORM\Column(nullable: true)]

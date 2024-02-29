@@ -3,13 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\ActivitePhysique;
+use App\Entity\Objectif;
 use App\Form\ActivitePhysiqueType;
 use App\Repository\ActivitePhysiqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 #[Route('/activite/physique')]
 class ActivitePhysiqueController extends AbstractController
@@ -31,6 +36,26 @@ class ActivitePhysiqueController extends AbstractController
     {
         $activitePhysique = new ActivitePhysique();
         $form = $this->createForm(ActivitePhysiqueType::class, $activitePhysique);
+        $form
+        ->add('Nom_Activite') 
+        ->add('Type_Activite', ChoiceType::class, [
+            'choices' => [
+                'Cardiovasculaire' => 'cardiovasculaire',
+                'Musculation' => 'musculation',
+            ]])
+            ->add('Image_Activite', FileType::class, [
+                'mapped' => false,
+                'label' => 'Image activité',
+                'required' => False,
+            ])
+            ->add('objectifs', EntityType::class, [
+                'class' => Objectif::class,
+                'choice_label' => function ($objectif) {
+                    return $objectif->getId() . ' - ' . $objectif->getNomObjectif(); // Modify this according to your Objectif entity properties
+                }, // Assuming "nom" is the property to display for objectives
+                'multiple' => true,
+                'expanded' => true, // Render checkboxes instead of a select input
+            ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,6 +105,25 @@ if (!$activitePhysique) {
 
 // Créer le formulaire
 $form = $this->createForm(ActivitePhysiqueType::class, $activitePhysique);
+$form->add('Nom_Activite') 
+->add('Type_Activite', ChoiceType::class, [
+    'choices' => [
+        'Cardiovasculaire' => 'cardiovasculaire',
+        'Musculation' => 'musculation',
+    ]])
+    ->add('Image_Activite', FileType::class, [
+        'mapped' => false,
+        'label' => 'Image activité',
+        'required' => False,
+    ])
+    ->add('objectifs', EntityType::class, [
+        'class' => Objectif::class,
+        'choice_label' => function ($objectif) {
+            return $objectif->getId() . ' - ' . $objectif->getNomObjectif(); // Modify this according to your Objectif entity properties
+        }, // Assuming "nom" is the property to display for objectives
+        'multiple' => true,
+        'expanded' => true, // Render checkboxes instead of a select input
+    ]);
 $form->handleRequest($request);
 
 // Traiter le formulaire soumis

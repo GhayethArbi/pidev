@@ -2,49 +2,158 @@
 {% block titleU %}
 	formulaire_Activite
 {% endblock %}
+
 {% block Userbody %}
-	<section class="s-contacts" style="background-image: url('{{ asset('assets_user/img/bg-contacts.svg') }}');">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7 col-lg-8">
-					{{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}}) }}
-					<ul class="form-cover">
-						<li class="inp-name">
-							{{ form_row(form.Nom_Activite, {'label': false, 'attr': { 'style': 'display: none' , 'value' : activite.getNomActivite() }}) }}
-						</li>
-						<li class="inp-email">
-							{{ form_row(form.Type_Activite, {'attr': {'disabled': 'disabled'}}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.Calories_Brules, {'attr': { 'placeholder': 'calories brules'}}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.Duree_Activite, {'attr': { 'placeholder': 'durée activité'}}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.Nb_Series, {'attr': { 'placeholder': 'nombre de serie'}}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.Nb_Rep_Series, {'attr': { 'placeholder': 'nombre de répetition serie'}}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.Poids_Par_Serie, {'attr': { 'placeholder': 'poids par série'}}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.Image_Activite, {'attr': {   'value' : activite.getImageActivite() },'label': false}) }}
-						</li>
-						<li class="inp-text">
-							{{ form_row(form.objectifs, {'attr': {'style': 'display: none;' },'label':false}) }}
-						</li>
-					</ul>
-					<div class="btn-form-cover">
-						<button type="submit" class="btn">Save</button>
-						<!--a href="{#{ path('app_user_select_activite')}#}" class="btn">return to list Activities</a-->
+<style>
+
+
+
+    .option {
+        gap: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+    
+    .option div {
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+	 .hide-div {
+        display: none;
+    }
+
+    #edit
+    {
+        color: #f23849;
+    }
+
+
+</style>
+<main id="main" class="main mr-4">
+<div class="container">
+<section class="section profile">
+	<div class="row">
+
+
+		<div class="col-xl-8" id="user5">
+
+			<div class="card center">
+				<div class="card-body pt-3">
+					<div class="tab-content pt-2">
+						<!-- End Page Title -->
+						<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+							<!-- Profile Edit Form -->
+						{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+							<div class="row mb-3 hide-div">
+								{{ form_label(form.Nom_Activite, 'Nom_Activite', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Nom_Activite,{'attr':{'class': 'form-control gender' ,'value': activite.getNomActivite()}}) }}
+									<a style="color:red">{{ form_errors(form.Nom_Activite) }}
+									</a>
+								</div>
+							</div>
+							<div class="row mb-3 hide-div">
+								{{ form_label(form.Type_Activite, 'Type_Activite', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Type_Activite,{'attr':{'class': 'form-control gender' , 'value': activite.getTypeActivite()}}) }}
+									<a style="color:red">{{ form_errors(form.Type_Activite) }}
+									</a>
+								</div>
+							</div>
+							<div class="row mb-3">
+								{{ form_label(form.Calories_Brules, 'Calories Brules', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Calories_Brules,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Calories_Brules) }}
+									</a>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								{{ form_label(form.Duree_Activite, 'duree Number', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Duree_Activite,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Duree_Activite) }}
+									</a>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								{{ form_label(form.Nb_Series, 'Nombre de Série', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Nb_Series,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Nb_Series) }}
+									</a>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								{{ form_label(form.Nb_Rep_Series, 'Nombre de répétition  de série', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Nb_Rep_Series,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Nb_Rep_Series) }}
+									</a>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								{{ form_label(form.Poids_Par_Serie, 'Poids par série', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Poids_Par_Serie,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Poids_Par_Serie) }}
+									</a>
+								</div>
+							</div>
+							<div class="row mb-3 hide-div">
+								{{ form_label(form.Image_Activite, 'Image_Activite', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Image_Activite,{'attr':{'class': 'form-control gender' , 'value': activite.getImageActivite()}}) }}
+									<a style="color:red">{{ form_errors(form.Image_Activite) }}
+									</a>
+								</div>
+							</div>
+							<div class="btn-form-cover">
+								<button type="submit" class="btn">Save</button>
+								<!--a href="{#{ path('app_user_select_activite')}#}" class="btn">return to list Activities</a-->
+							</div>
+							{{ form_end(form) }}
+							<!-- End Profile Edit Form -->
+
+						</div>
 					</div>
-					{{ form_end(form) }}
-					<div id="message"></div>
+					<!-- End Bordered Tabs -->
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
+</div>
+</main>
+
 {% endblock %}
