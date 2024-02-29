@@ -105,21 +105,20 @@ class UserController extends AbstractController
         $newactivite->addObjectif($actualobjectif);
         //dd($newactivite);
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('Image_Activite')->getData();
+            $uploadedFile = $form['Image_Activite']->getData();
 
-    if ($file) {
-        // Generate a unique filename
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            if ($uploadedFile) {
+                // Logique de gestion du fichier ici
+                $uploadsDirectory = $this->getParameter('uploads_directory');
+                $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $uploadsDirectory,
+                    $filename
+                );
+        
+                // Assurez-vous que le nom du fichier est correctement défini dans l'entité
+                $newactivite->setImageActivite($filename);}
 
-        // Move the file to the desired directory
-        $file->move(
-            $this->getParameter('uploads_directory'), // Use the parameter you configured for file uploads
-            $fileName
-        );
-
-        // Set the filename in the entity
-        $newactivite->setImageActivite($fileName);
-    }
                $entityManagerInterface->persist($newactivite);
                $entityManagerInterface->flush();
                return $this->redirectToRoute('app_user_select_activites', ['idObj' => $idObj, 'data' => $data]);

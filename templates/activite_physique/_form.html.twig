@@ -10,7 +10,7 @@
                 <h5 class="card-title">Formulaire d'Activité Physique</h5>
             </div>
             <div class="card-body">
-                {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                {{ form_start(form,{'attr':{'enctype': 'multipart/form-data', 'novalidate':'novalidate'}}) }}
                 <div class="form-group">   
                     {{ form_row(form.Nom_Activite, {'attr': {'class': 'form-control nom-activite-field', 'placeholder': 'Nom de l\'activité'}}) }}
                 </div>

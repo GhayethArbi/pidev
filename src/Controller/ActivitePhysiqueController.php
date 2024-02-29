@@ -34,14 +34,19 @@ class ActivitePhysiqueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('Image_Activite')->getData();
-           if ($file) {
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move(
-                $this->getParameter('uploads_directory'),
-                $fileName
-            );
-            $activitePhysique->setImageActivite($fileName);        }
+            $uploadedFile = $form['Image_Activite']->getData();
+
+    if ($uploadedFile) {
+        // Logique de gestion du fichier ici
+        $uploadsDirectory = $this->getParameter('uploads_directory');
+        $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+        $uploadedFile->move(
+            $uploadsDirectory,
+            $filename
+        );
+
+        // Assurez-vous que le nom du fichier est correctement défini dans l'entité
+        $activitePhysique->setImageActivite($filename);}
             $entityManager->persist($activitePhysique);
             $entityManager->flush();
 
@@ -91,10 +96,10 @@ if ($form->isSubmitted() && $form->isValid()) {
           );
 
           // Set the new filename to your entity
-          $activitePhysique->setImageActivite($filename); // Assuming 'illustration' is the property where you store the filename
+          $activitePhysique->setImageActivite($filename); 
       }
       // Persist the product entity regardless of whether a file was uploaded or not
-      $entityManager->flush();
+        $entityManager->flush();
 
             return $this->redirectToRoute('app_activite_physique_index', [], Response::HTTP_SEE_OTHER);
         }

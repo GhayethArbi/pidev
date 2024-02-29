@@ -32,7 +32,7 @@ class ActivitePhysiqueType extends AbstractType
             ->add('Poids_Par_Serie')
             ->add('Image_Activite', FileType::class, [
                 'mapped' => false,
-                'label' => 'Image activite',
+                'label' => 'Image activité',
                 'required' => False,
             ])
             ->add('objectifs', EntityType::class, [

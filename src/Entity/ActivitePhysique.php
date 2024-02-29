@@ -65,8 +65,9 @@ class ActivitePhysique
     #[Assert\GreaterThan(value: 0, message: "la valeur du poids doit être supérieur à 0/KGs.")]
     #[Assert\LessThan(value: 200, message: "la valeur du poids doit inférieur à 200KGs.")]
     private ?int $Poids_Par_Serie = null;
-    #[Assert\NotBlank(message:'Tu dois choisir une image')]
-    #[ORM\Column(length: 255)]
+
+   // #[Assert\NotBlank(message:'Tu dois choisir une image')]
+    #[ORM\Column(length: 255 , nullable :true )]
   
     private ?string $Image_Activite = null;
 
@@ -172,7 +173,7 @@ class ActivitePhysique
         return $this->Image_Activite;
     }
 
-    public function setImageActivite(string $Image_Activite): static
+    public function setImageActivite(string $Image_Activite): self
     {
         $this->Image_Activite = $Image_Activite;
 
