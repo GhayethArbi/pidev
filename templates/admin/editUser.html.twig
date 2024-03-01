@@ -64,18 +64,14 @@
 
                             <li class="nav-item">
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
-                                    Profile</button>
+                                    loyality points</button>
                             </li>
 
                             <!--li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                 </li-->
 
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab"
-                                    data-bs-target="#profile-change-password">Change
-                                    Password</button>
-                            </li>
+                            
 
                         </ul>
                         <div class="tab-content pt-2">
@@ -128,113 +124,17 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                {{ form_start(form) }}
+                               {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-                                <div class="row mb-3">
-                                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
-                                        Image</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <img src="/assets/img/profile-img.jpg" alt="Profile">
-                                        <div class="pt-2">
-                                            <a href="#" class="btn btn-primary btn-sm"
-                                                title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                            <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
-                                                    class="bi bi-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    {{ form_label(form.name, 'First Name', {'label_attr': {'class': 'col-md-4 col-lg-3
-                                    col-form-label'}})}}
 
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red">{{ form_errors(form.name,{'attr':{'class': 'text-danger'}})
-                                            }}</a>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    {{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'col-md-4
-                                    col-lg-3
-                                    col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.lastName,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red">{{ form_errors(form.lastName)}}</a>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    {{ form_label(form.gender, 'Gender', {'label_attr': {'class': 'col-md-4 col-lg-3
-                                    col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.gender,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red">{{ form_errors(form.gender) }}</a>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    {{ form_label(form.birthDay, 'Birth day', {'label_attr': {'class': 'col-md-4
-                                    col-lg-3
-                                    col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.birthDay,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red"> {{ form_errors(form.birthDay) }}</a>
-                                    </div>
-                                </div>
-
-                                <!--div class="row mb-3">
-                    <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
-                    </div>
-                  </div-->
-
-                                <!--div class="row mb-3">
-                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="country" type="text" class="form-control" id="Country" value="USA">
-                    </div>
-                  </div-->
-
-                                <div class="row mb-3">
-                                    {{ form_label(form.address, 'Address', {'label_attr': {'class': 'col-md-4 col-lg-3
-                                    col-form-label'}})
-                                    }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.address,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red">{{ form_errors(form.address) }}</a>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    {{ form_label(form.phoneNumber, 'Phone Number', {'label_attr': {'class': 'col-md-4
-                                    col-lg-3
-                                    col-form-label'}}) }}
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.phoneNumber,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red">{{ form_errors(form.phoneNumber) }} </a>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'col-md-4 col-lg-3
-                                    col-form-label'}}) }}
-
-                                    <div class="col-md-8 col-lg-9">
-                                        {{ form_widget(form.email,{'attr':{'class': 'form-control'}}) }}
-                                        <a style="color:red">{{ form_errors(form.email, {'errors_attr': {'class':
-                                            'text-danger'}}) }}</a>
-
-                                    </div>
-                                </div>
                                 <div class="row mb-3">
                                     {{ form_label(form.loyalityPoints, 'Loyality points', {'label_attr': {'class': 'col-md-4 col-lg-3
                                     col-form-label'}}) }}
 
                                     <div class="col-md-8 col-lg-9">
                                         {{ form_widget(form.loyalityPoints,{'attr':{'class': 'form-control'}}) }}
+                                        
                                         <a style="color:red">{{ form_errors(form.loyalityPoints, {'errors_attr': {'class':
                                             'text-danger'}}) }}</a>
 
@@ -246,61 +146,22 @@
                                 </div>
 
                                 {{ form_end(form) }}<!-- End Profile Edit Form -->
-
                             </div>
-
-                            <!--div class="tab-pane fade pt-3" id="profile-settings"-->
-
-                            <!-- Settings Form -->
-                            <!--form>
-  
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-  
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form--><!-- End settings Form -->
-
-                            <!--/div-->
-
-
-
                         </div><!-- End Bordered Tabs -->
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
 </main><!-- End #main -->
+<script>
+    // ... line 88
+                    $('.custom-file-input').on('change', function(event) {
+                        var inputFile = event.currentTarget;
+                        $(inputFile).parent()
+                            .find('.custom-file-label')
+                            .html(inputFile.files[0].name);
+                    });
+                </script>
 {%endblock%}

@@ -1,7 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
+<style>
+  .button {
+    border-radius: 3px;
+    background-color: rgb(120, 162, 245);
+    color: white;
+    
+  }
 
+  .button:hover {
+    background-color: white;
+    /* Green */
+    color: black;
+    border: 2px solid rgb(120, 162, 245);
+  }
+
+  .button2 {
+    border-radius: 3px;
+    background-color: rgb(46, 183, 153);
+    color: white;
+    
+  }
+
+  .button2:hover {
+    background-color: white;
+    /* Green */
+    color: black;
+    border: 2px solid rgb(46, 183, 153);
+  }
+
+  .button3 {
+    border-radius: 3px;
+    background-color: #f44336;
+    color: white;
+  }
+
+  .button3:hover {
+    background-color: white;
+    /* Green */
+    color: black;
+    border: 2px solid #f44336;
+  }
+</style>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -10,21 +51,21 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
         <li class="breadcrumb-item">Users</li>
-     
+
       </ol>
     </nav>
   </div><!-- End Page Title -->
   {% for message in app.flashes('notice') %}
-    {%if message=="Your changes were not saved. Please check your current password and try again."%}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
-    {% else%}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-    {%endif%}
-    {% endfor %}
+  {%if message=="Your changes were not saved. Please check your current password and try again."%}
+  <div class="alert alert-danger">
+    {{ message }}
+  </div>
+  {% else%}
+  <div class="alert alert-success">
+    {{ message }}
+  </div>
+  {%endif%}
+  {% endfor %}
   <section class="section">
     <div class="row">
 
@@ -54,16 +95,26 @@
                 <th scope="row">{{user.id}}</th>
                 <td>{{user.name}} {{user.lastName}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.address}}</td>
+                <td>{{user.loyalityPoints}}</td>
                 <td>{{user.birthDay|date}}</td>
                 <td>{{user.phoneNumber}}</td>
                 <td>
+
                   <a href="{{path('app_user_edit', {'id': user.id})}}">
-                    <button class="btn btn-success mr-2">Edit</button>
-                </a>
-                <a href="{{path('app_user_delete', {'id': user.id})}}">
-                  <button class="btn btn-danger">Delete</button>
-              </a>
+                    <button class="btn button">View</button>
+                  </a>
+                  {% if user.isBanned %}
+                  <a href="{{path('app_user_isBanned', {'id': user.id})}}">
+                    <button class="btn button2">Allow</button>
+                  </a>
+                  {% else %}
+                  <a href="{{path('app_user_isBanned', {'id': user.id})}}">
+                    <button class="btn button2">Ban</button>
+                  </a>
+                  {% endif %}
+                  <a href="{{path('app_user_delete', {'id': user.id})}}">
+                    <button class="btn button3">Delete</button>
+                  </a>
                 </td>
 
 
@@ -75,7 +126,7 @@
                 <td colspan="6" align="center">No users found</td>
               </tr>
               {%endif%}
-              
+
             </tbody>
           </table>
           <!-- End Default Table Example -->

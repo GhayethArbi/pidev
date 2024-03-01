@@ -2,12 +2,15 @@
 
 namespace App\Security;
 
-use App\Repository\UserRepository;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
@@ -16,17 +19,20 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
-
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     
     use TargetPathTrait;
+    private $entityManager;
 
+    private $passwordEncoder;
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, private UrlGeneratorInterface $urlGenerator)
     {
-        
+        $this->entityManager = $entityManager;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function authenticate(Request $request): Passport
@@ -34,7 +40,20 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         
         
        
-        $email = $request->request->get('email', '');
+        $email = $request->request->get('email','');
+        $password = $request->request->get('password','');
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        $request->getSession()->set(Security::LAST_USERNAME, $email);
+        if (!$user) {
+            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+        }
+        $password=$this->passwordEncoder->isPasswordValid($user, $password);
+
+        if ($user->getIsBanned() && $password) {
+            throw new CustomUserMessageAuthenticationException('Your account has been banned.');
+        }
        
         $request->getSession()->set(Security::LAST_USERNAME, $email);
         
@@ -53,13 +72,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            
             return new RedirectResponse($targetPath);
         }
         
         $user = $token->getUser();
-        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
-            
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {      
             return new RedirectResponse($this->urlGenerator->generate('app_dashbord'));
         }
 

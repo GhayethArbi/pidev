@@ -8,7 +8,18 @@
 {% block sidebar %}
 {% endblock %}
 {% block body %}
-
+<style>
+    .form-control.is-invalid,
+    .was-validated .form-control:invalid {
+      border-color: #dc3545;
+      padding-right: calc(1.5em + 0.75rem) !important;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right calc(0.375em + 0.1875rem) center;
+      background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+  </style>
+  
 <div class="container">
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
@@ -26,13 +37,18 @@
                                 <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                 <p class="text-center small">Enter your personal details to create account</p>
                             </div>
+
                             {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
                             <div class="row">
                                 <div class="col-md-6 mb-6">
                                     <div class="form-group">
                                         <label for="yourName">First Name</label>
                                         {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
-                                        
+                                        {% if form_errors(form.name) %}
+                                        {{ form_widget(form.name, {'attr': {'class': 'form-control is-invalid'}}) }}
+                                        {% else %}
+                                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                        {% endif %}
                                         <a style="color:red">{{ form_errors(form.name) }}</a>
                                         <div class="invalid-feedback">Please enter your first name!</div>
                                     </div>
@@ -40,7 +56,11 @@
                                 <div class="col-md-6 mb-6">
                                     <div class="form-group">
                                         <label for="yourLastName">Last Name</label>
-                                        {{ form_widget(form.lastName, { 'attr': {'class': 'form-control'} }) }}
+                                        {% if form_errors(form.lastName) %}
+                                        {{ form_widget(form.lastName,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                        {% else %}
+                                        {{ form_widget(form.lastName,{'attr':{'class': 'form-control'}}) }}
+                                        {% endif %}
                                         <a style="color:red">{{ form_errors(form.lastName) }}</a>
                                         <div class="invalid-feedback">Please enter your last name!</div>
                                     </div>
@@ -50,7 +70,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="mb-6" for="yourGender">Gender</label>
-                                        {{ form_widget(form.gender, { 'attr': {'class': 'form-control'} }) }}
+                                        {% if form_errors(form.gender) %}
+                                        {{ form_widget(form.gender,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                        {% else %}
+                                        {{ form_widget(form.gender,{'attr':{'class': 'form-control'}}) }}
+                                        {% endif %}
                                         <a style="color:red">{{ form_errors(form.gender) }}</a>
                                         <div class="invalid-feedback">Please select your gender!</div>
                                     </div>
@@ -59,7 +83,12 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="mb-6" for="yourBirthday">Birthday</label>
-                                            {{ form_widget(form.birthDay, { 'attr': {'class': 'form-control'} }) }}
+                                            {% if form_errors(form.birthDay) %}
+                                            {{ form_widget(form.birthDay,{'attr':{'class': 'form-control is-invalid'}})
+                                            }}
+                                            {% else %}
+                                            {{ form_widget(form.birthDay,{'attr':{'class': 'form-control'}}) }}
+                                            {% endif %}
                                             <a style="color:red">{{ form_errors(form.birthDay) }}</a>
                                             <div class="invalid-feedback">Please enter your birthday!</div>
                                         </div>
@@ -70,7 +99,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="yourAddress">Address</label>
-                                        {{ form_widget(form.address, { 'attr': {'class': 'form-control'} }) }}
+                                        {% if form_errors(form.address) %}
+                                        {{ form_widget(form.address,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                        {% else %}
+                                        {{ form_widget(form.address,{'attr':{'class': 'form-control'}}) }}
+                                        {% endif %}
                                         <a style="color:red">{{ form_errors(form.address) }}</a>
                                         <div class="invalid-feedback">Please enter your address!</div>
 
@@ -79,7 +112,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="yourPhoneNumber">Phone Number</label>
-                                        {{ form_widget(form.phoneNumber, { 'attr': {'class': 'form-control'} }) }}
+                                        {% if form_errors(form.phoneNumber) %}
+                                        {{ form_widget(form.phoneNumber,{'attr':{'class': 'form-control is-invalid'}})
+                                        }}
+                                        {% else %}
+                                        {{ form_widget(form.phoneNumber,{'attr':{'class': 'form-control'}}) }}
+                                        {% endif %}
                                         <a style="color:red">{{ form_errors(form.phoneNumber) }}</a>
                                         <div class="invalid-feedback">Please enter your phone number!</div>
                                     </div>
@@ -89,7 +127,11 @@
                             <!-- Add more rows as needed -->
                             <div class="form-group">
                                 <label for="yourEmail">Your Email</label>
-                                {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                                {% if form_errors(form.email) %}
+                                {{ form_widget(form.email,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                {% else %}
+                                {{ form_widget(form.email,{'attr':{'class': 'form-control'}}) }}
+                                {% endif %}
                                 <a style="color:red">{{ form_errors(form.email) }}</a>
                                 <div class="invalid-feedback">Please enter a valid Email address!</div>
                             </div>
@@ -97,7 +139,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="yourPassword">Password</label>
-                                        {{ form_widget(form.password.first, { 'attr': {'class': 'form-control'} }) }}
+                                        {% if form_errors(form.password.first) %}
+                                        {{form_widget(form.password.first, {'attr': {'class': 'form-control
+                                        is-invalid'}})}}
+                                        {% else%}
+                                        {{form_widget(form.password.first, {'attr': {'class': 'form-control'}})}}
+                                        {% endif %}
                                         <a style="color:red">{{ form_errors(form.password) }}</a>
                                         <div class="invalid-feedback">Please enter your password!</div>
                                     </div>
@@ -105,7 +152,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="confirmPassword">Confirm Password</label>
-                                        {{ form_widget(form.password.second, { 'attr': {'class': 'form-control'} }) }}
+                                        {% if form_errors(form.password.second) %}
+                                        {{form_widget(form.password.second, {'attr': {'class': 'form-control
+                                        is-invalid'}})}}
+                                        {% else %}
+                                        {{form_widget(form.password.second, {'attr': {'class':
+                                        'form-control'}})}}
+                                        {% endif %}
 
                                         <div class="invalid-feedback">Please confirm your password!</div>
                                     </div>

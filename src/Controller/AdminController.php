@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ChangePasswordType;
+use App\Form\LoyalityPointsType;
 use App\Form\ProfileFormType;
-use App\Form\User1Type;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
+
 {
+    private $userRepository;
+    public function __construct(UserRepository $userRepository ) {
+        $this->userRepository = $userRepository;
+    }
+
     #[Route('/users', name: 'app_users')]
     public function usersList(): Response
     {
@@ -46,12 +52,15 @@ class AdminController extends AbstractController
         
         return $this->render('Client/index.html.twig');
     }*/
+
+    
     #[Route('/adminProfile', name: 'app_profile_admin')]
     public function editAdminProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //*********change details************
-       
-        $user = $this->getUser();
+
+        $userEmail = $this->getUser()->getUserIdentifier();
+        $user=$this->userRepository->findOneBy(['email'=>$userEmail]);
         $form = $this->createForm(ProfileFormType::class, $user);
         //can make submit button here ...
         //dd($form);
@@ -61,6 +70,19 @@ class AdminController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile = $form['profileImage']->getData();
+
+    if ($uploadedFile) {
+        // Logique de gestion du fichier ici
+        $uploadsDirectory = $this->getParameter('uploads_directory');
+        $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+        $uploadedFile->move(
+            $uploadsDirectory,
+            $filename
+        );
+
+        // Assurez-vous que le nom du fichier est correctement défini dans l'entité
+        $user->setProfileImage($filename);}
             $em->persist($user);
             $em->flush();
             $this->addFlash(
@@ -118,7 +140,7 @@ class AdminController extends AbstractController
     public function edit(UserRepository $repo, Request $request, $id, EntityManagerInterface $entityManager): Response
     {
         $user = $repo->find($id);
-        $form = $this->createForm(User1Type::class, $user);
+        $form = $this->createForm(LoyalityPointsType::class, $user);
         $form->add('submit', SubmitType::class, [
             'label' => 'Save Changes',
             'attr' => ['class' => 'btn btn-primary']
@@ -128,7 +150,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('notice', "User has changed with success!");
+            $this->addFlash('notice', "Loyality points has changed with success!");
             return $this->redirectToRoute('app_users');
         }
 
@@ -137,13 +159,34 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    //*********delete************/
     #[Route('/delete/{id}', name: 'app_user_delete')]
     public function delete(UserRepository $repo, $id, EntityManagerInterface $entityManager): Response
     {
         $user = $repo->find($id);
         $entityManager->remove($user);
         $entityManager->flush();
-        $this->addFlash('notice',"User is deleted!");
+        $this->addFlash('notice', "User is deleted!");
+        return $this->redirectToRoute('app_users');
+    }
+
+    #[Route('/banning/{id}', name: 'app_user_isBanned')]
+    public function banne(UserRepository $repo, $id, EntityManagerInterface $entityManager): Response
+    {
+        $user = $repo->find($id);
+        if ($user->getIsBanned() == true) {
+            $user->setIsBanned(false);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('notice', "User is allowed!");
+        } else {
+            $user->setIsBanned(true);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('notice', "User is banned!");
+        }
+
+
         return $this->redirectToRoute('app_users');
     }
 }

@@ -31,7 +31,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     private ?string $name = null;//3
 
     #[ORM\Column(length: 255)]
-   
     #[Assert\NotBlank(message:"Your last name cannot be empty.")]
     #[Assert\Length(min:4, minMessage:"Your last name must contain at least {{ limit }} characters.")]
     private ?string $lastName = null;//4
@@ -42,7 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     private ?string $gender = null;//5
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
-    
     #[Assert\NotBlank(message:"Your birthday cannot be empty.")]
     #[Assert\Range(min:"-80 years", max:"-15 years", minMessage: "You must be at least {{ limit }} years old to register", maxMessage: "You must be at least 15 years old to register")]
     private ?\DateTimeInterface $birthDay = null;//6
@@ -53,18 +51,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     private ?int $phoneNumber = null;//7
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"Votre mot de passe ne contient pas {{ limit }} caractères.")]
-    #[Assert\Length(min:4, minMessage:"Votre mot de passe ne contient pas {{ limit }} caractères.")]
+    #[Assert\NotBlank(message:"Your address cannot be empty.")]
+    #[Assert\Length(min:4, minMessage:"Your address must contain at least {{ limit }} characters.")]
     private ?string $address = null;//8
+
+
+
+
 
     #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column]
     private ?int $loyalityPoints = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $medicalRecord = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $authCode = null;
@@ -81,7 +80,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     private ?string $password = null;
 
     #[ORM\Column]
-    private ?bool $isEnable = null;//9
+    private ?bool $isBanned = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profileImage = null;//9
 
     public function getId(): ?int
     {
@@ -93,7 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -145,7 +147,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return (string)$this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(?string $password): static
     {
         $this->password = $password;
 
@@ -177,7 +179,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -201,7 +203,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): static
+    public function setLastName(?string $lastName): static
     {
         $this->lastName = $lastName;
 
@@ -213,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->gender;
     }
 
-    public function setGender(string $gender): static
+    public function setGender(?string $gender): static
     {
         $this->gender = $gender;
 
@@ -237,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(int $phoneNumber): static
+    public function setPhoneNumber(?int $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -249,21 +251,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->loyalityPoints;
     }
 
-    public function setLoyalityPoints(int $loyalityPoints): static
+    public function setLoyalityPoints(?int $loyalityPoints): static
     {
         $this->loyalityPoints = $loyalityPoints;
-
-        return $this;
-    }
-
-    public function getMedicalRecord(): ?string
-    {
-        return $this->medicalRecord;
-    }
-
-    public function setMedicalRecord(?string $medicalRecord): static
-    {
-        $this->medicalRecord = $medicalRecord;
 
         return $this;
     }
@@ -273,7 +263,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this->address;
     }
 
-    public function setAddress(string $address): static
+    public function setAddress(?string $address): static
     {
         $this->address = $address;
 
@@ -307,14 +297,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         $this->authCode=$authCode;
     }
 
-    public function isIsEnable(): ?bool
+    public function getIsBanned(): ?bool
     {
-        return $this->isEnable;
+        return $this->isBanned;
     }
 
-    public function setIsEnable(bool $isEnable): static
+    public function setIsBanned(?bool $isBanned): static
     {
-        $this->isEnable = $isEnable;
+        $this->isBanned = $isBanned;
+
+        return $this;
+    }
+
+    public function getProfileImage(): ?string
+    {
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(?string $profileImage): static
+    {
+        $this->profileImage = $profileImage;
 
         return $this;
     }
