@@ -118,7 +118,9 @@ class UserController extends AbstractController
         $newactivite->addObjectif($actualobjectif);
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form['Image_Activite']->getData();
-
+            $actualobjectif->addActivite($newactivite) ;
+            $actualobjectif->setTotalDuree($actualobjectif->getTotalDuree()+$newactivite->getDureeActivite()) ; 
+            $actualobjectif->setTotalCalories($actualobjectif->getTotalCalories()+$newactivite->getCaloriesBrules()) ; 
             if ($uploadedFile) {
                 // Logique de gestion du fichier ici
                 $uploadsDirectory = $this->getParameter('uploads_directory');
@@ -138,4 +140,22 @@ class UserController extends AbstractController
             'activite' => $newactivite,
         ]);
     }
+
+    #[Route('/created_objectives' , name:'app_user_created_objectives')]
+    public function objectifs_crees( ObjectifRepository $objectifRepository): Response {
+        $objectifcrees=$objectifRepository->findAll() ;
+        return $this->render('UserTpl/objectifscrees.html.twig',[
+            
+            'objectifscrees' =>  $objectifcrees
+        ]) ; 
+    }
+    #[Route('/created_objectives/associated_activities/{idObj}',name :'app_user_associated_activities')]
+   public function activites_associes (int $idObj , ObjectifRepository $objectifRepository):Response{
+    $activite_associes=$objectifRepository->find($idObj) ;
+    $aa=$activite_associes->getActivites() ; 
+    dd($aa)  ;    
+    return $this->render('UserTpl/activitesassocies.html.twig',[
+        'activitesassocies' => $activite_associes->getActivites() 
+    ]) ;
+   }
 }

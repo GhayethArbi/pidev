@@ -28,11 +28,14 @@ class ActivitePhysique
     #[Assert\Regex(
         pattern: "/^\d+$/"
     )]
-    #[Assert\GreaterThan(value: 6, message : 'The number must be')]
+    #[Assert\GreaterThan(value: 6)]
+    #[Assert\LessThan(value: 180)]
     private ?int $Duree_Activite = null;
-
+    
+    #[Assert\GreaterThan(value: 6)]
+    #[Assert\LessThan(value: 400)]
     #[ORM\Column(nullable: true)]
-    private ?int $Calories_Brules = null;
+        private ?int $Calories_Brules = null;
     
     #[ORM\Column(nullable: true)]
     #[Assert\Regex(

@@ -63,7 +63,7 @@
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Type_Activite,{'attr':{'class': 'form-control gender' , 'value': activite.getTypeActivite()}}) }}
+									{{ form_widget(form.Type_Activite,{'attr':{'class': 'form-control type-activite-field gender' , 'value': activite.getTypeActivite()}}) }}
 									<a style="color:red">{{ form_errors(form.Type_Activite) }}
 									</a>
 								</div>
@@ -74,7 +74,7 @@
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Calories_Brules,{'attr':{'class': 'form-control gender'}}) }}
+									{{ form_widget(form.Calories_Brules,{'attr':{'class': 'form-control calories-field gender'}}) }}
 									<a style="color:red">{{ form_errors(form.Calories_Brules) }}
 									</a>
 								</div>
@@ -86,7 +86,7 @@
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Duree_Activite,{'attr':{'class': 'form-control gender'}}) }}
+									{{ form_widget(form.Duree_Activite,{'attr':{'class': 'form-control duree-field gender'}}) }}
 									<a style="color:red">{{ form_errors(form.Duree_Activite) }}
 									</a>
 								</div>
@@ -98,7 +98,7 @@
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Nb_Series,{'attr':{'class': 'form-control gender'}}) }}
+									{{ form_widget(form.Nb_Series,{'attr':{'class': 'form-control nb-series-field gender'}}) }}
 									<a style="color:red">{{ form_errors(form.Nb_Series) }}
 									</a>
 								</div>
@@ -110,7 +110,7 @@
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Nb_Rep_Series,{'attr':{'class': 'form-control gender'}}) }}
+									{{ form_widget(form.Nb_Rep_Series,{'attr':{'class': 'form-control nb-rep-series-field gender'}}) }}
 									<a style="color:red">{{ form_errors(form.Nb_Rep_Series) }}
 									</a>
 								</div>
@@ -122,7 +122,7 @@
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Poids_Par_Serie,{'attr':{'class': 'form-control gender'}}) }}
+									{{ form_widget(form.Poids_Par_Serie,{'attr':{'class': 'form-control poids-par-serie-field gender'}}) }}
 									<a style="color:red">{{ form_errors(form.Poids_Par_Serie) }}
 									</a>
 								</div>
@@ -155,5 +155,47 @@
 </section>
 </div>
 </main>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var caloriesField = document.querySelector('.calories-field');
+    var dureeField = document.querySelector('.duree-field');
+    var nbSerieField = document.querySelector('.nb-series-field');
+    var nbRepSerieField = document.querySelector('.nb-rep-series-field');
+    var poidsSerieField = document.querySelector('.poids-par-serie-field');
+    var typeActiviteField = document.querySelector('.type-activite-field');
+    var originalBorderColorCalories = window.getComputedStyle(caloriesField).borderColor;
+    var originalBorderColorDuree = window.getComputedStyle(dureeField).borderColor;
+   
+    function disableFieldsBasedOnActivityType() {
+        var selectedType = typeActiviteField.value;
+        if (selectedType === 'musculation') {
+            caloriesField.value = "";
+            caloriesField.style.borderColor = originalBorderColorCalories;
+            dureeField.value = "";
+            dureeField.style.borderColor = originalBorderColorDuree;
+            caloriesField.disabled = true;
+            dureeField.disabled = true;
+            nbSerieField.disabled = false;
+            nbRepSerieField.disabled = false;
+            poidsSerieField.disabled = false;
+        } else {
+            caloriesField.disabled = false;
+            dureeField.disabled = false;
+            nbSerieField.value = "";
+            nbRepSerieField.value = "";
+            poidsSerieField.value = "";
+            nbSerieField.disabled = true;   
+            nbRepSerieField.disabled = true;
+            poidsSerieField.disabled = true;
+        }
+    };
 
+    // Appel de la fonction une fois que le DOM est chargé
+    disableFieldsBasedOnActivityType();
+
+    // Ajout de l'écouteur d'événement sur le champ "typeActiviteField"
+   
+    typeActiviteField.addEventListener('change', disableFieldsBasedOnActivityType);
+});
+</script>
 {% endblock %}

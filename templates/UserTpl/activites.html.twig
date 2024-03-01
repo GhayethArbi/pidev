@@ -11,19 +11,21 @@
 				<span>Activites</span>
 			</h2>
 			<p class="slogan">Please select at least one activity to create your objective.</p>
+			<p <p class="slogan">if you wanna end it select this button <a href="{{ path('app_user')}}" class="btn" >End Objectif</a></p>
 			<div class="row">
 				{% for activite_physique in activites %}
 					<div class="col-sm-6 col-md-3 program-col">
 						<div class="program-item">
 							<div class="program-item-front" style="background-image: url('{{ asset('Uploads/' ~ activite_physique.getImageActivite()) }}');">
 								<div class="program-item-inner">
-									<h3 style:"color:black;">{{activite_physique.getNomActivite()}}</h3>
+									<h3 style="color:#f23849;">{{activite_physique.getNomActivite()}}</h3>
 								</div>
 							</div>
 							<div class="program-item-back" style="background-image: url('{{ asset('Uploads/' ~ activite_physique.getImageActivite()) }}');">
-								<div class="program-item-inner">
-								    {{ dump(data) }}
-                                    {{ dump(activite_physique.getId()) }}
+								<div
+									class="program-item-inner">
+									{#{ dump(data) }}
+									                                    {{ dump(activite_physique.getId()) }#}
 									<a href="{{ path('app_user_create_activite', { 'data': data, 'idObj': idObjectif, 'nomAct': activite_physique.getNomActivite() }) }}" class="btn">Add</a>
 								</div>
 							</div>
@@ -33,5 +35,4 @@
 			</div>
 		</div>
 	</section>
-	<!-- ============ S-OUR-PROGRAMS END ============ -->
 {% endblock %}

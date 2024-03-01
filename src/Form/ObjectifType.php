@@ -18,8 +18,7 @@ class ObjectifType extends AbstractType
             ->add('Date_objectif', DateTimeType::class, [
                 'widget' => 'single_text', // You can customize the widget according to your preference
                 ])
-            
-        ;
+            ->add('Note');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
