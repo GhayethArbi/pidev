@@ -7,40 +7,43 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ product.slug }}</td>
-            </tr>
-            <tr>
-                <th>Illustration</th>
-                <td> <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px"></td>
-            </tr>
-            <tr>
-                <th>Subtitle</th>
-                <td>{{ product.subtitle }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ product.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ product.name }}</td>
+        </tr>
+        <tr>
+            <th>Slug</th>
+            <td>{{ product.slug }}</td>
+        </tr>
+        <tr>
+            <th>Illustration</th>
+            <td><img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px"></td>
+        </tr>
+        <tr>
+            <th>Subtitle</th>
+            <td>{{ product.subtitle }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ product.description }}</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>{{ product.price }}</td>
+        </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_product_index') }}" class="btn btn-warning">back to list</a>
 
-    <a href="{{ path('app_product_edit', {'id': product.id})}}" class="btn btn-primary">edit</a>
+    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">edit</a>
 
     {{ include('product/_delete_form.html.twig') }}
+
+    <img src="{{ path('generate_qr_code', {'productName': product.name, 'productCategory': product.category, 'productPrice': product.price, 'productSubtitle': product.subtitle}) }}" alt="QR Code">
+
 {% endblock %}

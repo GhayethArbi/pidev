@@ -3,10 +3,22 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    
+
     <h1>Product index</h1>
 
     <input type="text" id="category-search" placeholder="Search by category">
+    <div class="datatable-top">
+        <div class="datatable-dropdown">
+            <label>
+                <select id="datatable-selector" class="datatable-selector">
+                    <option value="5">5</option>
+                    <option value="10" selected="">10</option>
+                    <option value="15">15</option>
+                </select> entries per page
+            </label>
+        </div>
+    </div>
+
 
     <table class="table">
         <thead>
@@ -30,7 +42,7 @@
                 <td>{{ product.slug }}</td>
                 <td>
                     {% if product.illustration %}
-                        <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px">
+                        <img src="{{ asset('Uploads/' ~ product.illustration) }}" alt="Illustration" style="width:100px">
                     {% endif %}
                 </td>
                 <td>{{ product.subtitle }}</td>
@@ -50,10 +62,70 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <div class="datatable-bottom">
+        <div class="datatable-info">Showing 1 to <span id="max-products-per-page">{{ maxProductsPerPage }}</span> of {{ totalProducts }} entries</div>
+        <nav class="datatable-pagination">
+            <ul class="datatable-pagination-list" id="pagination-buttons">
+            </ul>
+        </nav>
+    </div>
     <canvas id="categoryChart" width="400" height="200"></canvas>
 
     <a href="{{ path('app_product_new') }}" class="btn btn-dark">Create new</a>
+    <a href="{{ path('export_products_to_pdf') }}" class="btn btn-dark">Export To PDF</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let maxProductsPerPage = parseInt(document.getElementById('max-products-per-page').textContent);
+            const productRows = document.querySelectorAll('.product-row');
+            const totalProducts = {{ products|length }};
+            let currentPage = 1;
+            updatePagination();
+
+            document.getElementById('datatable-selector').addEventListener('change', function () {
+                maxProductsPerPage = parseInt(this.value);
+                currentPage = 1;
+                updatePagination();
+            });
+
+            function updatePagination() {
+                const totalPages = Math.ceil(totalProducts / maxProductsPerPage);
+                const paginationButtons = document.getElementById('pagination-buttons');
+
+                paginationButtons.innerHTML = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const button = document.createElement('button');
+                    button.setAttribute('data-page', i);
+                    button.classList.add('datatable-pagination-list-item-link');
+                    button.innerText = i;
+
+                    button.addEventListener('click', function () {
+                        currentPage = parseInt(this.getAttribute('data-page'));
+                        updatePagination();
+                    });
+
+                    paginationButtons.appendChild(button);
+                }
+
+                const startIndex = (currentPage - 1) * maxProductsPerPage;
+                const endIndex = Math.min(startIndex + maxProductsPerPage, totalProducts);
+
+                productRows.forEach((row, index) => {
+                    if (index >= startIndex && index < endIndex) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                const info = document.querySelector('.datatable-info');
+                info.innerText = `Showing ${startIndex + 1} to ${endIndex} of ${totalProducts} entries`;
+            }
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('category-search').addEventListener('input', function () {
@@ -61,15 +133,22 @@
                 const productRows = document.querySelectorAll('.product-row');
 
                 productRows.forEach(row => {
-                    const categoryName = row.querySelector('td:nth-child(8)').textContent.toLowerCase();
-                    if (categoryName.includes(searchValue)) {
+                    const categoryCell = row.querySelector('td:nth-child(8)').textContent.toLowerCase();
+                    if (categoryCell.includes(searchValue)) {
                         row.style.display = 'table-row';
                     } else {
                         row.style.display = 'none';
                     }
                 });
             });
+        });
+    </script>
 
+    <canvas id="categoryChart" width="400" height="200"></canvas>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Chart data
             var categoryData = {{ categoryData|json_encode|raw }};
 
             var ctx = document.getElementById('categoryChart').getContext('2d');
@@ -97,8 +176,4 @@
             });
         });
     </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 {% endblock %}

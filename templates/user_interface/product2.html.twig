@@ -3,17 +3,17 @@
 {% block content %}
     <link rel="stylesheet" href="{{ asset('assets_user/css/style.css') }}">
 
-    <div class="container" style="margin-top: 50px">
+    <div class="container" style="margin-top: 100px">
         <div class="row">
             <!-- Main content -->
             <div class="col-md-3">
                 <h1>
                     Filtrer
                 </h1>
-                colonne de filtre
+                <p>Colonne de filtre</p>
                 {{ form(form) }}
             </div>
-            <div id="main-content" class="main-content  col-md-9 ">
+            <div id="main-content" class="main-content col-md-9 col-sm-9 col-xs-9">
                 <div class="product-category grid-style">
                     <div id="top-functions-area" class="top-functions-area">
                         <div class="flt-item to-left group-on-mobile">
@@ -27,105 +27,98 @@
                                 <form action="#" name="frm-refine" method="get">
                                     <span class="title-for-mobile">Refine Products By</span>
                                     <div data-title="Price:" class="selector-item">
-                                        <select name="price" class="selector">
+                                        <select name="price" class="selector" id="price">
                                             <option value="all">Price</option>
-                                            <option value="class-1st">Less than 5$</option>
-                                            <option value="class-2nd">$5-10$</option>
-                                            <option value="class-3rd">$10-20$</option>
-                                            <option value="class-4th">$20-45$</option>
-                                            <option value="class-5th">$45-100$</option>
-                                            <option value="class-6th">$100-150$</option>
-                                            <option value="class-7th">More than 150$</option>
+                                            <option value="class-1st">Less than £5</option>
+                                            <option value="class-2nd">£5 - £10</option>
+                                            <option value="class-3rd">£10 - £20</option>
+                                            <option value="class-4th">£20 - £45</option>
+                                            <option value="class-5th">£45 - £100</option>
+                                            <option value="class-6th">£100 - £150</option>
+                                            <option value="class-7th">More than £150</option>
                                         </select>
                                     </div>
-                                    <div data-title="Brand:" class="selector-item">
-                                        <select name="brand" class="selector">
-                                            <option value="all">Top brands</option>
-                                            <option value="br2">Brand first</option>
-                                            <option value="br3">Brand second</option>
-                                            <option value="br4">Brand third</option>
-                                            <option value="br5">Brand fourth</option>
-                                            <option value="br6">Brand fifth</option>
-                                        </select>
-                                    </div>
-                                    <div class="header-search-bar layout-01">
-                                        <form  class="form-search" name="desktop-seacrh" >
-                                            <input type="text" name="s" id="category-search" class="input-text" value="" placeholder="Search here...">
-
-                                            <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
-                                        </form>
-                                        <select name="selectedCategoryId" id="categorySelect" style="display: none;">
-                                            <option value="categorySelect" selected="">All Categories</option>
-                                            {% for category in categories %}
-                                                <option value="{{ category.id }}">{{ category.name }}</option>
-                                            {% endfor %}
-                                        </select>
-
-                                    </div>
-
                                 </form>
-
                             </div>
-                            <a href="{{ path ('app_cart')}}">
-                            <img src="{{ asset('assets/img/shopping-cart.png') }}">
-                            </a>
+                        </div>
+                        <div class="flt-item to-right">
+                            <span class="flt-title">Sort</span>
+                            <div class="wrap-selectors">
+                                <div class="selector-item orderby-selector">
+                                    <div class="selector-item orderby-selector">
+                                        <select name="sort" class="orderby" id="sort" aria-label="Shop order">
+                                            <option value="menu_order" selected="selected">Default sorting</option>
+                                            <option value="price">price: low to high</option>
+                                            <option value="price-desc">price: high to low</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="selector-item viewmode-selector">
+                                    <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active">
+                                        <i class="biolife-icon icon-grid"></i>
+                                    </a>
+                                    <a href="category-list-left-sidebar.html" class="viewmode detail-mode">
+                                        <i class="biolife-icon icon-list"></i>
+                                    </a>
+                                </div>
+                                <a href="{{ path ('app_cart') }}">
+                                    <img src="{{ asset('assets/img/shopping-cart.png') }}">
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        {% for product in products %}
-                            <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="{{ product.category|lower }}">
+                <div class="row" id="product-list">
+                    {% for product in products %}
+                        <div class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6" data-category="{{ product.category|lower }}" data-price="{{ product.price }}">
+                            <div class="contain-product layout-default">
                                 <div class="product-thumb">
                                     <a href="#" class="link-to-product">
                                         {% if product.illustration %}
-                                            <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" width="270" height="270" class="product-thumbnail">
+                                            <img src="{{ asset('Uploads/' ~ product.illustration) }}" alt="Illustration" width="270" height="270" class="product-thumnail">
                                         {% endif %}
                                     </a>
                                 </div>
                                 <div class="info">
                                     <b class="categories">{{ product.category }}</b>
-                                    <h4 class="product-title"><a href="#" class="pr-name">{{ product.name }}</a></h4>
+                                    <h4 class="product-title">
+                                        <a href="#" class="pr-name">{{ product.name }}</a>
+                                    </h4>
                                     <div class="price">
                                         <center>
                                             <ins><span class="price-amount"><span class="currencySymbol">£</span>{{ product.price }}</span></ins>
                                         </center>
                                     </div>
-                                </div>
-                                <div class="slide-down-box">
-                                    <p class="message">All products are carefully selected to ensure food safety.</p>
-                                    <div class="buttons">
-                                        <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                        <a href="{{path('add_cart_item',{'id':product.id}) }}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                        <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+
+                                    <div class="slide-down-box">
+                                        <p class="message">All products are carefully selected to ensure food safety.</p>
+                                        <div class="buttons">
+                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                            <a href="{{ path('add_cart_item',{'id':product.id}) }}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
-                        {% endfor %}
-                    </div>
-
-
-
-                    <div class="biolife-panigations-block">
-                        <ul class="panigation-contain">
-                            <li><span class="current-page">1</span></li>
-                            <li><a href="#" class="link-page">2</a></li>
-                            <li><a href="#" class="link-page">3</a></li>
-                            <li><span class="sep">....</span></li>
-                            <li><a href="#" class="link-page">20</a></li>
-                            <li><a href="#" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="biolife-panigations-block">
+                    <ul class="panigation-contain" id="pagination">
+                        <!-- Pagination controls will be dynamically added here -->
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('assets_user/js/script.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             var categorySelect = document.getElementById('categorySelect');
             var categorySearch = document.getElementById('category-search');
 
-            categorySelect.addEventListener('change', function() {
+            categorySelect.addEventListener('change', function () {
                 categorySearch.value = categorySelect.options[categorySelect.selectedIndex].text;
                 filterProducts();
             });
@@ -135,7 +128,7 @@
             function filterProducts() {
                 var searchText = categorySearch.value.toLowerCase();
                 var products = document.querySelectorAll(".product-item");
-                products.forEach(function(product) {
+                products.forEach(function (product) {
                     var category = product.dataset.category;
                     if (category.includes(searchText)) {
                         product.style.display = "";
@@ -146,4 +139,118 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            var priceSelect = document.querySelector('select[name="price"]');
+            var sortSelect = document.getElementById('sort');
+            var productsContainer = document.querySelector('.product-category .row');
+
+            priceSelect.addEventListener('change', filterProducts);
+            sortSelect.addEventListener('change', sortProducts);
+
+            function filterProducts() {
+                var selectedPrice = priceSelect.value;
+                var products = document.querySelectorAll(".product-item");
+
+                products.forEach(function(product) {
+                    var productPrice = parseFloat(product.querySelector('.price-amount').textContent.trim().replace('£', ''));
+                    if (selectedPrice === 'all' || checkPriceRange(productPrice, selectedPrice)) {
+                        product.style.display = "";
+                    } else {
+                        product.style.display = "none";
+                    }
+                });
+            }
+
+            function sortProducts() {
+                var sortType = sortSelect.value;
+                var products = Array.from(document.querySelectorAll(".product-item"));
+
+                products.sort(function(a, b) {
+                    var priceA = parseFloat(a.dataset.price);
+                    var priceB = parseFloat(b.dataset.price);
+
+                    if (sortType === 'price') {
+                        return priceA - priceB;
+                    } else {
+                        return priceB - priceA;
+                    }
+                });
+
+                // Clear the existing product list
+                productsContainer.innerHTML = '';
+
+                // Append the sorted products
+                products.forEach(function(product) {
+                    productsContainer.appendChild(product);
+                });
+            }
+
+            function checkPriceRange(productPrice, selectedPrice) {
+                switch (selectedPrice) {
+                    case 'class-1st':
+                        return productPrice < 5;
+                    case 'class-2nd':
+                        return productPrice >= 5 && productPrice <= 10;
+                    case 'class-3rd':
+                        return productPrice >= 10 && productPrice <= 20;
+                    case 'class-4th':
+                        return productPrice >= 20 && productPrice <= 45;
+                    case 'class-5th':
+                        return productPrice >= 45 && productPrice <= 100;
+                    case 'class-6th':
+                        return productPrice >= 100 && productPrice <= 150;
+                    case 'class-7th':
+                        return productPrice > 150;
+                    default:
+                        return false;
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Pagination logic
+            var productsContainer = document.getElementById('product-list');
+            var products = Array.from(document.querySelectorAll(".product-item"));
+            var productsPerPage = 9;
+            var currentPage = 1;
+
+            function renderProducts(currentPage) {
+                var startIndex = (currentPage - 1) * productsPerPage;
+                var endIndex = startIndex + productsPerPage;
+                var visibleProducts = products.slice(startIndex, endIndex);
+
+                productsContainer.innerHTML = '';
+                visibleProducts.forEach(function(product) {
+                    productsContainer.appendChild(product);
+                });
+            }
+
+            function renderPagination() {
+                var totalPages = Math.ceil(products.length / productsPerPage);
+                var pagination = document.getElementById('pagination');
+                pagination.innerHTML = '';
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.href = '#';
+                    a.textContent = i;
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        currentPage = parseInt(e.target.textContent);
+                        renderProducts(currentPage);
+                    });
+                    li.appendChild(a);
+                    pagination.appendChild(li);
+                }
+            }
+
+            renderPagination();
+            renderProducts(currentPage);
+        });
+    </script>
+
 {% endblock %}

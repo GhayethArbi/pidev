@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DomCrawler\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -18,7 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
     class ProductController extends AbstractController
     {
         private $entityManager;
-        private $notificationService;
+
 
       
         public function __construct(EntityManagerInterface $entityManager)
@@ -41,9 +40,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
             ]);
         }*/
         #[Route('/', name: 'app_product_index', methods: ['GET'])]
-        public function index(ProductRepository $productRepository): Response
+        public function index(Request $request, ProductRepository $productRepository): Response
         {
+            $maxProductsPerPage = 10;
             $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+            $products = $productRepository->findAll();
+            // Calculate the total number of products
+            $totalProducts = count($products);
 
             // Aggregate data for chart
             $categoryData = [];
@@ -52,11 +55,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
             }
 
             return $this->render('product/index.html.twig', [
-                'products' => $productRepository->findAll(),
+                'products' => $products,
                 'categories' => $categories,
                 'categoryData' => $categoryData, // Pass aggregated data to Twig
+                'maxProductsPerPage' => $maxProductsPerPage,
+                'totalProducts' => $totalProducts,
             ]);
         }
+
         #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
         public function new(Request $request, EntityManagerInterface $entityManager,SluggerInterface $slugger): Response
         {
