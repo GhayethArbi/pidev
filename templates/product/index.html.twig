@@ -3,19 +3,67 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+<main id="main" class="main">
 
-    <h1>Product index</h1>
+    <div class="pagetitle">
+      <h1>Product Tables</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+          <li class="breadcrumb-item">Product</li>
+  
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+      {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+      {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+    <section class="section">
+        <div class="row">
 
-    <input type="text" id="category-search" placeholder="Search by category">
-    <div class="datatable-top">
-        <div class="datatable-dropdown">
-            <label>
-                <select id="datatable-selector" class="datatable-selector">
-                    <option value="5">5</option>
-                    <option value="10" selected="">10</option>
-                    <option value="15">15</option>
-                </select> entries per page
-            </label>
+
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Product index</h5>
+   
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <input type="text" id="category-search" class="form-control" placeholder="Search by category">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="datatable-top">
+                <div class="datatable-dropdown">
+                    <label class="mb-0">
+                        <select id="datatable-selector" class="form-control datatable-selector">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                        </select>
+
+                    </label>
+                    <a href="{{ path('export_product_to_pdf') }}" class="btn btn-danger">
+                        <i class="bi bi-file-pdf"></i> PDF
+                    </a>
+                    <a href="{{ path('app_product_new') }}" class="btn btn-success">
+                        <i class="bi bi-plus"></i> Add Product
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -50,9 +98,9 @@
                 <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-primary">edit</a>
-                    <a href="{{ path('app_product_delete',{'id':product.id}) }}" class="btn btn-danger">delete</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary" ><i class="bi bi-eye"></i></a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{{ path('app_product_delete',{'id':product.id}) }}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -62,19 +110,59 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="datatable-bottom">
-        <div class="datatable-info">Showing 1 to <span id="max-products-per-page">{{ maxProductsPerPage }}</span> of {{ totalProducts }} entries</div>
-        <nav class="datatable-pagination">
-            <ul class="datatable-pagination-list" id="pagination-buttons">
-            </ul>
-        </nav>
+    <div class="container">
+        <div class="datatable-bottom text-center mt-3">
+            <div class="datatable-info">
+                Showing 1 to <span id="max-products-per-page">{{ maxProductsPerPage }}</span> of {{ totalProducts }} entries
+            </div>
+            <nav class="datatable-pagination">
+                <ul class="pagination pagination-sm justify-content-center" id="pagination-buttons">
+                    <!-- Pagination buttons will be dynamically added here -->
+                </ul>
+            </nav>
+        </div>
     </div>
     <canvas id="categoryChart" width="400" height="200"></canvas>
+</div></div></div></section></main>
 
-    <a href="{{ path('app_product_new') }}" class="btn btn-dark">Create new</a>
-    <a href="{{ path('export_products_to_pdf') }}" class="btn btn-dark">Export To PDF</a>
-
+ 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Select all sortable columns
+            const sortableColumns = document.querySelectorAll('.sortable');
+
+            // Add click event listener to each sortable column
+            sortableColumns.forEach(column => {
+                column.addEventListener('click', () => {
+                    const columnType = column.getAttribute('data-column');
+
+                    // Get all rows from the table body
+                    const tableBody = document.getElementById('product-table-body');
+                    const rows = tableBody.querySelectorAll('tr');
+
+                    // Convert NodeList to array for sorting
+                    const rowsArray = Array.from(rows);
+
+                    // Sort rows based on the selected column
+                    const sortedRows = rowsArray.sort((a, b) => {
+                        const aValue = a.querySelector(`td:nth-child(${column.cellIndex + 1})`).innerText;
+                        const bValue = b.querySelector(`td:nth-child(${column.cellIndex + 1})`).innerText;
+
+                        return aValue.localeCompare(bValue);
+                    });
+
+                    // Remove existing rows from the table body
+                    tableBody.innerHTML = '';
+
+                    // Append sorted rows to the table body
+                    sortedRows.forEach(row => {
+                        tableBody.appendChild(row);
+                    });
+                });
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
