@@ -4,7 +4,12 @@ doctrine:
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
+<<<<<<< HEAD
         #server_version: '15'
+=======
+        #server_version: '16'
+        use_savepoints: true
+>>>>>>> 2ac1416d04ecfc7e00c75a64702ba6d465db601e
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
