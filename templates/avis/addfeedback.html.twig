@@ -1,0 +1,48 @@
+{% extends 'basebackfeed.html.twig' %}
+{% block title %}Ajouter {% endblock %}
+{% block body %}
+
+
+{{ form_start(formC) }}
+<table>
+    <tr>
+               
+        <td>{{form_label(formC.commentaire,"Commentaire") }} </td> 
+        <td>{{form_widget(formC.commentaire) }} </td> 
+		    <td>{{form_errors(formC.commentaire) }} </td> 
+    </tr> 
+
+    <tr>
+          
+        <td>{{form_label(formC.dateAvis,"Date ") }} </td> 
+        <td>{{form_widget(formC.dateAvis) }} </td> 
+		    <td>{{form_errors(formC.dateAvis) }} </td> 
+    </tr>  
+
+    <tr>
+          
+        <td>{{form_label(formC.Evaluation,"Evaluation ") }} </td> 
+        <td>{{form_widget(formC.Evaluation) }} </td> 
+		<td>{{form_errors(formC.Evaluation) }} </td> 
+    </tr> 
+
+
+
+
+
+
+
+
+
+
+    
+</table>
+    <tr>
+              
+        <td>{{form_widget(formC) }} </td> 
+				
+    </tr>  
+
+
+{{ form_end(formC) }}
+{% endblock %}

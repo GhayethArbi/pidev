@@ -1,0 +1,37 @@
+{% extends 'baseback.html.twig' %}
+{% block title %}Ajouter {% endblock %}
+{% block body %}
+
+
+{{ form_start(formB) }}
+<table>
+    <tr>
+               
+        <td>{{form_label(formB.title,"Evénement") }} </td> 
+        <td>{{form_widget(formB.title) }} </td> 
+		    <td>{{form_errors(formB.title) }} </td> 
+    </tr> 
+
+    <tr>
+          
+        <td>{{form_label(formB.number," numero ticket") }} </td> 
+        <td>{{form_widget(formB.number) }} </td> 
+		    <td>{{form_errors(formB.number) }} </td> 
+    </tr>  
+
+     <tr>
+          
+                <td>{{form_label(formB.nomx," AAAAAAAAAAAA") }} </td> 
+                <td>{{form_widget(formB.nomx)}} </td> 
+		<td>{{form_errors(formB.nomx) }} </td> 
+            </tr> 
+</table>
+    <tr>
+              
+        <td>{{form_widget(formB) }} </td> 
+				
+    </tr>  
+
+
+{{ form_end(formB) }}
+{% endblock %}

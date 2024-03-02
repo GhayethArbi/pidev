@@ -1,0 +1,14 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+      ticketsevents:
+            uri_prefix: /images/ticketsevents
+            upload_destination: '%kernel.project_dir%/public/images/ticketsevents'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+      
+      events:
+            uri_prefix: /images/events
+            upload_destination: '%kernel.project_dir%/public/images/events'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

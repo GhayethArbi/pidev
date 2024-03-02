@@ -1,0 +1,55 @@
+{% extends 'baseuser.html.twig' %}
+{% block content %}
+    <link rel="stylesheet" href="{{ asset('groupe_pei/assets_user/css/style.css') }}">
+   
+
+
+    <!-- =========== S-TRAINING-SCHEDULE =========== -->
+
+    <section class="s-training-schedule" style="background-image: url({{ asset('groupe_pei//img/bg-table-1.svg') }});">
+        <div class="container">
+            <h2 class="title-decor">Avis <span></span></h2>
+           
+            <div class="training-schedule-cover">
+                <h3 class="training-schedule-top">Avis</h3>
+                <div class="training-schedule-table">
+                    <table>
+                    <thead>
+                        
+      
+    
+  <tr>
+           <th>Commentaire</th>
+           <th>Date</th>
+            <th>Evaluation</th>
+          
+             
+          
+          </tr>
+     </thead>
+           {%for avisx  in FeedBack %} 
+             <tr>
+               <td>{{ avisx.commentaire}}</td>
+               <td>{{ avisx.dateAvis|date("Y-m-d H:i:s ")}}</td> 
+			  <td>{{ avisx.Evaluation }}</td>
+        
+        
+           
+           
+             </tr>
+            {% endfor %}
+        
+                
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========= S-TRAINING-SCHEDULE END ========= -->
+
+
+
+
+
+
+{% endblock %}
