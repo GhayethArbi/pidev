@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+    <div class="header-search-bar layout-01">
+        <form  class="form-search" name="desktop-seacrh" >
+            <input type="text" name="s" id="category-search" class="input-text" value="" placeholder="Search here...">
+            <select name="selectedCategoryId" id="categorySelect" style="display: none;">
+
+                <option value="all" selected="">All Categories</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select><div class="nice-select" tabindex="0"><span class="current">All Categories</span><ul class="list"><li data-value="-1" class="option selected">All Categories</li><li data-value="vegetables" class="option">Vegetables</li><li data-value="fresh_berries" class="option">Fresh Berries</li><li data-value="ocean_foods" class="option">Ocean Foods</li><li data-value="butter_eggs" class="option">Butter &amp; Eggs</li><li data-value="fastfood" class="option">Fastfood</li><li data-value="fresh_meat" class="option">Fresh Meat</li><li data-value="fresh_onion" class="option">Fresh Onion</li><li data-value="papaya_crisps" class="option">Papaya &amp; Crisps</li><li data-value="oatmeal" class="option">Oatmeal</li></ul></div>
+            <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
+        </form>
+    </div>
+
+    <select name="selectedCategoryId" id="categorySelect" class="selector">
+        <option value="all">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" id="category-search" placeholder="Search by category">
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="{{ product.category|lower }}">
+                <div class="product-thumb">
+                    <a href="#" class="link-to-product">
+                        {% if product.illustration %}
+                            <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px">
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            var categorySelect = document.getElementById('categorySelect');
+            var categorySearch = document.getElementById('category-search');
+
+            categorySelect.addEventListener('change', function() {
+                categorySearch.value = categorySelect.options[categorySelect.selectedIndex].text;
+                filterProducts();
+            });
+
+            categorySearch.addEventListener('input', filterProducts);
+
+            function filterProducts() {
+                var searchText = categorySearch.value.toLowerCase();
+                var products = document.querySelectorAll(".product-item");
+                products.forEach(function(product) {
+                    var category = product.dataset.category;
+                    if (category.includes(searchText)) {
+                        product.style.display = "";
+                    } else {
+                        product.style.display = "none";
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
