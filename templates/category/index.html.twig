@@ -3,64 +3,103 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
+<main id="main" class="main">
 
-    <div class="form-group">
-        <input type="text" id="category-search" class="form-control" placeholder="Search category...">
+    <div class="pagetitle">
+        <h1>Users Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+                <li class="breadcrumb-item">Users</li>
 
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
     </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+    <section class="section">
+        <div class="row">
 
-    <table class="table" border="1">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th><center>Actions</center></th>
-        </tr>
-        </thead>
-        <tbody id="category-table-body">
-        {% for category in categories %}
-            <tr data-category="{{ category.name }}">
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-primary">Edit</a>
-                    <a href="{{ path('app_category_delete', {'id': category.id}) }}" class="btn btn-primary">Delete</a>
-                    <a href="{{ path('app_category_index') }}" class="btn btn-secondary">Back to Category List</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">No records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
 
-    </table>
-    <a href="{{ path('app_category_new') }}" class="btn btn-warning btn-block">Add category</a>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Category index</h5>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('category-search').addEventListener('input', function() {
-                var searchText = this.value.toLowerCase();
-                var rows = document.querySelectorAll("#category-table-body tr");
-                rows.forEach(function(row) {
-                    var name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                    if (name.includes(searchText)) {
-                        row.style.display = "";
-                    } else {
-                        row.style.display = "none";
-                    }
-                });
 
-                // Set the searched category
-                var searchedCategory = searchText;
+                    <div class="form-group">
+                        <input type="text" id="category-search" class="form-control" placeholder="Search category...">
 
+                    </div>
+
+                    <table class="table" border="1">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>
+                                    <center>Actions</center>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="category-table-body">
+                            {% for category in categories %}
+                            <tr data-category="{{ category.name }}">
+                                <td>{{ category.id }}</td>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <a href="{{ path('app_category_edit', {'id': category.id}) }}"
+                                        class="btn btn-primary">Edit</a>
+                                    <a href="{{ path('app_category_delete', {'id': category.id}) }}"
+                                        class="btn btn-primary">Delete</a>
+                                    <a href="{{ path('app_category_index') }}" class="btn btn-secondary">Back to
+                                        Category List</a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3">No records found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                    <a href="{{ path('app_category_new') }}" class="btn btn-warning btn-block">Add category</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('category-search').addEventListener('input', function () {
+            var searchText = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#category-table-body tr");
+            rows.forEach(function (row) {
+                var name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                if (name.includes(searchText)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
             });
+
+            // Set the searched category
+            var searchedCategory = searchText;
+
         });
+    });
 
 
-    </script>
+</script>
 
 
 

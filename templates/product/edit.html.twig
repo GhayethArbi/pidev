@@ -3,14 +3,49 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
-    <a href="{{ path('app_product_index') }}" class="btn btn-warning">
-        <i class="bi bi-arrow-left"></i> Back to List
-    </a>
-<div >
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
-    <a href="{{ path('app_product_delete',{'id':product.id}) }}" class="btn btn-danger">
-        <i class="bi bi-trash"></i> Delete
-    </a>
-</div>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Users Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+                <li class="breadcrumb-item">Users</li>
+
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+    <section class="section">
+        <div class="row">
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Edit Product</h5>
+
+                    <a href="{{ path('app_product_index') }}" class="btn btn-warning">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                    <div>
+                        {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+                        <a href="{{ path('app_product_delete',{'id':product.id}) }}" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
