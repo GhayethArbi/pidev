@@ -5,12 +5,8 @@
 
 {{ form_start(formB) }}
 <table>
-    <tr>
-               
-        <td>{{form_label(formB.title,"Evénement") }} </td> 
-        <td>{{form_widget(formB.title) }} </td> 
-		    <td>{{form_errors(formB.title) }} </td> 
-    </tr> 
+<center>
+
 
     <tr>
           
@@ -21,17 +17,26 @@
 
      <tr>
           
-                <td>{{form_label(formB.nomx," AAAAAAAAAAAA") }} </td> 
+                <td>{{form_label(formB.nomx,"Evénement") }} </td> 
                 <td>{{form_widget(formB.nomx)}} </td> 
 		<td>{{form_errors(formB.nomx) }} </td> 
             </tr> 
+
 </table>
+</center>
     <tr>
               
-        <td>{{form_widget(formB) }} </td> 
+        <tdstyle="text-align: center;">{{form_widget(formB) }} </td> 
 				
     </tr>  
 
 
 {{ form_end(formB) }}
+    <h5> Ticket</h5>
+
+    {% if Tickets.image is not null %}
+        <img src="{{ asset('/public/images/ticketsevents' ~ Tickets.image) }}" alt="L'image de ticket">
+    {% else %}
+        <p>No ticket uploaded.</p>
+    {% endif %}
 {% endblock %}

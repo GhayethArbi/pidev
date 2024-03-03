@@ -17,8 +17,8 @@ class Tickets
     private ?int $id = null;
 
     
-    #[ORM\Column(length: 255)]
-    private ?string  $title= null;
+  /*  #[ORM\Column(length: 255)]
+    private ?string  $title= null;*/
 
    
     #[ORM\Column(length: 255)]
@@ -39,7 +39,7 @@ class Tickets
         return $this->id;
     }
 
-    public function getTitle(): ?string
+   /* public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -50,7 +50,7 @@ class Tickets
 
         return $this;
     }
-
+*/
     public function getNumber(): ?string
     {
         return $this->number;

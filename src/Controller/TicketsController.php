@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\TicketstRepository;
@@ -29,7 +29,7 @@ class TicketsController extends AbstractController
         ]);
     }
     #[Route('/addticket', name: 'addticket')]
-    public function addticket(Request $request)
+    public function addticket(Request $request,SluggerInterface $slugger)
     {
         $Tickets = new Tickets();
         $form = $this->createForm(TicketsFormType::class,$Tickets);
@@ -71,6 +71,12 @@ class TicketsController extends AbstractController
             $this->addFlash('success', " Ajout avec succès!");
           
         }
-        return $this->render("tickets/addticket.html.twig", array('formB' => $form->createView()));
+        return $this->render("tickets/addticket.html.twig",[
+            'formB' => $form->createView(),
+            'Tickets' => $Tickets, // Pass the $ticket variable to the view
+        ])
+        
+        
+      ;
     }
 }
