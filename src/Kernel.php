@@ -7,9 +7,9 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
 {
-<<<<<<< HEAD
+#<<<<<<< HEAD
     
-=======
->>>>>>> 2ac1416d04ecfc7e00c75a64702ba6d465db601e
+#=======
+#>>>>>>> 2ac1416d04ecfc7e00c75a64702ba6d465db601e
     use MicroKernelTrait;
 }
