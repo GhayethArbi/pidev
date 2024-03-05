@@ -57,7 +57,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/validate', name: 'validate_cart')]
-    public function validateCart(Cart $cart, UrlGeneratorInterface $urlGenerator): Response
+    public function validateCart(Cart $cart, EntityManagerInterface $entityManager): Response
     {
         // Get the cart contents
         $cartItems = $cart->getFull();
@@ -69,17 +69,17 @@ class CartController extends AbstractController
 
             // Subtract the quantity added to the cart from the total product quantity
             $product->setQuantite($product->getQuantite() - $quantityAdded);
-            $this->entityManager->persist($product);
+            $entityManager->persist($product);
         }
         $cart->checkProductQuantity();
         // Clear the cart after validation
         $cart->remove();
 
         // Flush changes to the database
-        $this->entityManager->flush();
+        $entityManager->flush();
 
         // Redirect to a success page or wherever needed
-        return new RedirectResponse($urlGenerator->generate('app_cart'));
+        return $this->redirectToRoute('create_order');
     }
 
 }
