@@ -2,12 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\ActivitePhysique;
+use App\Entity\Objectif;
+use App\Form\ActivitePhysiqueType;
 use App\Form\ChangePasswordType;
+use App\Form\ObjectifType;
 use App\Form\ProfileFormType;
+use App\Repository\ActivitePhysiqueRepository;
+use App\Repository\ObjectifRepository;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +35,7 @@ class UserController extends AbstractController
     public function editUserProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //*********change details************
-       
+
         $user = $this->getUser();
         $form = $this->createForm(ProfileFormType::class, $user);
         //can make submit button here ...
@@ -96,36 +104,11 @@ class UserController extends AbstractController
     }
     #[Route('/access-denied/error404', name: 'app_access')]
     public function accessDenied(): Response
-    { 
+    {
         return $this->render('Client/access.html.twig');
     }
-}
-/*use App\Entity\ActivitePhysique;
-use App\Entity\Objectif;
-use App\Form\ActivitePhysiqueType;
-use App\Form\ObjectifType;
-use App\Repository\ActivitePhysiqueRepository;
-use App\Repository\ObjectifRepository;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
-#[Route('/user')]
-class UserController extends AbstractController
-{
-    #[Route('/', name: 'app_user')]
-    public function index(): Response
-    {
-        return $this->render('base_user.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
+    
+    //////////////////////////////////sofien
     #[Route('/objectifs', name: 'app_user_objectifs')]
     public function lister_objectifs(): Response
     {
@@ -192,7 +175,7 @@ class UserController extends AbstractController
             'activite' => $newactivite,
         ]);
     }*/
-    /*#[Route('objectifs/create_Obj/{data}/select_activites/{idObj}/createActivite/{nomAct}', name: 'app_user_create_activite')]
+    #[Route('objectifs/create_Obj/{data}/select_activites/{idObj}/createActivite/{nomAct}', name: 'app_user_create_activite')]
     public function createActivite(string $data, int $idObj, Request $request, string $nomAct, ObjectifRepository $objectifRepository, EntityManagerInterface $entityManagerInterface, ActivitePhysiqueRepository $activitePhysiqueRepository): Response
     {
         $actualactivite  = $activitePhysiqueRepository->findOneBy(['Nom_Activite' => $nomAct]);
@@ -200,13 +183,13 @@ class UserController extends AbstractController
         $newactivite = new ActivitePhysique();
         $form = $this->createForm(ActivitePhysiqueType::class, $newactivite);
         $form->add('Nom_Activite')
-             ->add('Type_Activite', ChoiceType::class, [
+            ->add('Type_Activite', ChoiceType::class, [
                 'choices' => [
                     'Cardiovasculaire' => 'cardiovasculaire',
                     'Musculation' => 'musculation',
                 ]
-             ])
-             ->add('Image_Activite', FileType::class, [
+            ])
+            ->add('Image_Activite', FileType::class, [
                 'mapped' => false,
                 'label' => 'Image activité',
                 'required' => False,
@@ -341,4 +324,6 @@ class UserController extends AbstractController
             return new Response("ok", $code);
         } else {
             return new Response('Données incomplètes', 400);
-        }*/
+        }
+    }
+}

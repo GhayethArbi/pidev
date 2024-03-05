@@ -3,8 +3,37 @@
 Activitee physique
 {% endblock %}
  {% block body%}
-    <h1>ActivitePhysique</h1>
+ <main id="main" class="main">
 
+    <div class="pagetitle">
+      <h1>Users Tables</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+  
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+      {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+      {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+    <section class="section">
+      <div class="row">
+  
+  
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">ActivitePhysique</h5>
+ 
     <table class="table">
         <tbody>
             <tr>
@@ -63,4 +92,5 @@ Activitee physique
     <a href="{{ path('app_activite_physique_index') }}" class="btn btn-outline-warning">back to list</a>
     {{ include('activite_physique/_delete_form.html.twig') }}
 </div>
+</div></div></div></section></main>
 {% endblock %}

@@ -3,11 +3,36 @@
 Activites physiques
 {% endblock %}
 {% block body%}
-   <div class="col-lg-4">
-		 <!-- Website Traffic -->
-          <div class="card">
-            <div class="card-body pb-0">
-              <h5 class="card-title">Stats</h5>
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Users Tables</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+        <li class="breadcrumb-item">Users</li>
+
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  {% for message in app.flashes('notice') %}
+  {%if message=="Your changes were not saved. Please check your current password and try again."%}
+  <div class="alert alert-danger">
+    {{ message }}
+  </div>
+  {% else%}
+  <div class="alert alert-success">
+    {{ message }}
+  </div>
+  {%endif%}
+  {% endfor %}
+  <section class="section">
+    <div class="row">
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Stat</h5>
               <div id="trafficChart" style="min-height: 500px; min-width:400px" class="echart"></div>
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
@@ -108,7 +133,9 @@ Activites physiques
 		</tbody>
 	</table>
 
+
 	<a href="{{ path('app_activite_physique_new') }}" class="btn btn-outline-dark">Create new</a>
+  </section></main>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Include DataTables library -->

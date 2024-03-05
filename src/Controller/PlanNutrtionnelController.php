@@ -26,15 +26,13 @@ class PlanNutrtionnelController extends AbstractController
     #[Route('/new_planN', name: 'app_plan_nutrtionnel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        
         $planNutritionnel = new PlanNutritionnel();
         $form = $this->createForm(PlanNutritionnelType::class, $planNutritionnel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-
-
             $entityManager->persist($planNutritionnel);
             $entityManager->flush();
 
@@ -63,6 +61,7 @@ class PlanNutrtionnelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            
 
             return $this->redirectToRoute('app_plan_nutrtionnel_index', [], Response::HTTP_SEE_OTHER);
         }

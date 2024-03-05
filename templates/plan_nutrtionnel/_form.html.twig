@@ -14,41 +14,41 @@
                 <div class="row mb-3">
                   <div class="col-sm-10">
                     <div class="form-floating mb-3">
-              	<label>Name</label>
-				{% if form_errors(form.name) %}
-                    {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
-                    {% else %}
-                    {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
-                    {% endif %}
-                    <a style="color:red">{{ form_errors(form.name) }}</a>
-           
-                    </div>
-                    <div class="form-floating mb-3" >
-                   	<label >date</label>
-				{% if form_errors(form.date) %}
-                    {{ form_widget(form.date,{'attr':{'class': 'form-control is-invalid'}}) }}
-                    {% else %}
-                    {{ form_widget(form.date,{'attr':{'class': 'form-control'}}) }}
-                    {% endif %}
-                    <a style="color:red">{{ form_errors(form.date) }}</a>
-                </div>
-
-                    </div>
-                <div class="form-floating mb-3">
-                 <label >recettes</label>
-				{% if form_errors(form.recettes) %}
-                    {{ form_widget(form.recettes,{'attr':{'class': 'form-control is-invalid'}}) }}
-                    {% else %}
-                    {{ form_widget(form.recettes,{'attr':{'class': 'form-control'}}) }}
-                    {% endif %}
-                    <a style="color:red">{{ form_errors(form.recettes) }}</a>
+                      <label>Name</label>
+                      {% if form_errors(form.name) %}
+                                  {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                  {% else %}
+                                  {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
+                                  {% endif %}
+                                  <a style="color:red">{{ form_errors(form.name) }}</a>
+                              </div>
               
-                  </div>
-                </div>
-                {{ form_end(form) }}
-                <div class="d-grid gap-3 mb-3">
-                <button class="btn btn-dark" >{{ button_label|default('Save') }}</button>
-              </div>
+                              <div class="form-floating mb-3" >
+                      <label >date</label>
+                      {% if form_errors(form.date) %}
+                                  {{ form_widget(form.date,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                  {% else %}
+                                  {{ form_widget(form.date,{'attr':{'class': 'form-control'}}) }}
+                                  {% endif %}
+                                  <a style="color:red">{{ form_errors(form.date) }}</a>
+                              </div>
+              
+                              <div class="form-floating mb-3">
+                      <label >recettes</label>
+                      {% if form_errors(form.recettes) %}
+                                  {{ form_widget(form.recettes,{'attr':{'class': 'form-control is-invalid'}}) }}
+                                  {% else %}
+                                  {{ form_widget(form.recettes,{'attr':{'class': 'form-control'}}) }}
+                                  {% endif %}
+                                  <a style="color:red">{{ form_errors(form.recettes) }}</a>
+                              </div>
+                      </div>
+              
+                  {{ form_end(form) }}
+              
+                          <div class="d-grid gap-3 mb-3">
+                              <button class="btn btn-dark" >{{ button_label|default('Save') }}</button>
+                        </div>
           
 
               <!-- End General Form Elements -->

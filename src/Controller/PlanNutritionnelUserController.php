@@ -33,7 +33,7 @@ class PlanNutritionnelUserController extends AbstractController
             $entityManager->persist($planNutritionnel);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_plan_nutritionnel_user', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_interface_plan', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('plan_nutritionnel_user/new.html.twig', [
@@ -51,7 +51,7 @@ class PlanNutritionnelUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_plan_nutritionnel_user', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_interface_plan', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('plan_nutritionnel_user/edit.html.twig', [
@@ -69,7 +69,7 @@ class PlanNutritionnelUserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_plan_nutritionnel_user', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_interface_plan', [], Response::HTTP_SEE_OTHER);
     }
   
 }

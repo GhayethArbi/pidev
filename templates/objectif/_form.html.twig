@@ -3,11 +3,37 @@
 	formulaire_Objectif
 {% endblock %}
 {% block body %}
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="card">
-				<div class="card-header">
-					<h5 class="card-title">Formulaire d'Objectif</h5>
+<main id="main" class="main">
+
+	<div class="pagetitle">
+	  <h1>Users Tables</h1>
+	  <nav>
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+		  <li class="breadcrumb-item">Users</li>
+  
+		</ol>
+	  </nav>
+	</div><!-- End Page Title -->
+	{% for message in app.flashes('notice') %}
+	{%if message=="Your changes were not saved. Please check your current password and try again."%}
+	<div class="alert alert-danger">
+	  {{ message }}
+	</div>
+	{% else%}
+	<div class="alert alert-success">
+	  {{ message }}
+	</div>
+	{%endif%}
+	{% endfor %}
+	<section class="section">
+	  <div class="row">
+  
+  
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">Formulaire d'Objectif</h5>
+					
 				</div>
 				<div class="card-body">
 					{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
@@ -73,5 +99,7 @@
 			</div>
 		</div>
 	</div>
-</div>{% endblock %}
+</div>
+</section></main>
+{% endblock %}
 {% block js %}<script src="{{ asset('Jsmbm/ObjectifChampsC.js') }}"></script>{% endblock %}
