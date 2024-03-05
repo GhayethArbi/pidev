@@ -13,253 +13,286 @@
     <link rel="stylesheet" href="{{ asset('assets_user/css/style.css') }}">
 
     <div class="container" style="margin-top: 100px">
-        <div class="row">
-            <!-- Main content -->
-            <div class="col-md-3">
-                <h1>
-                    Filtrer
-                </h1>
-                <p>Colonne de filtre</p>
-                {{ form(form) }}
-            </div>
-            <div id="main-content" class="main-content col-md-9 col-sm-9 col-xs-9">
-                <div class="product-category grid-style">
-                    <div id="top-functions-area" class="top-functions-area">
-                        <div class="flt-item to-left group-on-mobile">
-                            <span class="flt-title">Refine</span>
-                            <a href="#" class="icon-for-mobile">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </a>
-                            <div class="wrap-selectors">
-                                <form action="#" name="frm-refine" method="get">
-                                    <span class="title-for-mobile">Refine Products By</span>
-                                    <div data-title="Price:" class="selector-item">
-                                        <select name="price" class="selector" id="price">
-                                            <option value="all">Price</option>
-                                            <option value="class-1st">Less than £5</option>
-                                            <option value="class-2nd">£5 - £10</option>
-                                            <option value="class-3rd">£10 - £20</option>
-                                            <option value="class-4th">£20 - £45</option>
-                                            <option value="class-5th">£45 - £100</option>
-                                            <option value="class-6th">£100 - £150</option>
-                                            <option value="class-7th">More than £150</option>
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
+    <div class="row">
+        <!-- Main content -->
+        <div class="col-md-3">
+            <h1>
+                Filtrer
+            </h1>
+            <p>Colonne de filtre</p>
+            {{ form(form) }}
+        </div>
+        <div id="main-content" class="main-content col-md-9 col-sm-9 col-xs-9">
+            <div class="product-category grid-style">
+                <div id="top-functions-area" class="top-functions-area">
+                    <div class="flt-item to-left group-on-mobile">
+                        <span class="flt-title">Refine</span>
+                        <a href="#" class="icon-for-mobile">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                        <div class="wrap-selectors">
+                            <form action="#" name="frm-refine" method="get">
+                                <span class="title-for-mobile">Refine Products By</span>
+                                <div data-title="Price:" class="selector-item">
+                                    <select name="price" class="selector" id="price">
+                                        <option value="all">Price</option>
+                                        <option value="class-1st">Less than £5</option>
+                                        <option value="class-2nd">£5 - £10</option>
+                                        <option value="class-3rd">£10 - £20</option>
+                                        <option value="class-4th">£20 - £45</option>
+                                        <option value="class-5th">£45 - £100</option>
+                                        <option value="class-6th">£100 - £150</option>
+                                        <option value="class-7th">More than £150</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
-                        <div class="flt-item to-right">
-                            <span class="flt-title">Sort</span>
-                            <div class="wrap-selectors">
+                    </div>
+                    <div class="flt-item to-right">
+                        <span class="flt-title">Sort</span>
+                        <div class="wrap-selectors">
+                            <div class="selector-item orderby-selector">
                                 <div class="selector-item orderby-selector">
-                                    <div class="selector-item orderby-selector">
-                                        <select name="sort" class="orderby" id="sort" aria-label="Shop order">
-                                            <option value="menu_order" selected="selected">Default sorting</option>
-                                            <option value="price">price: low to high</option>
-                                            <option value="price-desc">price: high to low</option>
-                                        </select>
-                                    </div>
+                                    <select name="sort" class="orderby" id="sort" aria-label="Shop order">
+                                        <option value="menu_order" selected="selected">Default sorting</option>
+                                        <option value="price">price: low to high</option>
+                                        <option value="price-desc">price: high to low</option>
+                                    </select>
                                 </div>
-                                <div class="selector-item viewmode-selector">
-                                    <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active">
-                                        <i class="biolife-icon icon-grid"></i>
-                                    </a>
-                                    <a href="category-list-left-sidebar.html" class="viewmode detail-mode">
-                                        <i class="biolife-icon icon-list"></i>
-                                    </a>
-                                </div>
-                                <a href="{{ path ('app_cart') }}">
-                                    <img src="{{ asset('assets/img/shopping-cart.png') }}">
+                            </div>
+                            <div class="selector-item viewmode-selector">
+                                <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active">
+                                    <i class="biolife-icon icon-grid"></i>
+                                </a>
+                                <a href="category-list-left-sidebar.html" class="viewmode detail-mode">
+                                    <i class="biolife-icon icon-list"></i>
                                 </a>
                             </div>
+                            <a href="{{ path ('app_cart') }}">
+                                <img src="{{ asset('assets/img/shopping-cart.png') }}">
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row" id="product-list">
-                    {% for product in products %}
-                        <div class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6" data-category="{{ product.category|lower }}" data-price="{{ product.price }}">
-                            <div class="contain-product layout-default">
-                                <div class="product-thumb">
-                                    <a href="#" class="link-to-product">
-                                        {% if product.illustration %}
-                                            <img src="{{ asset('Uploads/' ~ product.illustration) }}" alt="Illustration" width="270" height="270" class="product-thumnail">
-                                        {% endif %}
-                                    </a>
+            <div class="row" id="product-list">
+                {% for product in products %}
+                    <div class="product-item col-lg-4 col-md-4 col-sm-4 col-xs-6" data-category="{{ product.category|lower }}" data-price="{{ product.price }}">
+                        <div class="contain-product layout-default">
+                            <div class="product-thumb">
+                                <a href="#" class="link-to-product">
+                                    {% if product.illustration %}
+                                        <img src="{{ asset('Uploads/' ~ product.illustration) }}" alt="Illustration" width="270" height="270" class="product-thumnail">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="info">
+                                <b class="categories">{{ product.category }}</b>
+                                <h4 class="product-title">
+                                    <a href="#" class="pr-name">{{ product.name }}</a>
+                                </h4>
+                                <div class="price">
+                                    <center>
+                                        <ins><span class="price-amount"><span class="currencySymbol">£</span>{{ product.price }}</span></ins>
+                                    </center>
                                 </div>
-                                <div class="info">
-                                    <b class="categories">{{ product.category }}</b>
-                                    <h4 class="product-title">
-                                        <a href="#" class="pr-name">{{ product.name }}</a>
-                                    </h4>
-                                    <div class="price">
-                                        <center>
-                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>{{ product.price }}</span></ins>
-                                        </center>
-                                    </div>
 
-                                    <div class="slide-down-box">
-                                        <p class="message">All products are carefully selected to ensure food safety.</p>
-                                        <div class="buttons">
-                                            <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                            <a href="{{ path('add_cart_item',{'id':product.id}) }}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                        </div>
-                                    </div>
+                                <div class="slide-down-box">
+                                    <p class="message">All products are carefully selected to ensure food safety.</p>
+                                    <div class="buttons">
+                                        <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                        <a href="{{ path('add_cart_item',{'id':product.id}) }}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a></div>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
-                <div class="biolife-panigations-block">
-                    <ul class="panigation-contain" id="pagination">
-                        <!-- Pagination controls will be dynamically added here -->
-                    </ul>
-                </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="biolife-panigations-block">
+                <ul class="panigation-contain" id="pagination">
+                    <!-- Pagination controls will be dynamically added here -->
+                </ul>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="{{ asset('assets_user/js/script.js') }}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            var categorySelect = document.getElementById('categorySelect');
-            var categorySearch = document.getElementById('category-search');
+<script src="{{ asset('assets_user/js/script.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var sortSelect = document.getElementById('sort');
+        var productsContainer = document.getElementById('product-list');
 
-            categorySelect.addEventListener('change', function () {
-                categorySearch.value = categorySelect.options[categorySelect.selectedIndex].text;
-                filterProducts();
+        sortSelect.addEventListener('change', sortProducts);
+
+        function sortProducts() {
+            var sortType = sortSelect.value;
+            var products = Array.from(document.querySelectorAll(".product-item"));
+
+            products.sort(function(a, b) {
+                var priceA = parseFloat(a.dataset.price);
+                var priceB = parseFloat(b.dataset.price);
+
+                if (sortType === 'price') {
+                    return priceA - priceB;
+                } else if (sortType === 'price-desc') {
+                    return priceB - priceA;
+                }
             });
 
-            categorySearch.addEventListener('input', filterProducts);
+            // Clear the existing product list
+            productsContainer.innerHTML = '';
 
-            function filterProducts() {
-                var searchText = categorySearch.value.toLowerCase();
-                var products = document.querySelectorAll(".product-item");
-                products.forEach(function (product) {
-                    var category = product.dataset.category;
-                    if (category.includes(searchText)) {
-                        product.style.display = "";
-                    } else {
-                        product.style.display = "none";
-                    }
-                });
-            }
+            // Append the sorted products
+            products.forEach(function(product) {
+                productsContainer.appendChild(product);
+            });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var categorySelect = document.getElementById('categorySelect');
+        var categorySearch = document.getElementById('category-search');
+
+        categorySelect.addEventListener('change', function () {
+            categorySearch.value = categorySelect.options[categorySelect.selectedIndex].text;
+            filterProducts();
         });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            var priceSelect = document.querySelector('select[name="price"]');
-            var sortSelect = document.getElementById('sort');
-            var productsContainer = document.querySelector('.product-category .row');
 
-            priceSelect.addEventListener('change', filterProducts);
-            sortSelect.addEventListener('change', sortProducts);
+        categorySearch.addEventListener('input', filterProducts);
 
-            function filterProducts() {
-                var selectedPrice = priceSelect.value;
-                var products = document.querySelectorAll(".product-item");
-
-                products.forEach(function(product) {
-                    var productPrice = parseFloat(product.querySelector('.price-amount').textContent.trim().replace('£', ''));
-                    if (selectedPrice === 'all' || checkPriceRange(productPrice, selectedPrice)) {
-                        product.style.display = "";
-                    } else {
-                        product.style.display = "none";
-                    }
-                });
-            }
-
-            function sortProducts() {
-                var sortType = sortSelect.value;
-                var products = Array.from(document.querySelectorAll(".product-item"));
-
-                products.sort(function(a, b) {
-                    var priceA = parseFloat(a.dataset.price);
-                    var priceB = parseFloat(b.dataset.price);
-
-                    if (sortType === 'price') {
-                        return priceA - priceB;
-                    } else {
-                        return priceB - priceA;
-                    }
-                });
-
-                // Clear the existing product list
-                productsContainer.innerHTML = '';
-
-                // Append the sorted products
-                products.forEach(function(product) {
-                    productsContainer.appendChild(product);
-                });
-            }
-
-            function checkPriceRange(productPrice, selectedPrice) {
-                switch (selectedPrice) {
-                    case 'class-1st':
-                        return productPrice < 5;
-                    case 'class-2nd':
-                        return productPrice >= 5 && productPrice <= 10;
-                    case 'class-3rd':
-                        return productPrice >= 10 && productPrice <= 20;
-                    case 'class-4th':
-                        return productPrice >= 20 && productPrice <= 45;
-                    case 'class-5th':
-                        return productPrice >= 45 && productPrice <= 100;
-                    case 'class-6th':
-                        return productPrice >= 100 && productPrice <= 150;
-                    case 'class-7th':
-                        return productPrice > 150;
-                    default:
-                        return false;
+        function filterProducts() {
+            var searchText = categorySearch.value.toLowerCase();
+            var products = document.querySelectorAll(".product-item");
+            products.forEach(function (product) {
+                var category = product.dataset.category;
+                if (category.includes(searchText)) {
+                    product.style.display = "";
+                } else {
+                    product.style.display = "none";
                 }
-            }
-        });
-    </script>
+            });
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var priceSelect = document.querySelector('select[name="price"]');
+        var sortSelect = document.getElementById('sort');
+        var productsContainer = document.querySelector('.product-category .row');
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Pagination logic
-            var productsContainer = document.getElementById('product-list');
+        priceSelect.addEventListener('change', filterProducts);
+        sortSelect.addEventListener('change', sortProducts);
+
+        function filterProducts() {
+            var selectedPrice = priceSelect.value;
+            var products = document.querySelectorAll(".product-item");
+
+            products.forEach(function(product) {
+                var productPrice = parseFloat(product.querySelector('.price-amount').textContent.trim().replace('£', ''));
+                if (selectedPrice === 'all' || checkPriceRange(productPrice, selectedPrice)) {
+                    product.style.display = "";
+                } else {
+                    product.style.display = "none";
+                }
+            });
+        }
+
+        function sortProducts() {
+            var sortType = sortSelect.value;
             var products = Array.from(document.querySelectorAll(".product-item"));
-            var productsPerPage = 9;
-            var currentPage = 1;
 
-            function renderProducts(currentPage) {
-                var startIndex = (currentPage - 1) * productsPerPage;
-                var endIndex = startIndex + productsPerPage;
-                var visibleProducts = products.slice(startIndex, endIndex);
+            products.sort(function(a, b) {
+                var priceA = parseFloat(a.dataset.price);
+                var priceB = parseFloat(b.dataset.price);
 
-                productsContainer.innerHTML = '';
-                visibleProducts.forEach(function(product) {
-                    productsContainer.appendChild(product);
-                });
-            }
-
-            function renderPagination() {
-                var totalPages = Math.ceil(products.length / productsPerPage);
-                var pagination = document.getElementById('pagination');
-                pagination.innerHTML = '';
-
-                for (var i = 1; i <= totalPages; i++) {
-                    var li = document.createElement('li');
-                    var a = document.createElement('a');
-                    a.href = '#';
-                    a.textContent = i;
-                    a.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        currentPage = parseInt(e.target.textContent);
-                        renderProducts(currentPage);
-                    });
-                    li.appendChild(a);
-                    pagination.appendChild(li);
+                if (sortType === 'price') {
+                    return priceA - priceB;
+                } else {
+                    return priceB - priceA;
                 }
-            }
+            });
 
-            renderPagination();
-            renderProducts(currentPage);
-        });
-    </script>
+            // Clear the existing product list
+            productsContainer.innerHTML = '';
+
+            // Append the sorted products
+            products.forEach(function(product) {
+                productsContainer.appendChild(product);
+            });
+        }
+
+        function checkPriceRange(productPrice, selectedPrice) {
+            switch (selectedPrice) {
+                case 'class-1st':
+                    return productPrice < 5;
+                case 'class-2nd':
+                    return productPrice >= 5 && productPrice <= 10;
+                case 'class-3rd':
+                    return productPrice >= 10 && productPrice <= 20;
+                case 'class-4th':
+                    return productPrice >= 20 && productPrice <= 45;
+                case 'class-5th':
+                    return productPrice >= 45 && productPrice <= 100;
+                case 'class-6th':
+                    return productPrice >= 100 && productPrice <= 150;
+                case 'class-7th':
+                    return productPrice > 150;
+                default:
+                    return false;
+            }
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Pagination logic
+        var productsContainer = document.getElementById('product-list');
+        var products = Array.from(document.querySelectorAll(".product-item"));
+        var productsPerPage = 9;
+        var currentPage = 1;
+
+        function renderProducts(currentPage) {
+            var startIndex = (currentPage - 1) * productsPerPage;
+            var endIndex = startIndex + productsPerPage;
+            var visibleProducts = products.slice(startIndex, endIndex);
+
+            productsContainer.innerHTML = '';
+            visibleProducts.forEach(function(product) {
+                productsContainer.appendChild(product);
+            });
+        }
+
+        function renderPagination() {
+            var totalPages = Math.ceil(products.length / productsPerPage);
+            var pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (var i = 1; i <= totalPages; i++) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = '#';
+                a.textContent = i;
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentPage = parseInt(e.target.textContent);
+                    renderProducts(currentPage);
+                });
+                li.appendChild(a);
+                pagination.appendChild(li);
+            }
+        }
+
+        renderPagination();
+        renderProducts(currentPage);
+    });
+</script>
+
 
 {% endblock %}

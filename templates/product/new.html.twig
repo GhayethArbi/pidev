@@ -6,11 +6,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Users Tables</h1>
+        <h1>Add Product</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
-                <li class="breadcrumb-item">Users</li>
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Dashboard</a></li>
+                <li class="breadcrumb-item">Add Product</li>
 
             </ol>
         </nav>
@@ -26,29 +26,16 @@
     </div>
     {%endif%}
     {% endfor %}
-    <section class="section">
-        <div class="row">
+    {{ include('product/_form.html.twig') }}
 
+<a href="{{ path('app_product_index') }}" class="btn btn-warning">back to list</a>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Create new Product</h5>
-
-
-                    {{ include('product/_form.html.twig') }}
-
-                    <a href="{{ path('app_product_index') }}" class="btn btn-warning">back to list</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var nameInput = document.getElementById('product_name');
         var slugInput = document.getElementById('product_slug');
 
-        nameInput.addEventListener('input', function (event) {
+        nameInput.addEventListener('input', function(event) {
             // Get the value entered by the user
             var inputValue = event.target.value;
 

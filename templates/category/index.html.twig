@@ -6,11 +6,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Users Tables</h1>
+        <h1>Category List</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
-                <li class="breadcrumb-item">Users</li>
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Dashboard</a></li>
+                <li class="breadcrumb-item">Category List</li>
 
             </ol>
         </nav>
@@ -26,81 +26,85 @@
     </div>
     {%endif%}
     {% endfor %}
-    <section class="section">
-        <div class="row">
+    <style>
+        .edit-btn {
+            margin-right: 10px; /* Adjust the value as needed */
+        }
+        .btn-group > .btn {
+            margin-right: 5px; /* Adjust this value as needed */
+        }
+    </style>
 
+    <h1>Category index</h1>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Category index</h5>
-
-
-                    <div class="form-group">
-                        <input type="text" id="category-search" class="form-control" placeholder="Search category...">
-
-                    </div>
-
-                    <table class="table" border="1">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>
-                                    <center>Actions</center>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="category-table-body">
-                            {% for category in categories %}
-                            <tr data-category="{{ category.name }}">
-                                <td>{{ category.id }}</td>
-                                <td>{{ category.name }}</td>
-                                <td>
-                                    <a href="{{ path('app_category_edit', {'id': category.id}) }}"
-                                        class="btn btn-primary">Edit</a>
-                                    <a href="{{ path('app_category_delete', {'id': category.id}) }}"
-                                        class="btn btn-primary">Delete</a>
-                                    <a href="{{ path('app_category_index') }}" class="btn btn-secondary">Back to
-                                        Category List</a>
-                                </td>
-                            </tr>
-                            {% else %}
-                            <tr>
-                                <td colspan="3">No records found</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-
-                    </table>
-                    <a href="{{ path('app_category_new') }}" class="btn btn-warning btn-block">Add category</a>
-                </div>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Search bar goes here -->
+            <!-- Example: -->
+            <input type="text" id="category-search" class="form-control" placeholder="Search...">
+        </div>
+        <div class="col-md-6">
+            <!-- Add category and Go to Product List buttons -->
+            <div class="btn-group float-md-right">
+                <a href="{{ path('app_category_new') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add category</a>
+                <a href="{{ path('app_product_index')}}" class="btn btn-success ml-2">Go To Product List <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
-    </section>
-</main>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById('category-search').addEventListener('input', function () {
-            var searchText = this.value.toLowerCase();
-            var rows = document.querySelectorAll("#category-table-body tr");
-            rows.forEach(function (row) {
-                var name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                if (name.includes(searchText)) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
+    </div>
+
+
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="category-table-body">
+        {% for category in categories %}
+            <tr data-category="{{ category.name }}">
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="btn btn-warning edit-btn mr-2"><i class="bi bi-pencil-square"></i> </a>
+                        <form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> </button>
+                        </form>
+                    </div>
+                </td>
+
+
+
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--
+    <a href="{{ path('app_category_new') }}" class="btn btn-primary btn-block"><i class="bi bi-plus-lg"></i>Add category</a>
+    <a href="{{ path('app_product_index')}}" class="btn btn-success">Go To Product List <i class="bi bi-arrow-right"></i></a>
+-->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('category-search').addEventListener('input', function() {
+                var searchText = this.value.toLowerCase();
+                var rows = document.querySelectorAll("#category-table-body tr");
+                rows.forEach(function(row) {
+                    var name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                    if (name.includes(searchText)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
             });
-
-            // Set the searched category
-            var searchedCategory = searchText;
-
         });
-    });
-
-
-</script>
-
-
-
+    </script>
 {% endblock %}
