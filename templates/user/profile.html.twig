@@ -80,7 +80,8 @@
                                         col-form-label'}}) }}
                                         <div class="col-md-8 col-lg-9">
                                             {% if form_errors(form.gender) %}
-                                            {{ form_widget(form.gender,{'attr':{'class': 'form-control is-invalid gender'}}) }}
+                                            {{ form_widget(form.gender,{'attr':{'class': 'form-control is-invalid
+                                            gender'}}) }}
                                             {% else %}
                                             {{ form_widget(form.gender,{'attr':{'class': 'form-control gender'}}) }}
                                             {% endif %}
@@ -93,7 +94,8 @@
                                         col-lg-3 col-form-label'}}) }}
                                         <div class="col-md-8 col-lg-9">
                                             {% if form_errors(form.birthDay) %}
-                                            {{ form_widget(form.birthDay,{'attr':{'class': 'form-control is-invalid gender'}}) }}
+                                            {{ form_widget(form.birthDay,{'attr':{'class': 'form-control is-invalid
+                                            gender'}}) }}
                                             {% else %}
                                             {{ form_widget(form.birthDay,{'attr':{'class': 'form-control gender'}}) }}
                                             {% endif %}
@@ -126,6 +128,15 @@
                                         <div class="col-md-8 col-lg-9">
                                             {{ form_widget(form.email,{'attr':{'class': 'form-control'}}) }}
                                             <a style="color:red">{{ form_errors(form.email, {'errors_attr':
+                                                {'class':'text-danger'}}) }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        {{ form_label(form.profileImage, 'Profile Image', {'label_attr': {'class': 'col-md-4 col-lg-3
+                                        col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.profileImage,{'attr':{'class': 'form-control'}}) }}
+                                            <a style="color:red">{{ form_errors(form.profileImage, {'errors_attr':
                                                 {'class':'text-danger'}}) }}</a>
                                         </div>
                                     </div>

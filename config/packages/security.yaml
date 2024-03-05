@@ -49,7 +49,7 @@ security:
     access_control:
 
         - { path: '^/users', roles: 'ROLE_ADMIN' }
-        - { path: '^/dashbord', roles: 'ROLE_ADMIN' }
+        - { path: '^/dashboard', roles: 'ROLE_ADMIN' }
         - { path: '^/adminProfile', roles: 'ROLE_ADMIN' }
         - { path: '^/list', roles: 'ROLE_ADMIN' }
         - { path: '^/edit', roles: 'ROLE_ADMIN' }

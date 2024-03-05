@@ -34,15 +34,21 @@ class AdminController extends AbstractController
             'users' => $users,
         ]);
     }
-    #[Route('/dashbord', name: 'app_dashbord')]
-    public function dashbord(): Response
+    #[Route('/dashboard', name: 'app_dashbord')]
+    public function dashboard(EntityManagerInterface $em): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userRepository = $entityManager->getRepository(User::class);
-        $users = $userRepository->findAll();
-
+        $userRepository = $em->getRepository(User::class);
+        $users = $userRepository->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.roles LIKE :role')
+            ->andWhere('u.registrationDate >= :registrationDate')
+            ->setParameter('role', '%"ROLE_USER"%')
+            ->setParameter('registrationDate', new \DateTime('-1 year'))
+            ->getQuery()
+            ->getSingleScalarResult();
+  
         return $this->render('admin/dashbord.html.twig', [
-            'users' => $users,
+            'userCount' => $users,
         ]);
     }
     /*#[Route('/indexx', name: 'app_userad')]

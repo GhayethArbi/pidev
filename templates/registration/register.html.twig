@@ -43,7 +43,7 @@
                                 <div class="col-md-6 mb-6">
                                     <div class="form-group">
                                         <label for="yourName">First Name</label>
-                                        {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                        
                                         {% if form_errors(form.name) %}
                                         {{ form_widget(form.name, {'attr': {'class': 'form-control is-invalid'}}) }}
                                         {% else %}

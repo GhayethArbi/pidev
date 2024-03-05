@@ -40,8 +40,8 @@ class RegistrationController extends AbstractController
             $user->setLoyalityPoints(0);
             // Set their role
             $user->setRoles(['ROLE_USER']);
-    
-
+            $user->setIsBanned(false);
+            $user->setRegistrationDate(new \DateTime());
             // Save
             
             $em->persist($user);
