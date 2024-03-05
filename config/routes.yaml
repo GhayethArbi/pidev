@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/Gestion_ActivitéZZ
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index

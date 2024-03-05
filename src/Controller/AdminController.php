@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\LoyalityPointsType;
@@ -195,4 +196,19 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('app_users');
     }
+=======
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class AdminController extends AbstractController
+{
+    #[Route('/admin', name: 'app_admin')]
+    public function index(): Response
+    {
+        return $this->render('base.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+>>>>>>> origin/Gestion_ActivitéZZ
 }

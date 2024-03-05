@@ -12,12 +12,20 @@
         ]
     },
     "doctrine/doctrine-bundle": {
+<<<<<<< HEAD
         "version": "2.10",
+=======
+        "version": "2.11",
+>>>>>>> origin/Gestion_ActivitéZZ
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.4",
+<<<<<<< HEAD
             "ref": "013b823e7fee65890b23e40f31e6667a1ac519ac"
+=======
+            "ref": "cc62b7e9470998c640ee99d284a013a676f1fc5e"
+>>>>>>> origin/Gestion_ActivitéZZ
         },
         "files": [
             "./config/packages/doctrine.yaml",
@@ -26,7 +34,11 @@
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
+<<<<<<< HEAD
         "version": "3.2",
+=======
+        "version": "3.3",
+>>>>>>> origin/Gestion_ActivitéZZ
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -38,12 +50,15 @@
             "./migrations/.gitignore"
         ]
     },
+<<<<<<< HEAD
     "endroid/qr-code-bundle": {
         "version": "5.0.1"
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
+=======
+>>>>>>> origin/Gestion_ActivitéZZ
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -58,6 +73,7 @@
             "./tests/bootstrap.php"
         ]
     },
+<<<<<<< HEAD
     "scheb/2fa-bundle": {
         "version": "6.12",
         "recipe": {
@@ -83,6 +99,8 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+=======
+>>>>>>> origin/Gestion_ActivitéZZ
     "symfony/console": {
         "version": "5.4",
         "recipe": {
@@ -108,7 +126,11 @@
         ]
     },
     "symfony/flex": {
+<<<<<<< HEAD
         "version": "2.3",
+=======
+        "version": "2.4",
+>>>>>>> origin/Gestion_ActivitéZZ
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -144,7 +166,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "4.3",
+<<<<<<< HEAD
             "ref": "2bf89438209656b85b9a49238c4467bff1b1f939"
+=======
+            "ref": "df66ee1f226c46f01e85c29c2f7acce0596ba35a"
+>>>>>>> origin/Gestion_ActivitéZZ
         },
         "files": [
             "./config/packages/mailer.yaml"
@@ -159,6 +185,7 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+<<<<<<< HEAD
     "symfony/mercure-bundle": {
         "version": "0.3",
         "recipe": {
@@ -180,6 +207,8 @@
             "ref": "98a27687305d236709390ff01d7a6a9818735b97"
         }
     },
+=======
+>>>>>>> origin/Gestion_ActivitéZZ
     "symfony/messenger": {
         "version": "5.4",
         "recipe": {
@@ -193,12 +222,20 @@
         ]
     },
     "symfony/monolog-bundle": {
+<<<<<<< HEAD
         "version": "3.8",
+=======
+        "version": "3.10",
+>>>>>>> origin/Gestion_ActivitéZZ
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "3.7",
+<<<<<<< HEAD
             "ref": "213676c4ec929f046dfde5ea8e97625b81bc0578"
+=======
+            "ref": "aff23899c4440dd995907613c1dd709b6f59503f"
+>>>>>>> origin/Gestion_ActivitéZZ
         },
         "files": [
             "./config/packages/monolog.yaml"
@@ -217,12 +254,20 @@
         ]
     },
     "symfony/phpunit-bridge": {
+<<<<<<< HEAD
         "version": "6.3",
+=======
+        "version": "7.0",
+>>>>>>> origin/Gestion_ActivitéZZ
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.3",
+<<<<<<< HEAD
             "ref": "01dfaa98c58f7a7b5a9b30e6edb7074af7ed9819"
+=======
+            "ref": "a411a0480041243d97382cac7984f7dce7813c08"
+>>>>>>> origin/Gestion_ActivitéZZ
         },
         "files": [
             "./.env.test",
@@ -257,7 +302,11 @@
         ]
     },
     "symfony/stimulus-bundle": {
+<<<<<<< HEAD
         "version": "2.16",
+=======
+        "version": "2.15",
+>>>>>>> origin/Gestion_ActivitéZZ
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -276,7 +325,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "5.3",
+<<<<<<< HEAD
             "ref": "da64f5a2b6d96f5dc24914517c0350a5f91dee43"
+=======
+            "ref": "e28e27f53663cc34f0be2837aba18e3a1bef8e7b"
+>>>>>>> origin/Gestion_ActivitéZZ
         },
         "files": [
             "./config/packages/translation.yaml",
@@ -296,8 +349,13 @@
             "./templates/base.html.twig"
         ]
     },
+<<<<<<< HEAD
     "symfony/ux-notify": {
         "version": "v2.16.0"
+=======
+    "symfony/ux-turbo": {
+        "version": "v2.15.0"
+>>>>>>> origin/Gestion_ActivitéZZ
     },
     "symfony/validator": {
         "version": "5.4",
@@ -324,6 +382,7 @@
             "./config/routes/web_profiler.yaml"
         ]
     },
+<<<<<<< HEAD
     "symfony/webapp-pack": {
         "version": "1.2",
         "recipe": {
@@ -362,5 +421,9 @@
         "files": [
             "./config/packages/vich_uploader.yaml"
         ]
+=======
+    "twig/extra-bundle": {
+        "version": "v3.8.0"
+>>>>>>> origin/Gestion_ActivitéZZ
     }
 }

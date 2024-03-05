@@ -1,0 +1,52 @@
+{% extends 'base_user.html.twig' %}
+{% block css %}
+	<!--CSS OF THE OBJECTIVES PAGE-->
+	<link rel="stylesheet" href="{{asset('assetsObj/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('assetsObj/css/style.css')}}">
+{% endblock %}
+{% block body %}
+	<style></style>
+	<!-- ================ S-CROSSFIT ================ -->
+	<section class="s-crossfit">
+		<div class="container">
+			<img src="{{asset('assetsU/img/placeholder-all.png')}}" data-src="{{asset('assetsU/img/group-circle-2.svg')}}" alt="img" class="crossfit-icon-1 rx-lazy">
+			<img src="{{asset('assetsU/img/placeholder-all.png')}}" data-src="{{asset('assetsU/img/line-red-1.svg')}}" alt="img" class="crossfit-icon-2 rx-lazy">
+			<img src="{{asset('assetsU/img/placeholder-all.png')}}" data-src="{{asset('assetsU/img/tringle-about-top.svg')}}" alt="img" class="crossfit-icon-3 rx-lazy">
+			<a href="http://127.0.0.1:8000/user" class="btn">Back</a>
+			<h2 class="title-decor" style='color:white;'>Take a Look At Your
+				<span>objectives</span>
+			</h2>
+			 {% for message in app.flashes('notice') %}
+    {%if message=="The empty Objective will be automatically removed!"%}
+    <div class="alert alert-danger">
+        {{ message }}
+    
+    </div>
+    {%endif%}
+	{%endfor%}
+			<!--div class="alert alert-warning">
+			</div-->
+
+			<div class="row">
+				{% for objectif in objectifscrees %}
+					<div class="col-md-4 crossfit-col">
+						<div class="crossfit-item">
+							<img class="rx-lazy" src="{{asset('assetsU/img/placeholder-all.png')}}" data-src="{{asset('assetsU/img/serv-2.svg')}}" alt="img">
+							<h3 class="title-decor" style='color:#fcbd56;'>{{objectif.NomObjectif}}</h3>
+							<h5 class="title-decor" style='color:white;'>Note:
+								{{objectif.Note}}</h5>
+							<h5 class="title-decor" style='color:white;'>Date Objectif:
+								{{objectif.DateObjectif ? objectif.DateObjectif|date('Y-m-d H:i:s') : ''}}</h5>
+							<h5 class="title-decor" style='color:white;'>Total Duree:
+								{{objectif.TotalDuree}}</h5>
+							<h5 class="title-decor" style='color:white;'>Total calories:
+								{{objectif.TotalCalories}}</h5>
+							<a class="btn" href="http://127.0.0.1:8000/user/created_objectives/associated_activities/{{ objectif.id }}">view Schedule</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- ============== S-CROSSFIT END ============== -->
+{% endblock %}
