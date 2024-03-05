@@ -6,11 +6,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Users Tables</h1>
+        <h1>Edit Category</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
-                <li class="breadcrumb-item">Users</li>
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Dashboard</a></li>
+                <li class="breadcrumb-item">Edit Category</li>
 
             </ol>
         </nav>
@@ -26,23 +26,10 @@
     </div>
     {%endif%}
     {% endfor %}
-    <section class="section">
-        <div class="row">
 
+    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Edit Category</h5>
+    <a href="{{ path('app_category_index') }}">back to list</a>
 
-
-                    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
-
-                    <a href="{{ path('app_category_index') }}">back to list</a>
-
-                    {{ include('category/_delete_form.html.twig') }}
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
+    {{ include('category/_delete_form.html.twig') }}
 {% endblock %}
