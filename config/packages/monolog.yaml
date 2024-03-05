@@ -59,7 +59,4 @@ when@prod:
                 type: stream
                 channels: [deprecation]
                 path: php://stderr
-<<<<<<< HEAD
-=======
                 formatter: monolog.formatter.json
->>>>>>> origin/Gestion_ActivitéZZ

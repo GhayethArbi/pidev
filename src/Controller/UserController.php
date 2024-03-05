@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-<<<<<<< HEAD
 use App\Form\ChangePasswordType;
 use App\Form\ProfileFormType;
 use App\Repository\UserRepository;
@@ -99,8 +98,9 @@ class UserController extends AbstractController
     public function accessDenied(): Response
     { 
         return $this->render('Client/access.html.twig');
-=======
-use App\Entity\ActivitePhysique;
+    }
+}
+/*use App\Entity\ActivitePhysique;
 use App\Entity\Objectif;
 use App\Form\ActivitePhysiqueType;
 use App\Form\ObjectifType;
@@ -192,7 +192,7 @@ class UserController extends AbstractController
             'activite' => $newactivite,
         ]);
     }*/
-    #[Route('objectifs/create_Obj/{data}/select_activites/{idObj}/createActivite/{nomAct}', name: 'app_user_create_activite')]
+    /*#[Route('objectifs/create_Obj/{data}/select_activites/{idObj}/createActivite/{nomAct}', name: 'app_user_create_activite')]
     public function createActivite(string $data, int $idObj, Request $request, string $nomAct, ObjectifRepository $objectifRepository, EntityManagerInterface $entityManagerInterface, ActivitePhysiqueRepository $activitePhysiqueRepository): Response
     {
         $actualactivite  = $activitePhysiqueRepository->findOneBy(['Nom_Activite' => $nomAct]);
@@ -341,7 +341,4 @@ class UserController extends AbstractController
             return new Response("ok", $code);
         } else {
             return new Response('Données incomplètes', 400);
-        }
->>>>>>> origin/Gestion_ActivitéZZ
-    }
-}
+        }*/
