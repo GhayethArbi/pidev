@@ -39,6 +39,8 @@
             </tr>
         </thead>
         <tbody>
+
+
         {% for plan_nutritionnel in plan_nutritionnels %}
             <tr>
                 <tr>
@@ -46,11 +48,20 @@
                 <td>{{ plan_nutritionnel.name }}</td>
                  
                 <td> 
-                 {% for recette in plan_nutritionnel.recettes %}
-                {{ recette.name }} {{recette.category}}
-                {% if not loop.last %}, 
-                {% endif %}
-            {% endfor %}
+                {{ plan_nutritionnel.recettes.name }}
+                <br>
+                 {% if plan_nutritionnel.recettes.category == "Breakfast" %}
+              <span class="badge bg-success">{{plan_nutritionnel.recettes.category}}</span>
+                {% elseif  plan_nutritionnel.recettes.category == "Lunch" %}
+              <span class="badge bg-primary">{{plan_nutritionnel.recettes.category}}</span> 
+              {% elseif  plan_nutritionnel.recettes.category == "Dinner" %}
+              <span class="badge bg-warning">{{plan_nutritionnel.recettes.category}}</span> 
+              {% elseif plan_nutritionnel.recettes.category == "Snacks"  %}
+              <span class="badge bg-light text-dark">{{plan_nutritionnel.recettes.category}}</span>
+              {% endif %}
+              <br>
+                {{plan_nutritionnel.recettes.description | slice(1,10)}}
+            
                 </td>
                 <td>{{ plan_nutritionnel.date ? plan_nutritionnel.date|date('Y-m-d') : '' }}</td>
                 <td>

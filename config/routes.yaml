@@ -56,4 +56,27 @@ app_user_reccette_plan:
    
 app_user_recette_show:
   path: /{id}/recette_user
-  controller: App\Controller\RecceteUserController::show_recette
+  controller: App\Controller\RecceteUserController::show_recette  
+
+
+app_recipes_new:
+  path: /new_recette_user
+  controller: App\Controller\RecceteUserController::new
+
+app_user_delete:
+  path: /{id}/delete_recette_user
+  controller: App\Controller\RecceteUserController::delete
+
+#####################################Plan_nutritionnelle_user################################################
+app_user_plan_nutrtionnel_new:
+  path: /new/plan/user
+  controller: App\Controller\PlanNutritionnelUserController::new
+  
+app_plan_nutritionnel_user:
+  path: /plan/user
+  controller: App\Controller\PlanNutritionnelUserController::index
+
+app_user_plan_nutrtionnel_edit:
+  path: /{id}/edit_user_plan
+  controller: App\Controller\PlanNutritionnelUserController::edit
+

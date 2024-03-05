@@ -1,30 +1,31 @@
 
-{% extends 'base_admin.html.twig' %}
-{% block body %}
-<section class="section">
+{% extends 'base_user.html.twig' %}
+{% block content %}
 
-        <div class="col-lg-6">
+<section class="s-contacts" style="background-image: url(assets_user/img/bg-contacts.svg);">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Add new plan </h5>
-
-              <!-- Advanced Form Elements -->
-            {{ form_start(form,{'attr':{novalidate:'novalidate'}}) }}
-                <div class="row mb-3">
-                  <div class="col-sm-10">
-                    <div class="form-floating mb-3">
-              	<label>Name</label>
+    {{ form_start(form,{'attr':{novalidate:'novalidate'}}) }}
+       <div class="container">
+			<h2 class="title-decor">Nutritional<span>Plan </span></h2>
+			<p class="slogan">Unleash your creativity and create your recipes </p>
+			 <div class="row ">
+				<div class="col-md-5 col-lg-4">
+								
+				</div>
+            <div class="col-md-7 col-lg-8">
+                <div class="form-floating mb-3">
+				
+				<label>Name</label>
 				{% if form_errors(form.name) %}
                     {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
                     {% else %}
                     {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
                     {% endif %}
                     <a style="color:red">{{ form_errors(form.name) }}</a>
-           
-                    </div>
-                    <div class="form-floating mb-3" >
-                   	<label >date</label>
+                </div>
+
+                <div class="form-floating mb-3" >
+				<label >date</label>
 				{% if form_errors(form.date) %}
                     {{ form_widget(form.date,{'attr':{'class': 'form-control is-invalid'}}) }}
                     {% else %}
@@ -33,30 +34,26 @@
                     <a style="color:red">{{ form_errors(form.date) }}</a>
                 </div>
 
-                    </div>
                 <div class="form-floating mb-3">
-                 <label >recettes</label>
+				<label >recettes</label>
 				{% if form_errors(form.recettes) %}
                     {{ form_widget(form.recettes,{'attr':{'class': 'form-control is-invalid'}}) }}
                     {% else %}
                     {{ form_widget(form.recettes,{'attr':{'class': 'form-control'}}) }}
                     {% endif %}
                     <a style="color:red">{{ form_errors(form.recettes) }}</a>
-              
-                  </div>
                 </div>
-                {{ form_end(form) }}
-                <div class="d-grid gap-3 mb-3">
-                <button class="btn btn-dark" >{{ button_label|default('Save') }}</button>
-              </div>
-          
-
-              <!-- End General Form Elements -->
-
-            </div>
-          </div>
-
         </div>
-      </div>
-    </section>
+
+    {{ form_end(form) }}
+
+            <div class="d-grid gap-3 mb-3">
+                <button class="btn btn-dark" >{{ button_label|default('Save') }}</button>
+        	</div>
+
+		</div>
+</section>
+
+
+      
 {% endblock %}

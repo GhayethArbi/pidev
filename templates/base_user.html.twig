@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitKeep</title>
+    {% block css %}
     <!-- =================== META =================== -->
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -27,7 +28,7 @@
     <link rel="stylesheet" href="{{asset('asset/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('asset/css/main-color03-green.css')}}">
     <!-- =================== STYLE =================== -->
-
+{% endblock %}
 </head>
 
 <body id="home">
@@ -86,7 +87,7 @@
                         <a href="#">Module Nutrition <i class="fa fa-caret-down"></i></a>
                         <ul>
                             <li class="menu-active"><a href={{path ('app_user_reccette_plan')}}>Recettes</a></li>
-                            <li><a href="home-fitness.html">Plan Nutritionnelle</a></li>
+                            <li><a href={{path ('app_plan_nutritionnel_user')}}>Plan Nutritionnelle</a></li>
                         </ul>
                     </li>
                     <li><a href="{{path ('app_user_interface_plan')}}">plan</a></li>

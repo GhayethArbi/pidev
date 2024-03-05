@@ -3,28 +3,28 @@
 {% block title %}Hello RecceteUserController!{% endblock %}
 
 {% block content %}
-   <section class="s-header-title" style="background-image: url(assets_user/img/bg-1-min.png);">
-		<div class="container">
-			<h1 class="title">Module Nutrition</h1>
-			<ul class="breadcrambs">
-				<li><a href="index-2.html">Home</a></li>
-				<li>Module Nutritionnelle</li>
-				<li>Recipes</li>
-			</ul>
-		</div>
-	</section>
+    <!-- ============ S-CROSSFIT-BANNER ============ -->
+    <section class="s-crossfit-banner">
+        <div class="crossfit-banner-left" style="background-image: url('{{ asset('assets_user/img/image.png') }}');"></div>
+        <div class="crossfit-banner-right">
+            <div class="text-top">Unleash your </div>
+            <h2>creativity </h2>
+            <div class="text-bottom">add your <a href="{{ path('app_recipes_new') }}">own  recipes</a></div>
+        </div>
+    </section>
+    <!-- ========== S-CROSSFIT-BANNER END ========== -->
 <section class="s-crossfit" >
 		<div class="container">
-			<h2 class="title-decor">Notre <span>Recettes</span></h2>
+			<h2 class="title-decor">Our <span>Recipes</span></h2>
 			<p class="slogan">Maecenas consequat ex id lobortis venenatis. Mauris id erat enim. Morbi dolor dolor, auctor tincidunt lorem ut, venenatis dapibus miq.</p>
 			<div class="row">
 			{% for recette in recettes %}   
             <div class="col-sm-6 col-md-3 program-col">
 					<div class="program-item">
-						<div class="program-item-front" style="background-image: url(assets_user/img/oatmeal.jpg);">
+						<div class="program-item-front" style="background-color:#919191;">
 							<div class="program-item-inner">
 								<h3>{{recette.name}}</h3>
-                                 <h5 style="color: #fcbd56;" >{{recette.category}}</h5>
+                <h5 style="color: #fcbd56;" >{{recette.category}}</h5>
 							</div>
 						</div>
 						<div class="program-item-back" style="background-image: url(assets/img/programs-1.jpg);">
@@ -39,6 +39,35 @@
 			</div>
 		</div>
 </section>
+            
+
+<style>
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: white;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: #f23849 .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #f23849;
+  color: #f23849;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: #f23849;}
+</style>
+
+			  {{ knp_pagination_render(recettes) }}
+			
 	<!-- ============ S-OUR-PROGRAMS END ============ -->
 
 {% endblock %}

@@ -9,19 +9,36 @@
               <h5 class="card-title">Add new recipe</h5>
 
               <!-- Advanced Form Elements -->
-            {{ form_start(form,{'attr':{novalidate:'novalidate'}}) }}
+                 {{ form_start(form,{'attr':{novalidate:'novalidate'}}) }}
                 <div class="row mb-3">
                   <div class="col-sm-10">
                     <div class="form-floating mb-3">
-                {{form_row(form.name,{'attr':{'class':'form-control'}})}}
+                    <label>Name</label>
+			            	{% if form_errors(form.name) %}
+                    {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.name) }}</a>
            
                     </div>
                     <div class="form-floating mb-3" >
-                     {{form_row(form.category,{'attr':{'class':'form-select'}})}}
-                    </div>
+                    <label >category</label>
+				            {% if form_errors(form.category) %}
+                    {{ form_widget(form.category,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.category,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.category) }}</a>             
+                     </div>
                 <div class="form-floating mb-3">
-                    {{form_row(form.description,{'attr':{'class':'form-control'}})}}
-                  </div>
+                  <label >Description</label>
+				            {% if form_errors(form.description) %}
+                    {{ form_widget(form.description,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.description,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.category) }}</a>                  </div>
                 </div>
                 {{ form_end(form) }}
                 <div class="d-grid gap-3 mb-3">

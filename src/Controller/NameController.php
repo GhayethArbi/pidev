@@ -14,10 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class NameController extends AbstractController
 {
     #[Route('/recette_admin', name: 'app_name_index', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository): Response
+    public function index(RecetteRepository $recetteRepository, EntityManagerInterface $entityManager): Response
     {
+        $Breakfastcount = $entityManager->getRepository(Recette::class)->count(['category' => 'Breakfast']);
+        $Lunchcount = $entityManager->getRepository(Recette::class)->count(['category' => 'Lunch']);
+            
         return $this->render('admin/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
+            'Breakfastcount' => $Breakfastcount,
+            'Lunchcount' => $Lunchcount,
         ]);
     }
 

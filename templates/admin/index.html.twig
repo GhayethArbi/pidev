@@ -100,63 +100,61 @@
               <!-- Column Chart -->
               <div id="columnChart"></div>
 
-              <script>
-                  document.addEventListener("DOMContentLoaded", () => {
-                    const recette = {{ recettes | json_encode | raw }};
-                    const category = recette.map(recettes => recettes.category); // Utilisez la date de la recette comme catégorie
-                  new ApexCharts(document.querySelector("#columnChart"), {
-                    series: [{
-                      //Nom de la statistique 
-                      name: 'Recettes',
-                      data: Object.values(recettes)
-                    }
-                    /* , {
-                      name: 'Revenue',
-                      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-                    }, {
-                      name: 'Free Cash Flow',
-                      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-                    }*/],
-                    chart: {
-                      type: 'bar',
-                      height: 350
-                    },
-                    plotOptions: {
-                      bar: {
-                        horizontal: false,
-                        columnWidth: '55%',
-                        endingShape: 'rounded'
-                      },
-                    },
-                    dataLabels: {
-                      enabled: false
-                    },
-                    stroke: {
-                      show: true,
-                      width: 2,
-                      colors: ['transparent']
-                    },
-                    xaxis: {
-                      categories:data,
-                    },
-                    yaxis: {
-                      title: {
-                        text: 'Nombre des recettes'
-                      }
-                    },
-                    fill: {
-                      opacity: 1
-                    },
-                    tooltip: {
-                      y: {
-                        formatter: function(val) {
-                          return  val;
-                        }
-                      }
-                    }
-                  }).render();
-                });
-              </script>
+             <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const recette = {{ recettes | json_encode | raw }};
+    const breakfastData = {{ Breakfastcount | json_encode | raw }};
+    const lunchData = {{ Lunchcount | json_encode | raw }};
+    
+    new ApexCharts(document.querySelector("#columnChart"), {
+      series: [{
+        name: 'Breakfast',
+        data: breakfastData
+      }, {
+        name: 'Lunch',
+        data: lunchData
+      }],
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded'
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['Breakfast', 'Lunch']
+      },
+      yaxis: {
+        title: {
+          text: 'Number of Recipes'
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function(val) {
+            return val;
+          }
+        }
+      }
+    }).render();
+  });
+</script>
+
               <!-- End Column Chart -->
 
             </div>
