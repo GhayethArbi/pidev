@@ -1,8 +1,8 @@
-{% extends 'AdminTpl/baseD.html.twig' %}
-{% block Dtitle %}
+{% extends 'base.html.twig' %}
+{% block title %}
 	Form Activite Physique
 {% endblock %}
-{% block Adminbody %}
+{% block body %}
 	<style>
 		.form-control.is-invalid,
 		.was-validated .form-control:invalid {
@@ -120,6 +120,6 @@
 	</div>
 
 {% endblock %}
-{% block Adminjs %}
+{% block js %}
 	<script src="{{ asset('Jsmbm/ActivitesChampsC.js') }}"></script>
 {% endblock %}

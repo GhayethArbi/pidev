@@ -1,10 +1,10 @@
-{% extends 'UserTpl/baseU.html.twig' %}
-  {% block Usercss %}
+{% extends 'base_user.html.twig' %}
+  {% block css %}
    	<!--CSS OF THE OBJECTIVES PAGE-->
     <link rel="stylesheet" href="{{asset('assetsObj/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assetsObj/css/style.css')}}">
   {% endblock %}   
-{% block Userbody %}
+{% block body %}
 
 <div class="gallery-area section-padding30 ">
         <div class="container-fluid ">
@@ -79,7 +79,7 @@
         </div>
     </div>
 {% endblock %}
-{% block Userjs %}
+{% block js %}
 
 <script src="{{asset('assetsObj/js/vendor/modernizr-3.5.0.min.js')}}"></script>
 <!-- Jquery, Popper, Bootstrap -->

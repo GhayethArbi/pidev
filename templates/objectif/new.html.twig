@@ -1,8 +1,8 @@
-{% extends 'AdminTpl/baseD.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}New Objectif{% endblock %}
 
-{% block Adminbody %}
+{% block body %}
     {{ include('objectif/_form.html.twig') }}
 
     <a href="{{ path('app_objectif_index') }}">back to list</a>
