@@ -1,0 +1,62 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Hello RecceteUserController!{% endblock %}
+
+{% block content %}
+   <section class="s-header-title" style="background-image: url(/assets_user/img/bg-1-min.png);">
+		<a class="btn" href="{{path ('app_user_reccette_plan')}}">Back To previous </a>
+        <div class="container">
+        
+			<h1 class="title">Module Nutrition</h1>
+			<ul class="breadcrambs">
+				<li><a href="index-2.html">Home</a></li>
+				<li>Module Nutritionnelle</li>
+				<li>Recipes</li>
+			</ul>
+		</div>
+	</section>
+	<section class="s-about">
+		<div class="container">
+			<img class="about-effect-tringle" src="/assets_user/img/tringle-about-top.svg" alt="img">
+			<div class="row about-row">
+				<div class="col-md-5 about-img-col">
+					<div class="about-img-cover">
+						<div class="about-img-1">
+							<img class="about-img-effect-1" src="/assets_user/img/square-yellow.svg" alt="img">
+							<img class="about-img-effect-2" src="/assets_user/img/group-circle-2.svg" alt="img">
+							<img src="/assets_user/img/oatmeal.jpg" alt="img">
+						</div>
+						<div class="about-img-2">
+							<img src="/assets_user/img/oatmeal.jpg" alt="img">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-7 about-info-cover">
+					<h2 class="title-decor">About <span>{{ recette.name }}</span></h2>
+                    <h3 > Category : &nbsp <span>{{recette.category}}</span></h3>
+                    
+					<div class="text">
+                    <h3>Description: </h3>
+                    <p>{{recette.description}}</p>
+					</div>
+					<a href="{{ path('app_recette_user_edit', {'id': recette.id}) }}"><button class="btn btn-dark"><i class="ri-edit-2-line">&nbsp Edit</i></button></a>
+    <form method="post" action="{{ path('app_user_delete', {'id': recette.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recette.id) }}">
+    <button class="btn  bg-light text-dark"><i class="bi bi-trash">&nbsp Delete </i></button>
+    </form>
+					<ul class="about-cont">
+						<li><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:18004886040">1-800-488-6040</a></li>
+						<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:fitmax@gmail.com">fitmax@gmail.com</a></li>
+					</ul>
+					<ul class="social-list">
+						<li><a target="_blank" href="https://www.facebook.com/rovadex"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="https://twitter.com/RovadexStudio"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="https://www.youtube.com/"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+						<li><a target="_blank" href="https://www.instagram.com/rovadex"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ============ S-OUR-PROGRAMS END ============ -->
+{% endblock %}

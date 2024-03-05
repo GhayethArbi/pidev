@@ -1,0 +1,34 @@
+{% extends 'base_user.html.twig' %}
+{% block content %}
+    <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                      <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plan_nutritionnel.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ plan_nutritionnel.name }}</td>
+            </tr>
+            <tr>
+                <th>Recettes</th>
+                <td> {% for recette in plan_nutritionnel.recettes %}
+                {{ recette.name }} {{recette.category}}
+                {% if not loop.last %}, 
+                {% endif %}
+            {% endfor %}
+            </td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ plan_nutritionnel.date ? plan_nutritionnel.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+                </div>
+            </div>
+    </div>
+{% endblock %}

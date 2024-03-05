@@ -1,0 +1,59 @@
+
+{% extends 'base_user.html.twig' %}
+{% block content %}
+
+<section class="s-contacts" style="background-image: url(assets_user/img/bg-contacts.svg);">
+
+    {{ form_start(form,{'attr':{novalidate:'novalidate'}}) }}
+       <div class="container">
+			<h2 class="title-decor">Nutritional<span>Plan </span></h2>
+			<p class="slogan">Unleash your creativity and create your recipes </p>
+			 <div class="row ">
+				<div class="col-md-5 col-lg-4">
+								
+				</div>
+            <div class="col-md-7 col-lg-8">
+                <div class="form-floating mb-3">
+				
+				<label>Name</label>
+				{% if form_errors(form.name) %}
+                    {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.name) }}</a>
+                </div>
+
+                <div class="form-floating mb-3" >
+				<label >date</label>
+				{% if form_errors(form.date) %}
+                    {{ form_widget(form.date,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.date,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.date) }}</a>
+                </div>
+
+                <div class="form-floating mb-3">
+				<label >recettes</label>
+				{% if form_errors(form.recettes) %}
+                    {{ form_widget(form.recettes,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.recettes,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.recettes) }}</a>
+                </div>
+        </div>
+
+    {{ form_end(form) }}
+
+            <div class="d-grid gap-3 mb-3">
+                <button class="btn btn-dark" >{{ button_label|default('Save') }}</button>
+        	</div>
+
+		</div>
+</section>
+
+
+      
+{% endblock %}

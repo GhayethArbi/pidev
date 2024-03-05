@@ -5,6 +5,7 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
+<<<<<<< HEAD
 
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -12,12 +13,16 @@ security:
                 class: App\Entity\User
                 property: email
 
+=======
+        users_in_memory: { memory: null }
+>>>>>>> origin/Module_Nutrition
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
+<<<<<<< HEAD
 
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
@@ -37,6 +42,9 @@ security:
                 lifetime: 604800
                 path: /login
                 always_remember_me: true
+=======
+            provider: users_in_memory
+>>>>>>> origin/Module_Nutrition
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -47,6 +55,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+<<<<<<< HEAD
 
         - { path: '^/users', roles: 'ROLE_ADMIN' }
         - { path: '^/dashboard', roles: 'ROLE_ADMIN' }
@@ -56,6 +65,10 @@ security:
         - { path: '^/delete', roles: 'ROLE_ADMIN' }
         - { path: '^/user', roles: 'ROLE_USER' }
         - { path: '^/user/Profile', roles: 'ROLE_USER' }
+=======
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+>>>>>>> origin/Module_Nutrition
 
 when@test:
     security:

@@ -1,0 +1,19 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New Recette{% endblock %}
+
+{% block body %}
+<!-- Page Title -->
+     <div class="pagetitle">
+      <h1> Nutrition </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item ">Module Nutrition</li> 
+          <li class="breadcrumb-item active">Recettes</li>
+        </ol>
+      </nav>
+    </div>
+    <a href="{{ path('app_name_index') }}"><button class="btn btn-outline-dark"><i class="ri-arrow-left-fill"> &nbsp back to list</i></button></a>
+    {{ include('admin/_form.html.twig') }}
+{% endblock %}
