@@ -59,7 +59,7 @@ Activitee physique
         </tbody>
     </table>
   <div class="button-group" id="btnnn">
-    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}" class="btn btn-outline-dark">edit</a>
+    <a href="{{ path('app_activite_physique_edit', {'id': activite_physique.getId()}) }}" class="btn btn-outline-dark">edit</a>
     <a href="{{ path('app_activite_physique_index') }}" class="btn btn-outline-warning">back to list</a>
     {{ include('activite_physique/_delete_form.html.twig') }}
 </div>

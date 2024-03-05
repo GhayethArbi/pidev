@@ -17,18 +17,23 @@ class Objectif
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    
     private ?string $Nom_Objectif = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\GreaterThanOrEqual('now', message: "La date de l'objectif doit être aujourd'hui ou ultérieure.")]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\GreaterThanOrEqual('today',
+    message : "La date de l'objectif doit etre > au date d'aujourd'hui"
+    )]
 
     private ?\DateTimeInterface $Date_Objectif = null;
-    #[Assert\PositiveOrZero(message: "La calories brules totale doit être supérieure ou égale à zéro.")]
+  
     #[ORM\Column(nullable: true)]
+    #[Assert\PositiveOrZero(message: "La calories brules totale doit être supérieure ou égale à zéro.")]
+   
     private ?int $Total_Calories = null;
 
-    #[Assert\PositiveOrZero(message: "La durée totale doit être supérieure ou égale à zéro.")]
     #[ORM\Column(nullable: true)]
+    #[Assert\PositiveOrZero(message: "La durée totale doit être supérieure ou égale à zéro.")]
     private ?int $Total_Duree = null;
 
     #[ORM\Column(length: 255, nullable: true)]

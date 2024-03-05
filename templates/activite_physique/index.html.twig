@@ -96,8 +96,8 @@ Activites physiques
 						{% endfor %}
 					</td>
 					<td>
-						<a href="{{ path('app_activite_physique_show', {'id': activite_physique.id}) }}" class="btn btn-outline-dark">show</a>
-						<a href="{{ path('app_activite_physique_edit', {'id': activite_physique.id}) }}" class="btn btn-outline-dark">edit</a>
+						<a href="{{ path('app_activite_physique_show', {'id': activite_physique.getId()}) }}" class="btn btn-outline-dark">show</a>
+						<a href="{{ path('app_activite_physique_edit', {'id': activite_physique.getId()}) }}" class="btn btn-outline-dark">edit</a>
 					</td>
 				</tr>
 			{% else %}

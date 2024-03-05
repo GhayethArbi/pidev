@@ -3,7 +3,7 @@
 Objectifs
 {% endblock %}
 {% block Adminbody %}
-    <h1>Objectif index</h1>
+    <h1>Listes des objectifs :</h1>
     <div class="col-lg-4">
 		   <!-- Website Traffic -->
             <div class="card">
@@ -90,7 +90,7 @@ Objectifs
             <tr>
                 <td>{{ objectif.id }}</td>
                 <td>{{ objectif.NomObjectif }}</td>
-                <td>{{ objectif.DateObjectif ? objectif.DateObjectif|date('Y-m-d') : '' }}</td>
+                <td>{{ objectif.DateObjectif ? objectif.DateObjectif|date('Y-m-d h:i:s') : '' }}</td>
                 <td>{{ objectif.TotalCalories }}</td>
                 <td>{{ objectif.TotalDuree }}</td>
                 <td>{{ objectif.Note }}</td>
@@ -104,6 +104,7 @@ Objectifs
                 <td>
                     <a href="{{ path('app_objectif_show', {'id': objectif.id}) }}"class="btn btn-outline-dark">show</a>
                     <a href="{{ path('app_objectif_edit', {'id': objectif.id}) }}"class="btn btn-outline-dark">edit</a>
+                    {{ include('objectif/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

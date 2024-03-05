@@ -36,7 +36,6 @@
 <section class="section profile">
 	<div class="row">
 
-
 		<div class="col-xl-8" id="user5">
 
 			<div class="card center">
@@ -46,7 +45,7 @@
 						<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 							<!-- Profile Edit Form -->
 						{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-							<div class="row mb-3 hide-div">
+							<div class="row mb-3 hide-div" >
 								{{ form_label(form.Nom_Activite, 'Nom_Activite', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
@@ -57,18 +56,19 @@
 									</a>
 								</div>
 							</div>
-							<div class="row mb-3 hide-div">
+							<div class="row mb-3 hide-div" id="li_at">
 								{{ form_label(form.Type_Activite, 'Type_Activite', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
                                         col-form-label'}}) }}
 								<div class="col-md-8 col-lg-9">
-									{{ form_widget(form.Type_Activite,{'attr':{'class': 'form-control type-activite-field gender' , 'value': activite.getTypeActivite()}}) }}
+									{#{ form_widget(form.Type_Activite,{'attr':{'class': 'form-control type-activite-field gender' , 'value': activite.getTypeActivite()}}) }#}
+									{{ form_widget(form.Type_Activite, {'attr': {'class': 'form-control type-activite-field gender', 'value': activite.getTypeActivite()}}) }}
 									<a style="color:red">{{ form_errors(form.Type_Activite) }}
 									</a>
 								</div>
 							</div>
-							<div class="row mb-3">
+							<div class="row mb-3 hide-div-cal" id="li_cb">
 								{{ form_label(form.Calories_Brules, 'Calories Brules', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
@@ -80,8 +80,8 @@
 								</div>
 							</div>
 
-							<div class="row mb-3">
-								{{ form_label(form.Duree_Activite, 'duree Number', {'label_attr': {'class':
+							<div class="row mb-3  hide-div-du" id="li_dr">
+								{{ form_label(form.Duree_Activite, 'duree Activite', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
                                         col-form-label'}}) }}
@@ -92,7 +92,7 @@
 								</div>
 							</div>
 
-							<div class="row mb-3">
+							<div class="row mb-3 hide-div-nbS" id="li_nbs">
 								{{ form_label(form.Nb_Series, 'Nombre de Série', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
@@ -104,7 +104,7 @@
 								</div>
 							</div>
 
-							<div class="row mb-3">
+							<div class="row mb-3 hide-div-nbRS" id="li_nbrs">
 								{{ form_label(form.Nb_Rep_Series, 'Nombre de répétition  de série', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
@@ -116,7 +116,7 @@
 								</div>
 							</div>
 
-							<div class="row mb-3">
+							<div class="row mb-3 hide-div-poidsS" id="li_ps">
 								{{ form_label(form.Poids_Par_Serie, 'Poids par série', {'label_attr': {'class':
                                         'col-md-4
                                         col-lg-3
@@ -143,8 +143,10 @@
 								<!--a href="{#{ path('app_user_select_activite')}#}" class="btn">return to list Activities</a-->
 							</div>
 							{{ form_end(form) }}
+							<pre>
+								{{ dump(activite) }}
+							</pre>
 							<!-- End Profile Edit Form -->
-
 						</div>
 					</div>
 					<!-- End Bordered Tabs -->
@@ -156,46 +158,36 @@
 </div>
 </main>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var caloriesField = document.querySelector('.calories-field');
-    var dureeField = document.querySelector('.duree-field');
-    var nbSerieField = document.querySelector('.nb-series-field');
-    var nbRepSerieField = document.querySelector('.nb-rep-series-field');
-    var poidsSerieField = document.querySelector('.poids-par-serie-field');
-    var typeActiviteField = document.querySelector('.type-activite-field');
-    var originalBorderColorCalories = window.getComputedStyle(caloriesField).borderColor;
-    var originalBorderColorDuree = window.getComputedStyle(dureeField).borderColor;
-   
-    function disableFieldsBasedOnActivityType() {
+ document.addEventListener('DOMContentLoaded', function() {
+    var typeActiviteField = document.getElementById('li_at');
+    var caloriesField = document.getElementById('li_cb');
+    var dureeField = document.getElementById('li_dr');
+    var nbSeriesField = document.getElementById('li_nbs');
+    var nbRepSerieField = document.getElementById('li_nbrs');
+    var poidsSerieField = document.getElementById('li_ps');
+
+     function hideFieldsBasedOnActivityType() {
         var selectedType = typeActiviteField.value;
         if (selectedType === 'musculation') {
-            caloriesField.value = "";
-            caloriesField.style.borderColor = originalBorderColorCalories;
-            dureeField.value = "";
-            dureeField.style.borderColor = originalBorderColorDuree;
-            caloriesField.disabled = true;
-            dureeField.disabled = true;
-            nbSerieField.disabled = false;
-            nbRepSerieField.disabled = false;
-            poidsSerieField.disabled = false;
+            dureeField.style.display = 'none';
+            caloriesField.style.display = 'none';
+            nbSeriesField.style.display = 'block';
+            nbRepSerieField.style.display = 'block';
+            poidsSerieField.style.display = 'block';
         } else {
-            caloriesField.disabled = false;
-            dureeField.disabled = false;
-            nbSerieField.value = "";
-            nbRepSerieField.value = "";
-            poidsSerieField.value = "";
-            nbSerieField.disabled = true;   
-            nbRepSerieField.disabled = true;
-            poidsSerieField.disabled = true;
+            dureeField.style.display = 'block';
+            caloriesField.style.display = 'block';
+            nbSeriesField.style.display = 'none';
+            nbRepSerieField.style.display = 'none';
+            poidsSerieField.style.display = 'none';
         }
-    };
+    }
 
-    // Appel de la fonction une fois que le DOM est chargé
-    disableFieldsBasedOnActivityType();
+    // Call the function once the DOM is loaded
+    hideFieldsBasedOnActivityType();
 
-    // Ajout de l'écouteur d'événement sur le champ "typeActiviteField"
-   
-    typeActiviteField.addEventListener('change', disableFieldsBasedOnActivityType);
+    // Add event listener to the "typeActiviteField" field
+    typeActiviteField.addEventListener('change', hideFieldsBasedOnActivityType);
 });
 </script>
 {% endblock %}
