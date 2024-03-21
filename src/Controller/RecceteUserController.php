@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\RecetteRepository;
@@ -57,20 +56,23 @@ class RecceteUserController extends AbstractController
     }
 
     #[Route('/recette_user', name: 'app_user_reccette_plan', methods: ['GET'])]
-    public function display_pics(RecetteRepository $RecetteRepository ,Request $request, PaginatorInterface $paginator): Response
+    public function display_pics(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
     { 
-        $recettes = $RecetteRepository->findAll();
-
+        // Retrieve all recipes from the repository
+        $allRecettes = $recetteRepository->findAll();
+    
+        // Paginate the results
         $recettes = $paginator->paginate(
-            $recettes, /* query NOT result */
-            $request->query->getInt('page', 1),
-            8 //nbr des donneées a afficher
+            $allRecettes, // Pass the query (not the result)
+            $request->query->getInt('page', 1), // Get the current page from the request
+            2 // Number of items per page
         );
+    
         return $this->render('reccete_user/index.html.twig', [
             'recettes' => $recettes,
         ]);
     }
-
+    
 
     #[Route('/{id}/recette_user', name: 'app_user_recette_show', methods: ['GET'])]
     public function show_recette(Recette $recette): Response

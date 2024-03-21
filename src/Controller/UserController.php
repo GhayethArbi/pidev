@@ -245,7 +245,7 @@ class UserController extends AbstractController
             'objectifscrees' =>  $objectifcrees
         ]);
     }
-    #[Route('/created_objectives/associated_activities/{idObj}', name: 'app_user_associated_activities')]
+    #[Route('user/created_objectives/associated_activities/{idObj}', name: 'app_user_associated_activities')]
     public function activites_associes(
         int $idObj,
         ObjectifRepository $objectifRepository,
@@ -259,7 +259,7 @@ class UserController extends AbstractController
             'idObj' => $idObj
         ]);
     }
-    #[Route('/created_objectives/associated_activities/{idObj}/RemoveActivite{idAct}', name: 'app_user_remove-associated-activite')]
+    #[Route('user/created_objectives/associated_activities/{idObj}/RemoveActivite{idAct}', name: 'app_user_remove-associated-activite')]
     public function remove_activites_associes(int $idObj, EntityManagerInterface $entityManagerInterface, int $idAct, ObjectifRepository $objectifRepository, ActivitePhysiqueRepository $activitePhysiqueRepository): Response
     {
         //dd($idObj) ;
