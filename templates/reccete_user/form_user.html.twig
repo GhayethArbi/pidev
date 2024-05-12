@@ -1,0 +1,61 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Hello RecceteUserController!{% endblock %}
+
+{% block content %}
+<a href="{{path ('app_user_reccette_plan') }}" class="btn">back to previous</a>
+
+<section class="s-contacts" style="background-image: url(assets_user/img/bg-contacts.svg);">
+
+    {{ form_start(form,{'attr':{novalidate:'novalidate'}}) }}
+       <div class="container">
+			<h2 class="title-decor">Add  <span>new recipes</span></h2>
+			<p class="slogan">Unleash your creativity and create your recipes </p>
+			 <div class="row ">
+				<div class="col-md-5 col-lg-4">
+			
+				<img src="/assets_user/img/oatmeal.jpg" alt="img">
+						
+				</div>
+            <div class="col-md-7 col-lg-8">
+                <div class="form-floating mb-3">
+				
+				
+				{% if form_errors(form.name) %}
+                    {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.name,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.name) }}</a>
+                </div>
+
+                <div class="form-floating mb-3" >
+				
+				{% if form_errors(form.category) %}
+                    {{ form_widget(form.category,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.category,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.category) }}</a>
+                </div>
+
+                <div class="form-floating mb-3">
+				
+				{% if form_errors(form.description) %}
+                    {{ form_widget(form.description,{'attr':{'class': 'form-control is-invalid'}}) }}
+                    {% else %}
+                    {{ form_widget(form.description,{'attr':{'class': 'form-control'}}) }}
+                    {% endif %}
+                    <a style="color:red">{{ form_errors(form.category) }}</a>
+                </div>
+        </div>
+
+    {{ form_end(form) }}
+
+            <div class="d-grid gap-3 mb-3">
+                <button class="btn btn-dark" >{{ button_label|default('Save') }}</button>
+        	</div>
+
+		</div>
+</section>
+{% endblock %}

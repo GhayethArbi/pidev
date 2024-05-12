@@ -1,0 +1,48 @@
+{% extends 'base_user.html.twig' %}
+{% block title %}
+	Full-Calendar
+{% endblock %}
+
+{% block content %}
+	<style>
+		#calendar {
+			width: 80%;
+			margin: auto;
+		}
+	</style>
+	<div id="calendar">
+  </div>
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        themeSystem: 'bootstrap5',
+        // locale: 'fr',
+        headerToolbar: {
+            start: "prev,next today",
+            center: "title",
+            end: "dayGridMonth,timeGridWeek"
+        },
+        events: {{ data|raw }},
+        editable: true,
+        eventResizableFromStart: true,
+    });
+
+  calendar.on('eventChange', (e) => {
+            let url = `/user/full/calendar/${e.event.id}/edit/`
+            let donnees = {
+                "title": e.event.title,
+                "description": e.event.extendedProps.description,
+                "start": e.event.start,        
+            }
+            console.log(donnees);
+            let xhr = new XMLHttpRequest
+
+            xhr.open("PUT", url)
+            xhr.send(JSON.stringify(donnees))
+        })
+    calendar.render();
+})
+	</script>
+{% endblock %}

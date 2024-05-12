@@ -1,0 +1,70 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Hello RecceteUserController!{% endblock %}
+
+{% block content %}
+    <!-- Your content here -->
+
+    <section class="s-crossfit">
+        <div class="container">
+            <h2 class="title-decor">Our <span>Recipes</span></h2>
+            <p class="slogan">Maecenas consequat ex id lobortis venenatis. Mauris id erat enim. Morbi dolor dolor, auctor tincidunt lorem ut, venenatis dapibus miq.</p>
+            <div class="row">
+                {% for recette in recettes %}
+                    <div class="col-sm-6 col-md-3 program-col">
+                        <div class="program-item">
+                            <div class="program-item-front" style="background-color:#919191;">
+                                <div class="program-item-inner">
+                                    <h3>{{ recette.name }}</h3>
+                                    <h5 style="color: #fcbd56;">{{ recette.category }}</h5>
+                                </div>
+                            </div>
+                            <div class="program-item-back" style="background-image: url(assets/img/programs-1.jpg);">
+                                <div class="program-item-inner">
+                                    <h3>{{ recette.name }}</h3>
+                                    <a href="{{ path('app_user_recette_show', {'id': recette.id}) }}" class="btn">More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {{ knp_pagination_render(recettes) }}
+    </div>
+    <!-- End Pagination -->
+
+    <!-- Pagination CSS -->
+    <style>
+      .pagination {
+      
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+    </style>
+    <!-- End Pagination CSS -->
+{% endblock %}

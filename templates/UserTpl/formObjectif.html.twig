@@ -1,0 +1,105 @@
+{% extends 'base_user.html.twig' %}
+{% block title %}
+    formulaire_Objectif
+{% endblock %}
+{% block content %}
+<style>
+    .option {
+        gap: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+    
+    .option div {
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    #edit
+    {
+        color: #f23849;
+    }
+
+
+</style>
+<main id="main" class="main mr-4">
+    <div class="container">
+<section class="section profile">
+	<div class="row">
+		<div class="col-xl-8" id="user5">
+			<div class="card center">
+				<div class="card-body pt-3">
+					<div class="tab-content pt-2">
+						<!-- End Page Title -->
+						<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+							<!-- Profile Edit Form -->
+						{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+							<div class="row mb-3">
+								{{ form_label(form.Date_objectif, 'date objectif', {'label_attr': {'class': 'col-md-4 col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Date_objectif,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Date_objectif) }}</a>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								{{ form_label(form.Note, 'Note', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Note,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Note) }}
+									</a>
+								</div>
+							</div>
+
+							<!--div class="row mb-3">
+								{#{ form_label(form.Total_Duree, 'Total Durée', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Total_Duree,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Total_Duree) }#}
+									</a>
+								</div>
+							</div-->
+
+							<!--div class="row mb-3">
+								{#{ form_label(form.Total_Calories, 'Nombre de Série', {'label_attr': {'class':
+                                        'col-md-4
+                                        col-lg-3
+                                        col-form-label'}}) }}
+								<div class="col-md-8 col-lg-9">
+									{{ form_widget(form.Total_Calories,{'attr':{'class': 'form-control gender'}}) }}
+									<a style="color:red">{{ form_errors(form.Total_Calories) }}
+									</a>
+								</div>
+							</div>
+                            <div class="row mb-3">
+							        {{ form_row(form.Activites, {'attr': {  'style': 'display: none'},'label': false}) }#}
+							</div-->
+							<div class="btn-form-cover">
+								<button type="submit" class="btn mb-3">Save</button>
+								<!--a href="{#{ path('app_user_select_activite')}#}" class="btn">return to list Activities</a-->
+							</div>
+							{{ form_end(form) }}
+							<!-- End Profile Edit Form -->
+
+						</div>
+					</div>
+					<!-- End Bordered Tabs -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</div>
+</main>
+{% endblock %}
+
+

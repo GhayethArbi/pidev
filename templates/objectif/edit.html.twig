@@ -1,0 +1,8 @@
+
+{% block body %}
+    
+    {{ include('objectif/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_objectif_index') }}"class="btn btn-outline-secondary">back to list</a>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlanNutritionnel{% endblock %}
+
+{% block body %}
+<main id="main" class="main">
+   
+<!-- Page Title -->
+ <div class="pagetitle">
+      <h1> Nutrition </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item ">Module Nutrition</li> 
+          <li class="breadcrumb-item active">PlanNutritionnel</li>
+        </ol>
+      </nav>
+    </div>
+    <a href="{{ path('app_plan_nutrtionnel_index') }}"><button class="btn btn-outline-dark"><i class="ri-arrow-left-fill"> &nbsp back to list</i></button></a>
+  <!-- end Page Title -->
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plan_nutritionnel.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ plan_nutritionnel.name }}</td>
+            </tr>
+            <tr>
+
+                <th>Recettes</th>
+                <td> {% for recette in plan_nutritionnel.recettes %}
+                {{ recette.name }} {{recette.category}}
+                {% if not loop.last %}, 
+                {% endif %}
+            {% endfor %}
+            </td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ plan_nutritionnel.date ? plan_nutritionnel.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_plan_nutrtionnel_edit', {'id': plan_nutritionnel.id}) }}"><button class="btn btn-dark"><i class="ri-edit-2-line">&nbsp Edit</i></button></a>
+<form method="post" action="{{ path('app_plan_nutrtionnel_delete', {'id': plan_nutritionnel.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ plan_nutritionnel.id) }}">
+    <button class="btn">Delete</button>
+</form>
+</main>
+{% endblock %}

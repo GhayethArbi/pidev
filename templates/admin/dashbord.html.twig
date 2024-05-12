@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block body%}
+<main id="main" class="main">
+
+	<div class="pagetitle">
+		<h1>Dashboard</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+				<li class="breadcrumb-item">Users</li>
+
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
+	{% for message in app.flashes('notice') %}
+	{%if message=="Your changes were not saved. Please check your current password and try again."%}
+	<div class="alert alert-danger">
+		{{ message }}
+	</div>
+	{% else%}
+	<div class="alert alert-success">
+		{{ message }}
+	</div>
+	{%endif%}
+	{% endfor %}
+	<!--------------------------------sofien---------------->
+	<div class="row">
+		<div class="col-lg-5">
+			<!-- Website Traffic -->
+			<div class="card">
+				<div class="card-body pb-0">
+					<h5 class="card-title">Stats objectifs</h5>
+					<div id="trafficChart" style="min-height: 700px; min-width:400px" class="echart"></div>
+					<script>
+						document.addEventListener("DOMContentLoaded", () => {
+							echarts.init(document.querySelector("#trafficChart")).setOption({
+								tooltip: {
+									trigger: 'item'
+								},
+								legend: {
+									top: '5%',
+									left: 'center'
+								},
+								series: [{
+									name: 'Access From',
+									type: 'pie',
+									radius: ['40%', '70%'],
+									avoidLabelOverlap: false,
+									label: {
+										show: false,
+										position: 'center'
+									},
+									emphasis: {
+										label: {
+											show: true,
+											fontSize: '18',
+											fontWeight: 'bold'
+										}
+									},
+									labelLine: {
+										show: false
+									},
+									data: [{
+										value: {{ pertePoidsCount }},
+									name: 'Perte de Poids'
+				 },
+								{
+									value: {{ RenforcementCount }},
+							name: 'Renforcement Musculaire'
+				 },
+							{
+								value: {{ AmeliorationECount }},
+							name: 'Amelioration Endurance'
+				 },
+							{
+								value: {{ ReductionSCount }},
+							name: 'Reduction du Stress'
+				 },
+							{
+								value: {{ AugmentationMCount }},
+							name: 'Augmentation de La Masse Musculaire'
+				 },
+							{
+								value: {{ MaintienFPCount }},
+							name: 'Maintien de La Forme Physique'
+				 }
+			   ]
+			 }]
+		   });
+		 });
+					</script>
+				</div>
+			</div><!-- End Website Traffic -->
+		</div>
+		
+		<div class="col-lg-6">
+			<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Stat Activites</h5>
+					<div id="trafficChart1" style="min-height: 500px; min-width:400px" class="echart"></div>
+					<script>
+						document.addEventListener("DOMContentLoaded", () => {
+							echarts.init(document.querySelector("#trafficChart1")).setOption({
+								tooltip: {
+									trigger: 'item'
+								},
+								legend: {
+									top: '5%',
+									left: 'center'
+								},
+								series: [{
+									name: 'Access From',
+									type: 'pie',
+									radius: ['40%', '70%'],
+									avoidLabelOverlap: false,
+									label: {
+										show: false,
+										position: 'center'
+									},
+									emphasis: {
+										label: {
+											show: true,
+											fontSize: '18',
+											fontWeight: 'bold'
+										}
+									},
+									labelLine: {
+										show: false
+									},
+									data: [{
+										value: {{ musculationCount }},
+									name: 'Musculation'
+                        },
+								{
+									value: {{ cardioCount }},
+							name: 'Cardiovasculaire'
+                        },        
+                      ]
+                    }]
+                  });
+                });
+					</script>
+				</div>
+			</div><!-- End Website Traffic -->
+			<div class="card info-card customers-card">
+				<div class="card-body">
+					<h5 class="card-title">Customers <span>| This Year</span></h5>
+	
+					<div class="d-flex align-items-center">
+						<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+							<i class="bi bi-people"></i>
+						</div>
+						<div class="ps-3">
+							<h6>{{userCount}}</h6>
+							<span class="text-danger small pt-1 fw-bold">12%</span>
+							<span class="text-muted small pt-2 ps-1">decrease</span>
+	
+						</div>
+					</div>
+	
+				</div>
+			</div>
+		</div>
+		</div>
+		
+	</div>
+
+	</div>
+	<!--------------------------------sofien-------end--------->
+	
+
+
+</main>
+
+
+
+{% endblock %}

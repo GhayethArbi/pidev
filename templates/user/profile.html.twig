@@ -1,0 +1,224 @@
+{% extends 'base_user.html.twig' %}
+{%block content%}
+<style>
+    .option {
+        gap: 10%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .option div {
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    #edit {
+        color: #f23849;
+    }
+</style>
+<main id="main" class="main mr-4">
+    <div class="container">
+
+        <div class="option">
+            <div id="edit">
+                <h2>Edit account</h2>
+            </div>
+            <div id="passc">
+                <h2>Edit password</h2>
+            </div>
+        </div>
+
+
+
+        <section class="section profile">
+            <div class="row">
+
+
+                <div class="col-xl-8" id="user5">
+
+                    <div class="card center">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <div class="tab-content pt-2">
+                                <!-- End Page Title -->
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                                    <!-- Profile Edit Form -->
+                                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                    <div class="row mb-3">
+                                        {{ form_label(form.name, 'First Name', {'label_attr': {'class': 'col-md-4
+                                        col-lg-3 col-form-label'}})}}
+                                        <div class="col-md-8 col-lg-9">
+                                            {% if form_errors(form.name) %}
+                                            {{ form_widget(form.name, {'attr': {'class': 'form-control is-invalid'}}) }}
+                                            {% else %}
+                                            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                            {% endif %}
+                                            <a style="color:red">{{
+                                                form_errors(form.name,{'attr':{'class':'text-danger'}})}}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'col-md-4
+                                        col-lg-3 col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {% if form_errors(form.lastName) %}
+                                            {{ form_widget(form.lastName,{'attr':{'class': 'form-control is-invalid'}})
+                                            }}
+                                            {% else %}
+                                            {{ form_widget(form.lastName,{'attr':{'class': 'form-control'}}) }}
+                                            {% endif %}
+                                            <a style="color:red">{{ form_errors(form.lastName)}}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(form.gender, 'Gender', {'label_attr': {'class': 'col-md-4 col-lg-3
+                                        col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {% if form_errors(form.gender) %}
+                                            {{ form_widget(form.gender,{'attr':{'class': 'form-control is-invalid
+                                            gender'}}) }}
+                                            {% else %}
+                                            {{ form_widget(form.gender,{'attr':{'class': 'form-control gender'}}) }}
+                                            {% endif %}
+                                            <a style="color:red">{{ form_errors(form.gender) }}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(form.birthDay, 'Birth day', {'label_attr': {'class': 'col-md-4
+                                        col-lg-3 col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {% if form_errors(form.birthDay) %}
+                                            {{ form_widget(form.birthDay,{'attr':{'class': 'form-control is-invalid
+                                            gender'}}) }}
+                                            {% else %}
+                                            {{ form_widget(form.birthDay,{'attr':{'class': 'form-control gender'}}) }}
+                                            {% endif %}
+                                            <a style="color:red"> {{ form_errors(form.birthDay) }}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(form.address, 'Address', {'label_attr': {'class': 'col-md-4
+                                        col-lg-3 col-form-label'}})}}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.address,{'attr':{'class': 'form-control'}}) }}
+                                            <a style="color:red">{{ form_errors(form.address) }}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(form.phoneNumber, 'Phone Number', {'label_attr':
+                                        {'class':'col-md-4 col-lg-3 col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.phoneNumber,{'attr':{'class': 'form-control gender'}})
+                                            }}
+                                            <a style="color:red">{{ form_errors(form.phoneNumber) }} </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'col-md-4 col-lg-3
+                                        col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.email,{'attr':{'class': 'form-control'}}) }}
+                                            <a style="color:red">{{ form_errors(form.email, {'errors_attr':
+                                                {'class':'text-danger'}}) }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        {{ form_label(form.profileImage, 'Profile Image', {'label_attr': {'class': 'col-md-4 col-lg-3
+                                        col-form-label'}}) }}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{ form_widget(form.profileImage,{'attr':{'class': 'form-control'}}) }}
+                                            <a style="color:red">{{ form_errors(form.profileImage, {'errors_attr':
+                                                {'class':'text-danger'}}) }}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mb-3">
+                                        {{ form_widget(form.submit) }}
+                                    </div>
+                                    {{ form_end(form) }}<!-- End Profile Edit Form -->
+
+                                </div>
+                            </div><!-- End Bordered Tabs -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 mb-3" id="password5">
+                    <div class="card center">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade pt-3" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    {{form_start(formPassword, {'attr': {'novalidate': 'novalidate'}})}}
+                                    <div class="row mb-3">
+                                        {{ form_label(formPassword.currentPassword, 'Current Password',
+                                        {'label_attr':{'class': 'col-md-4 col-lg-3 col-form-label'}})}}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{form_widget(formPassword.currentPassword, {'attr':
+                                            {'class':'form-control'}})}}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        {{ form_label(formPassword.password.first, 'New Password',
+                                        {'label_attr':{'class':'col-md-4 col-lg-3 col-form-label'}})}}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{form_widget(formPassword.password.first, {'attr':
+                                            {'class':'form-control'}})}}
+                                            <a style="color:red">{{form_errors(formPassword.password.first) }}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        {{ form_label(formPassword.password.second, 'Re-enter New
+                                        Password',{'label_attr':{'class':'col-md-4 col-lg-3 col-form-label'}})}}
+                                        <div class="col-md-8 col-lg-9">
+                                            {{form_widget(formPassword.password.second, {'attr':
+                                            {'class':'form-control'}})}}
+                                            <a style="color:red">{{form_errors(formPassword.password.first) }}</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        {{form_widget(formPassword.submit)}}
+                                    </div>
+                                    {{form_end(formPassword)}}<!-- End Change Password Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main><!-- End #main -->
+
+<script>
+    document.getElementById('password5').style.display = 'none';
+    document.getElementById('edit').addEventListener('click', function () {
+        document.getElementById('user5').style.display = 'block';
+        document.getElementById('password5').style.display = 'none';
+        document.getElementById('edit').style.color = '#f23849'
+        document.getElementById('passc').style.color = 'white'
+
+    });
+
+    document.getElementById('passc').addEventListener('click', function () {
+        document.getElementById('password5').style.display = 'block';
+        document.getElementById('user5').style.display = 'none';
+        document.getElementById('passc').style.color = '#f23849';
+        document.getElementById('edit').style.color = 'white'
+
+    });
+</script>
+{%endblock%}

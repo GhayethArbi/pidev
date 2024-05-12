@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Category{% endblock %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Users Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Dashboard</a></li>
+                <li class="breadcrumb-item">Add Category</li>
+
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+   
+    <style>
+        .spaced-button {
+            margin-right: 10px; /* Adjust the margin as needed */
+        }
+
+    </style>
+    <h1>Create new Category</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary mr-3 spaced-button"><i class="bi bi-download"></i> </button>
+        <a href="{{ path('app_category_index')}}" class="btn btn-success"><i class="bi bi-arrow-left"></i> Back To Product List</a>
+    </div>
+    {{ form_end(form) }}
+</main>
+{% endblock %}

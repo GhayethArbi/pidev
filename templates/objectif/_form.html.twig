@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	formulaire_Objectif
+{% endblock %}
+{% block body %}
+<main id="main" class="main">
+
+	<div class="pagetitle">
+	  <h1>Users Tables</h1>
+	  <nav>
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+		  <li class="breadcrumb-item">Users</li>
+  
+		</ol>
+	  </nav>
+	</div><!-- End Page Title -->
+	{% for message in app.flashes('notice') %}
+	{%if message=="Your changes were not saved. Please check your current password and try again."%}
+	<div class="alert alert-danger">
+	  {{ message }}
+	</div>
+	{% else%}
+	<div class="alert alert-success">
+	  {{ message }}
+	</div>
+	{%endif%}
+	{% endfor %}
+	<section class="section">
+	  <div class="row">
+  
+  
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">Formulaire d'Objectif</h5>
+					
+				</div>
+				<div class="card-body">
+					{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+					<div class="form-group">
+						{{ form_label(form.Nom_Objectif) }}
+						{% if form_errors(form.Nom_Objectif) %}
+							{{ form_widget(form.Nom_Objectif, {'attr': {'class': 'form-control is-invalid nom-objectif-field', 'placeholder': 'Nom de l\'objectif'}}) }}
+                    {% else %}
+                    {{ form_widget(form.Nom_Objectif, {'attr': {'class': 'form-control nom-objectif-field', 'placeholder': 'Nom de l\'objectif'}}) }}
+						{% endif %}
+						<a style="color:red">{{ form_errors(form.Nom_Objectif) }}</a>
+					</div>
+					<div class="form-group">
+						{{ form_label(form.Date_objectif) }}
+						{% if form_errors(form.Date_objectif) %}
+							{{ form_widget(form.Date_objectif, {'attr': {'class': 'form-control is-invalid date_objectif-field', 'placeholder': 'Date de l\'objectif'}}) }}
+                    {% else %}
+                    {{ form_widget(form.Date_objectif, {'attr': {'class': 'form-control date_objectif-field', 'placeholder': 'Date de l\'objectif'}}) }}
+						{% endif %}
+						<a style="color:red">{{ form_errors(form.Date_objectif) }}</a>
+					</div>
+					<div class="form-group">
+						{{ form_row(form.Note, {'attr': {'class': 'form-control note-field', 'placeholder': 'Note'}}) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.Total_Duree) }}
+						{% if form_errors(form.Total_Duree) %}
+							{{ form_widget(form.Total_Duree, {'attr': {'class': 'form-control is-invalid total_Duree-field', 'placeholder': 'total_Duree de l\'objectif'}}) }}
+                    {% else %}
+                    {{ form_widget(form.Total_Duree, {'attr': {'class': 'form-control total_Duree-field', 'placeholder': 'total_Duree de l\'objectif'}}) }}
+						{% endif %}
+						<a style="color:red">{{ form_errors(form.Total_Duree) }}</a>
+					</div>
+					<div class="form-group">
+						{{ form_label(form.Total_Calories) }}
+						{% if form_errors(form.Total_Calories) %}
+							{{ form_widget(form.Total_Calories, {'attr': {'class': 'form-control is-invalid total_Calories-field', 'placeholder': 'total_Calories de l\'objectif'}}) }}
+                    {% else %}
+                    {{ form_widget(form.Total_Calories, {'attr': {'class': 'form-control total_Calories-field', 'placeholder': 'total_Calories de l\'objectif'}}) }}
+						{% endif %}
+						<a style="color:red">{{ form_errors(form.Total_Calories) }}</a>
+					</div>
+					<div class="form-group">
+						{{ form_label(form.Activites) }}
+						<div class="row">
+							{% for activite in form.Activites %}
+								<div class="col-md-6">
+									<div class="form-check">
+										{{ form_widget(activite) }}
+										{{ form_label(activite) }}
+										{{ form_errors(activite) }}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<br>
+					<br>
+					<button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+					<a href="{{ path('app_objectif_index') }}" class="btn btn-secondary">Retour à la liste</a>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</section></main>
+{% endblock %}
+{% block js %}<script src="{{ asset('Jsmbm/ObjectifChampsC.js') }}"></script>{% endblock %}

@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Profile</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{path('app_users')}}">Users</a></li>
+                <li class="breadcrumb-item active">{{users.name}} {{users.lastName}}</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+
+
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-4">
+
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+          
+                      <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                      <h2>{{users.name}} {{users.lastName}}</h2>
+                      <h3>Web Designer</h3>
+                      <div class="social-links mt-2">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                      </div>
+                    </div>
+                  </div>
+
+            </div>
+
+            <div class="col-xl-8">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab"
+                                    data-bs-target="#profile-overview">Overview</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
+                                    loyality points</button>
+                            </li>
+
+                            <!--li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li-->
+
+                            
+
+                        </ul>
+                        <div class="tab-content pt-2">
+
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+
+                                <h5 class="card-title">Profile Details</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                    <div class="col-lg-9 col-md-8">{{users.name}} {{users.lastName}}{%if
+                                        users.name=='Ghayeth' and
+                                        users.lastName=='Arbi'%} (El3ayari){%endif%}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Gender</div>
+                                    <div class="col-lg-9 col-md-8">{{users.gender}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Birth day</div>
+                                    <div class="col-lg-9 col-md-8">{{users.birthday |date('F j, Y')}}</div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Address</div>
+                                    <div class="col-lg-9 col-md-8">{{users.address}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                                    <div class="col-lg-9 col-md-8">(216) {{users.phoneNumber}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Email</div>
+                                    <div class="col-lg-9 col-md-8">{{users.email}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Loyality Points</div>
+                                    <div class="col-lg-9 col-md-8">{{users.loyalityPoints}}</div>
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                                <!-- Profile Edit Form -->
+                               {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+
+
+                                <div class="row mb-3">
+                                    {{ form_label(form.loyalityPoints, 'Loyality points', {'label_attr': {'class': 'col-md-4 col-lg-3
+                                    col-form-label'}}) }}
+
+                                    <div class="col-md-8 col-lg-9">
+                                        {{ form_widget(form.loyalityPoints,{'attr':{'class': 'form-control'}}) }}
+                                        
+                                        <a style="color:red">{{ form_errors(form.loyalityPoints, {'errors_attr': {'class':
+                                            'text-danger'}}) }}</a>
+
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    {{ form_widget(form.submit) }}
+                                </div>
+
+                                {{ form_end(form) }}<!-- End Profile Edit Form -->
+                            </div>
+                        </div><!-- End Bordered Tabs -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<script>
+    // ... line 88
+                    $('.custom-file-input').on('change', function(event) {
+                        var inputFile = event.currentTarget;
+                        $(inputFile).parent()
+                            .find('.custom-file-label')
+                            .html(inputFile.files[0].name);
+                    });
+                </script>
+{%endblock%}

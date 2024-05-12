@@ -1,0 +1,80 @@
+{% extends 'base_user.html.twig' %}
+{% block css %}
+	<!--CSS OF THE OBJECTIVES PAGE-->
+	<link rel="stylesheet" href="{{asset('assetsObj/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('assetsObj/css/style.css')}}">
+{% endblock %}
+{% block content %}
+	<style>
+		.yyyu {
+			color: white;
+		}
+	</style>
+	<!-- ============== S-CLUB-CARDS ============== -->
+	<section class="s-club-cards">
+		<div class="container">
+				<a href="http://127.0.0.1:8000/user/created_objectives" class="btn">Back</a>
+			<h2 class="title-decor"	style='color:white;'>Your
+				<span>Activities</span>
+			</h2>
+			<div class="row">
+				{% for activite in activitesassocies %}
+					<div class="col-md-4 club-card-col">
+						<div class="club-card-item" style="background-image: url('{{asset('/assets_user/img/bg-price-1.svg')}}');">
+							<div class="price-cover">
+								<!--div class="price">40</div-->
+								<div class="date">
+									<span>{{activite.getNomActivite()}}</span></div>
+							</div>
+							<ul class="list">
+								<li id="li_at" style=''>Type-Activite: {{activite.getTypeActivite}}</li>
+								<li id="li_cb">Calories-Brulés: {{activite.getCaloriesBrules()}}</li>
+								<li id="li_dr">Duree-Activite: {{activite.getDureeActivite()}}</li>
+								<li id="li_nbs">Nombre-Serie: {{activite.getNbSeries()}}</li>
+								<li id="li_nbrs">Nombre-Rep-Serie: {{activite.getNbRepSeries()}}</li>
+								<li id="li_ps">Poids-par-Serie:{{activite.getPoidsParSerie()}}</li>
+							</ul>
+							<a href="http://127.0.0.1:8000/user/created_objectives/associated_activities/{{idObj}}/RemoveActivite{{activite.getId()}}" class="btn">Remove</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var typeActiviteField = document.getElementById('li_at');
+    var caloriesField = document.getElementById('li_cb');
+    var dureeField = document.getElementById('li_dr');
+    var nbSeriesField = document.getElementById('li_nbs');
+    var nbRepSerieField = document.getElementById('li_nbrs');
+    var poidsSerieField = document.getElementById('li_ps');
+
+    function hideFieldsBasedOnActivityType() {
+        var selectedType = typeActiviteField.value;
+        if (selectedType === 'musculation') {
+            dureeField.style.display = 'none';
+            caloriesField.style.display = 'none';
+            nbSeriesField.style.display = 'block';
+            nbRepSerieField.style.display = 'block';
+            poidsSerieField.style.display = 'block';
+        } else {
+            dureeField.style.display = 'block';
+            caloriesField.style.display = 'block';
+            nbSeriesField.style.display = 'none';
+            nbRepSerieField.style.display = 'none';
+            poidsSerieField.style.display = 'none';
+        }
+    }
+
+    // Call the function once the DOM is loaded
+    hideFieldsBasedOnActivityType();
+
+    // Add event listener to the "typeActiviteField" field
+    typeActiviteField.addEventListener('change', hideFieldsBasedOnActivityType);
+});
+</script>
+
+
+	<!-- ============ S-CLUBU-CARDS END ============ -->
+{% endblock %}

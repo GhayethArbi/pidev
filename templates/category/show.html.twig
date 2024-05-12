@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Users Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Home</a></li>
+                <li class="breadcrumb-item">Users</li>
+
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+<h1>Category</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ category.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ category.name }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Products in this category:</h2>
+    <ul>
+        {% for product in products %}
+            <li> {{ product.name }}
+                <img src="{{ asset('Uploads/' ~ product.illustration)}}" alt="Illustration" style="width:100px"></li>
+        {% else %}
+            <li>No products found in this category</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_category_index') }}">Back to list</a>
+    <a href="{{ path('app_category_edit', {'id': category.id}) }}">Edit</a>
+    {{ include('category/_delete_form.html.twig') }}
+</main>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+{% block header %}
+{% endblock %}
+{% block sidebar %}
+{% endblock %}
+{% block footer %}
+{% endblock %}
+{% block body %}
+
+
+
+<div class="container">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                    <div class="d-flex justify-content-center py-4">
+                        <a href="/" class="logo d-flex align-items-center w-auto">
+                            <img src="/assets/img/logo.png" alt="">
+                            <span>FitKeep</span>
+                        </a>
+                    </div><!-- End Logo -->
+
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+
+                            <div class="pt-4 pb-2">
+                                <h5 class="card-title text-center pb-0 fs-4">Change Your Password</h5>
+                                <p class="text-center small">Enter your Email to reset your account</p>
+                            </div>
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+
+
+                                {{ form_start(resetForm) }}
+                                <div class="col-12 row mb-3">
+
+                                    {{ form_label(resetForm.plainPassword.first,'New Password') }}
+                                    {{ form_widget(resetForm.plainPassword.first, {attr:{ 'class': 'form-control' }}) }}
+                                </div>
+                                <div class="col-12 row mb-3">
+
+                                    {{ form_label(resetForm.plainPassword.second,'Confirm Password') }}
+                                    {{ form_widget(resetForm.plainPassword.second, {attr:{ 'class': 'form-control' }})
+                                    }}
+                                </div>
+                                <div class="col-8 mb-3">
+
+                                    <button type="submit"  class="btn btn-primary center">Change Password</button>
+                                </div>
+
+                                {{ form_end(resetForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{%endblock%}

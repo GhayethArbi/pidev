@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Product{% endblock %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Add Product</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{path('app_dashbord')}}">Dashboard</a></li>
+                <li class="breadcrumb-item">Add Product</li>
+
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    {% for message in app.flashes('notice') %}
+    {%if message=="Your changes were not saved. Please check your current password and try again."%}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endfor %}
+    {{ include('product/_form.html.twig') }}
+
+<a href="{{ path('app_product_index') }}" class="btn btn-warning">back to list</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var nameInput = document.getElementById('product_name');
+        var slugInput = document.getElementById('product_slug');
+
+        nameInput.addEventListener('input', function(event) {
+            // Get the value entered by the user
+            var inputValue = event.target.value;
+
+            // Replace numbers with an empty string
+            var sanitizedValue = inputValue.replace(/[0-9]/g, '');
+
+            // Update the input field value with the sanitized value
+            event.target.value = sanitizedValue;
+
+            // Generate slug
+            var name = sanitizedValue.trim().toLowerCase();
+            var slug = name.replace(/\s+/g, '-'); // Replace spaces with dashes
+            slugInput.value = slug;
+        });
+    });
+</script>
+{% endblock %}

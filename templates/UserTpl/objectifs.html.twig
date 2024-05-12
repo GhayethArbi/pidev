@@ -1,0 +1,122 @@
+{% extends 'base_user.html.twig' %}
+  {% block css %}
+   	<!--CSS OF THE OBJECTIVES PAGE-->
+    <link rel="stylesheet" href="{{asset('assetsObj/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assetsObj/css/style.css')}}">
+  {% endblock %}   
+{% block content %}
+
+<div class="gallery-area section-padding30 ">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                    <div class="box snake mb-30">
+                        <div class="gallery-img big-img" style="background-image: url('{{asset('assetsObj/img/gallery/gallery1.png')}}');"></div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Renforcement musculaire</h3>
+                                <a href="http://127.0.0.1:8000/objectifs/create_Obj/{{ 'renforcement musculaire' }}"><i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                    <div class="box snake mb-30">
+                        <div class="gallery-img big-img" style="background-image: url('{{asset('assetsObj/img/gallery/gallery2.png')}}');"></div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Amélioration endurance</h3>
+                                <a href="http://127.0.0.1:8000/objectifs/create_Obj/{{ 'amelioration endurance' }}"><i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                    <div class="box snake mb-30">
+                        <div class="gallery-img big-img" style="background-image: url('{{asset('assetsObj/img/gallery/gallery3.png')}}');"></div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Réduction du stress</h3>
+                                <a href="http://127.0.0.1:8000/objectifs/create_Obj/{{ 'reduction de stress' }}"><i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <div class="box snake mb-30">
+                        <div class="gallery-img big-img" style="background-image: url('{{asset('assetsObj/img/gallery/gallery4.png')}}');"></div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Perte de Poids</h3>
+                                <a href="http://127.0.0.1:8000/objectifs/create_Obj/{{ 'perte de poids' }}"><i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <div class="box snake mb-30">
+                        <div class="gallery-img big-img" style="background-image: url('{{asset('assetsObj/img/gallery/gallery5.png')}}');"></div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Augmentation de la masse musculaire</h3>
+                                <a href="http://127.0.0.1:8000/objectifs/create_Obj/{{ 'Augmentation de la masse musculaire' }}"><i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="box snake mb-30">
+                        <div class="gallery-img big-img" style="background-image: url('{{asset('assetsObj/img/gallery/gallery6.png')}}');"></div>
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Maintien de la forme physique </h3>
+                                <a href="http://127.0.0.1:8000/objectifs/create_Obj/{{ 'maintien de la forme physique' }}"><i class="ti-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+
+<script src="{{asset('assetsObj/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{{asset('assetsObj/js/vendor/jquery-1.12.4.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/popper.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/bootstrap.min.js')}}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{{asset('assetsObj/js/jquery.slicknav.min.js')}}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{{asset('assetsObj/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/slick.min.js')}}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{{asset('assetsObj/js/wow.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/animated.headline.js')}}"></script>
+<script src="{{asset('assetsObj/js/jquery.magnific-popup.js')}}"></script>
+
+<!-- Date Picker -->
+<script src="{{asset('assetsObj/js/gijgo.min.js')}}"></script>
+<!-- Nice-select, sticky -->
+<script src="{{asset('assetsObj/js/jquery.nice-select.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/jquery.sticky.js')}}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{{asset('assetsObj/js/jquery.counterup.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/waypoints.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/jquery.countdown.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/hover-direction-snake.min.js')}}"></script>
+
+<!-- contact js -->
+<script src="{{asset('assetsObj/js/contact.js')}}"></script>
+<script src="{{asset('assetsObj/js/jquery.form.js')}}"></script>
+<script src="{{asset('assetsObj/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('assetsObj/js/mail-script.js')}}"></script>
+<script src="{{asset('assetsObj/js/jquery.ajaxchimp.min.js')}}"></script>
+
+<!-- Jquery Plugins, main Jquery -->	
+<script src="{{asset('assetsObj/js/plugins.js')}}"></script>
+<script src="{{asset('assetsObj/js/main.js')}}"></script>
+{% endblock %}
