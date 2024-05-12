@@ -56,22 +56,23 @@ class RecceteUserController extends AbstractController
     }
 
     #[Route('/recette_user', name: 'app_user_reccette_plan', methods: ['GET'])]
-    public function display_pics(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
-    { 
-        // Retrieve all recipes from the repository
-        $allRecettes = $recetteRepository->findAll();
-    
-        // Paginate the results
-        $recettes = $paginator->paginate(
-            $allRecettes, // Pass the query (not the result)
-            $request->query->getInt('page', 1), // Get the current page from the request
-            2 // Number of items per page
-        );
-    
-        return $this->render('reccete_user/index.html.twig', [
-            'recettes' => $recettes,
-        ]);
-    }
+public function display_pics(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
+{ 
+    // Retrieve all recipes from the repository
+    $allRecettes = $recetteRepository->findAll();
+
+    // Paginate the results
+    $recettes = $paginator->paginate(
+        $allRecettes, // Pass the query (not the result)
+        $request->query->getInt('page', 1), // Get the current page from the request
+        8 // Number of items per page
+    );
+
+    return $this->render('reccete_user/index.html.twig', [
+        'recettes' => $recettes, // Pass paginated recipes to the template
+    ]);
+}
+
     
 
     #[Route('/{id}/recette_user', name: 'app_user_recette_show', methods: ['GET'])]
@@ -99,16 +100,13 @@ class RecceteUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($recette);
             $entityManager->flush();
-            //Flash 
-            $this->addFlash('success', 'Your offer has been added successfully.');
 
             return $this->redirectToRoute('app_user_reccette_plan', [], Response::HTTP_SEE_OTHER);
         }
-        
+
         return $this->renderForm('reccete_user/add_new_recipes.html.twig', [
             'recette' => $recette,
             'form' => $form,
         ]);
     }
-
 }
