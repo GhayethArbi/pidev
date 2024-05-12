@@ -20,7 +20,7 @@
             <div class="col-md-7 col-lg-8">
                 <div class="form-floating mb-3">
 				
-				<label>Name</label>
+				
 				{% if form_errors(form.name) %}
                     {{ form_widget(form.name,{'attr':{'class': 'form-control is-invalid'}}) }}
                     {% else %}
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-floating mb-3" >
-				<label >category</label>
+				
 				{% if form_errors(form.category) %}
                     {{ form_widget(form.category,{'attr':{'class': 'form-control is-invalid'}}) }}
                     {% else %}
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="form-floating mb-3">
-				<label >Description</label>
+				
 				{% if form_errors(form.description) %}
                     {{ form_widget(form.description,{'attr':{'class': 'form-control is-invalid'}}) }}
                     {% else %}

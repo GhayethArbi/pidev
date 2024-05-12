@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
    
     <link  href="{{ asset('assets/img/fitkeep.png') }}" rel="icon" >
-    <link href="{{ asset('assets/img/fitkeep.png') }}"" rel=" apple-touch-icon">
+    <link href="{{ asset('assets/img/fitkeep.png') }}" rel=" apple-touch-icon">
 
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
@@ -61,9 +61,9 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="path('app_dashbord')" class="logo d-flex align-items-center">
                 <img src="{{ asset('assets/img/fitkeep.png') }}" alt="">
-                <span class="d-none d-lg-block">FitKeep</span>
+                
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -228,7 +228,7 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('/uploads/' ~ app.user.profileImage) }}" alt="Profile" class="rounded-circle">
                         {% if app.user.name != null%}
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{app.user.name}}
                             {{app.user.lastName}}</span>
@@ -279,26 +279,47 @@
     {% block sidebar %}
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
-
+        
         <ul class="sidebar-nav" id="sidebar-nav">
-
+           
             <li class="nav-item">
+                {% if 'app_dashbord'==app.request.attributes.get('_route') %}
                 <a class="nav-link " href="{{path('app_dashbord')}}">
+                    {%else %}
+                    <a class="nav-link collapsed" href="{{ path('app_dashbord') }}">
+                {% endif %}
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
             
             <li class="nav-item">
-                {% if path('app_users') %}
-                <a class="nav-link collapsed" href="{{ path('app_users') }}">
+                {% if 'app_users'==app.request.attributes.get('_route') %}
+                <a class="nav-link " href="{{ path('app_users') }}">
                     {%else%}
-                    <a class="nav-link " href="{{ path('app_users') }}">
+                    <a class="nav-link collapsed" href="{{ path('app_users') }}">
                         {% endif %}
                         <i class="bi bi-grid"></i>
                         <span>Users Table</span>
                     </a>
             </li><!-- End Dashboard Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                  <i class="bi bi-journal-text"></i><span>Module Nutrition</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                  <li>
+                    <a href="{{path ('app_name_index')}}">
+                      <i class="bi bi-circle"></i><span>Recettes</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{path ('app_plan_nutrtionnel_index')}}">
+                      <i class="bi bi-circle"></i><span>Plan nutritionnel</span>
+                    </a>
+                  </li>
+                </ul>
+              </li><!-- End Forms Nav -->
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                   <i class="bi bi-box-seam"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -320,7 +341,11 @@
             <li class="nav-heading">Pages</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{path('app_profile_admin')}}">
+                {% if 'app_profile_admin'==app.request.attributes.get('_route') %}
+                <a class="nav-link " href="{{path('app_profile_admin')}}">
+                    {%else%}
+                    <a class="nav-link collapsed" href="{{ path('app_profile_admin') }}">
+                        {% endif %}
                     <i class="bi bi-person"></i>
                     <span>Profile</span>
                 </a>

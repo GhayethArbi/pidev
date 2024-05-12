@@ -19,7 +19,8 @@ class AdminController extends AbstractController
 
 {
     private $userRepository;
-    public function __construct(UserRepository $userRepository ) {
+    public function __construct(UserRepository $userRepository)
+    {
         $this->userRepository = $userRepository;
     }
 
@@ -34,6 +35,7 @@ class AdminController extends AbstractController
             'users' => $users,
         ]);
     }
+
     #[Route('/dashboard', name: 'app_dashbord')]
     public function dashboard(EntityManagerInterface $em): Response
     {
@@ -46,30 +48,19 @@ class AdminController extends AbstractController
             ->setParameter('registrationDate', new \DateTime('-1 year'))
             ->getQuery()
             ->getSingleScalarResult();
-  
+
         return $this->render('admin/dashbord.html.twig', [
             'userCount' => $users,
         ]);
     }
-    /*#[Route('/indexx', name: 'app_userad')]
-    public function indexx(): Response
-    {
-       
-        
-        return $this->render('Client/index.html.twig');
-    }*/
 
-    
     #[Route('/adminProfile', name: 'app_profile_admin')]
     public function editAdminProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //*********change details************
-
         $userEmail = $this->getUser()->getUserIdentifier();
-        $user=$this->userRepository->findOneBy(['email'=>$userEmail]);
+        $user = $this->userRepository->findOneBy(['email' => $userEmail]);
         $form = $this->createForm(ProfileFormType::class, $user);
-        //can make submit button here ...
-        //dd($form);
         $form->add('submit', SubmitType::class, [
             'label' => 'Save Changes',
             'attr' => ['class' => 'btn btn-primary']
@@ -77,25 +68,24 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form['profileImage']->getData();
+            if ($uploadedFile) {
+                // Logique de gestion du fichier ici
+                $uploadsDirectory = $this->getParameter('uploads_directory');
+                $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
+                $uploadedFile->move(
+                    $uploadsDirectory,
+                    $filename
+                );
 
-    if ($uploadedFile) {
-        // Logique de gestion du fichier ici
-        $uploadsDirectory = $this->getParameter('uploads_directory');
-        $filename = md5(uniqid()) . '.' . $uploadedFile->guessExtension();
-        $uploadedFile->move(
-            $uploadsDirectory,
-            $filename
-        );
-
-        // Assurez-vous que le nom du fichier est correctement défini dans l'entité
-        $user->setProfileImage($filename);}
+                // Assurez-vous que le nom du fichier est correctement défini dans l'entité
+                $user->setProfileImage($filename);
+            }
             $em->persist($user);
             $em->flush();
             $this->addFlash(
                 'notice',
                 'Your changes were saved!'
             );
-
             return $this->redirectToRoute('app_profile_admin');
         }
 
@@ -141,6 +131,8 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+
     //**********Edit User*************
     #[Route('/edit/{id}', name: 'app_user_edit')]
     public function edit(UserRepository $repo, Request $request, $id, EntityManagerInterface $entityManager): Response
@@ -152,19 +144,19 @@ class AdminController extends AbstractController
             'attr' => ['class' => 'btn btn-primary']
         ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('notice', "Loyality points has changed with success!");
             return $this->redirectToRoute('app_users');
         }
-
         return $this->render('admin/editUser.html.twig', [
             'users' => $user,
             'form' => $form->createView(),
         ]);
     }
+
+
     //*********delete************/
     #[Route('/delete/{id}', name: 'app_user_delete')]
     public function delete(UserRepository $repo, $id, EntityManagerInterface $entityManager): Response
@@ -176,6 +168,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_users');
     }
 
+    //*********ban user************/
     #[Route('/banning/{id}', name: 'app_user_isBanned')]
     public function banne(UserRepository $repo, $id, EntityManagerInterface $entityManager): Response
     {
@@ -196,16 +189,3 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_users');
     }
 }
-/*use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-
-class AdminController extends AbstractController
-{
-    #[Route('/admin', name: 'app_admin')]
-    public function index(): Response
-    {
-        return $this->render('base.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }*/

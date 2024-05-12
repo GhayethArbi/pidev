@@ -31,15 +31,19 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+    #[Route('/', name: 'app_home')]
+    public function indexx(): Response
+    {
+        return $this->render('Client/index.html.twig');
+    }
+
     #[Route('/user/Profile', name: 'user')]
     public function editUserProfile(Request $request, UserRepository $userRepository, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //*********change details************
-
         $user = $this->getUser();
         $form = $this->createForm(ProfileFormType::class, $user);
-        //can make submit button here ...
-        //dd($form);
         $form->add('submit', SubmitType::class, [
             'label' => 'Save Changes',
             'attr' => ['class' => 'btn btn-primary']
@@ -52,7 +56,6 @@ class UserController extends AbstractController
                 'notice',
                 'Your changes were saved!'
             );
-
             return $this->redirectToRoute('user');
         }
 
@@ -97,11 +100,8 @@ class UserController extends AbstractController
             'form' => $form->createView(), 'formPassword' => $formPassword->createView(), 'user' => $user,
         ]);
     }
-    #[Route('/', name: 'app_home')]
-    public function indexx(): Response
-    {
-        return $this->render('Client/index.html.twig');
-    }
+
+   
     #[Route('/access-denied/error404', name: 'app_access')]
     public function accessDenied(): Response
     {
