@@ -32,7 +32,7 @@ class RecceteUserController extends AbstractController
     {
         $form = $this->createForm(RecetteType::class, $recette,
         [ 'exclude_date_field' => true
-    ]);
+        ]);
 
         $form->handleRequest($request);
 
@@ -56,24 +56,22 @@ class RecceteUserController extends AbstractController
     }
 
     #[Route('/recette_user', name: 'app_user_reccette_plan', methods: ['GET'])]
-public function display_pics(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
-{ 
-    // Retrieve all recipes from the repository
-    $allRecettes = $recetteRepository->findAll();
+    public function display_pics(RecetteRepository $recetteRepository, Request $request, PaginatorInterface $paginator): Response
+    { 
+        // Retrieve all recipes from the repository
+        $allRecettes = $recetteRepository->findAll();
 
-    // Paginate the results
-    $recettes = $paginator->paginate(
-        $allRecettes, // Pass the query (not the result)
-        $request->query->getInt('page', 1), // Get the current page from the request
-        8 // Number of items per page
-    );
+        // Paginate the results
+        $recettes = $paginator->paginate(
+            $allRecettes, // Pass the query (not the result)
+            $request->query->getInt('page', 1), // Get the current page from the request
+            8 // Number of items per page
+        );
 
-    return $this->render('reccete_user/index.html.twig', [
-        'recettes' => $recettes, // Pass paginated recipes to the template
-    ]);
-}
-
-    
+        return $this->render('reccete_user/index.html.twig', [
+            'recettes' => $recettes, // Pass paginated recipes to the template
+        ]);
+    }
 
     #[Route('/{id}/recette_user', name: 'app_user_recette_show', methods: ['GET'])]
     public function show_recette(Recette $recette): Response
@@ -93,7 +91,7 @@ public function display_pics(RecetteRepository $recetteRepository, Request $requ
 
         $form = $this->createForm(RecetteType::class, $recette, 
         [ 'exclude_date_field' => true
-    ]);
+        ]);
         //form submission
         $form->handleRequest($request);
 

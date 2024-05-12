@@ -1,8 +1,9 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}PlanNutritionnel{% endblock %}
 
 {% block body %}
+<main id="main" class="main">
    
 <!-- Page Title -->
  <div class="pagetitle">
@@ -50,4 +51,5 @@
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ plan_nutritionnel.id) }}">
     <button class="btn">Delete</button>
 </form>
+</main>
 {% endblock %}

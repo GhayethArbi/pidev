@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\ActivitePhysique;
+use App\Entity\Objectif;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\LoyalityPointsType;
@@ -39,6 +41,16 @@ class AdminController extends AbstractController
     #[Route('/dashboard', name: 'app_dashbord')]
     public function dashboard(EntityManagerInterface $em): Response
     {
+        $PertePoidsCount = $em->getRepository(Objectif::class)->count(['Nom_Objectif' => 'perte de poids']);
+        $RenforcementMCount = $em->getRepository(Objectif::class)->count(['Nom_Objectif' => 'renforcement musculaire']);
+        $AmeliorationECount = $em->getRepository(Objectif::class)->count(['Nom_Objectif' => 'amelioration endurance']);
+        $ReductionSCount = $em->getRepository(Objectif::class)->count(['Nom_Objectif' => 'reduction du stress']);
+        $AugmentationmMCount = $em->getRepository(Objectif::class)->count(['Nom_Objectif' => 'augmentation de la masse musculaire']);
+        $MaintienFPCount = $em->getRepository(Objectif::class)->count(['Nom_Objectif' => 'maintien de la forme physique']);
+
+        $musculationCount = $em->getRepository(ActivitePhysique::class)->count(['Type_Activite' => 'musculation']);
+        $cardioCount = $em->getRepository(ActivitePhysique::class)->count(['Type_Activite' => 'cardiovasculaire']);
+
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->createQueryBuilder('u')
             ->select('COUNT(u.id)')
@@ -51,6 +63,16 @@ class AdminController extends AbstractController
 
         return $this->render('admin/dashbord.html.twig', [
             'userCount' => $users,
+            
+            'pertePoidsCount' => $PertePoidsCount,
+            'RenforcementCount' => $RenforcementMCount,
+            'AmeliorationECount' => $AmeliorationECount,
+            'ReductionSCount' => $ReductionSCount,
+            'AugmentationMCount' => $AugmentationmMCount,
+            'MaintienFPCount' => $MaintienFPCount,
+
+            'musculationCount' => $musculationCount,
+            'cardioCount' => $cardioCount,
         ]);
     }
 

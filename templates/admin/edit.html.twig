@@ -1,8 +1,9 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Edit Recette{% endblock %}
 
 {% block body %}
+<main id="main" class="main">
   <!-- Page Title -->
      
 <!-- Page Title -->
@@ -20,4 +21,5 @@
   <!-- end Page Title -->
 
     {{ include('admin/_form.html.twig', {'button_label': 'Update'}) }}
+    </main>
 {% endblock %}

@@ -34,73 +34,7 @@ Objectifs
         <div class="card-body">
           <h5 class="card-title">Listes des objectifs :</h5>
     
-    <div class="col-lg-4">
-		   <!-- Website Traffic -->
-            <div class="card">
-              <div class="card-body pb-0">
-              <h5 class="card-title">Stats</h5>
-              <div id="trafficChart" style="min-height: 700px; min-width:400px" class="echart"></div>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#trafficChart")).setOption({
-                    tooltip: {
-                      trigger: 'item'
-                    },
-                    legend: {
-                      top: '5%',
-                      left: 'center'
-                    },
-                    series: [{
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: ['40%', '70%'],
-                      avoidLabelOverlap: false,
-                      label: {
-                        show: false,
-                        position: 'center'
-                      },
-                      emphasis: {
-                        label: {
-                          show: true,
-                          fontSize: '18',
-                          fontWeight: 'bold'
-                        }
-                      },
-                      labelLine: {
-                        show: false
-                      },
-                      data: [{
-                          value: {{pertePoidsCount}},
-                          name: 'Perte de Poids'
-                        },
-                        {
-                          value: {{RenforcementCount}},
-                          name: 'Renforcement Musculaire'
-                        },
-                        {
-                          value: {{AmeliorationECount}},
-                          name: 'Amelioration Endurance'
-                        },
-                        {
-                          value: {{ReductionSCount}},
-                          name: 'Reduction du Stress'
-                        },
-                        {
-                          value: {{AugmentationMCount}},
-                          name: 'Augmentation de La Masse Musculaire'
-                        },
-                        {
-                          value: {{MaintienFPCount}},
-                          name: 'Maintien de La Forme Physique'
-                        }
-                      ]
-                    }]
-                  });
-                });
-              </script>
-            </div>
-          </div><!-- End Website Traffic -->
-	</div>
+   
 
     <table class="table" id="dataTable">
         <thead>

@@ -35,7 +35,7 @@ class NameController extends AbstractController
 
         $form = $this->createForm(RecetteType::class, $recette, 
         [ 'exclude_date_field' => true
-    ]);
+        ]);
         //form submission
         $form->handleRequest($request);
 
@@ -65,7 +65,7 @@ class NameController extends AbstractController
     {
         $form = $this->createForm(RecetteType::class, $recette,
         [ 'exclude_date_field' => true
-    ]);
+        ]);
 
         $form->handleRequest($request);
 

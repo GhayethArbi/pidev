@@ -34,24 +34,24 @@
                     </th>
                     <td>{{ product.product.name }}</td>
                     <td>
-                        {% set remainingQuantity = product.product.quantite - product.quantity %}
+                        {% set remainingQuantity = product.product.quantite - product.quantite %}
                         {% if remainingQuantity > 0 %}
-                            <a href="{{ path('add_cart_item',{'id':product.product.id}) }}">
+                            <a href="{{ path('add_cart_item',{'id':product.id}) }}">
                                 <img src="{{ asset('assets/img/plus.png') }}" width="10px">
                             </a>
                         {% else %}
                             <span class="text-muted">Sold Out</span>
                         {% endif %}
-                        x {{ product.quantity }}
-                        <a href="{{ path('decrease_cart_item',{'id':product.product.id}) }}">
+                        x {{ product.quantite }}
+                        <a href="{{ path('decrease_cart_item',{'id':product.id}) }}">
                             <img src="{{ asset('assets/img/moin.png') }}" width="30px">
                         </a>
                     </td>
                     <td>{{ product.product.price }}</td>
-                    <td>{{ product.product.price * product.quantity }}</td>
-                    <td><a href="{{ path('delete_cart_item',{'id':product.product.id}) }}" class="btn btn-danger btn-block">Supprimer</a> </td>
+                    <td>{{ product.product.price * product.quantite }}</td>
+                    <td><a href="{{ path('delete_cart_item',{'id':product.id}) }}" class="btn btn-danger btn-block">Supprimer</a> </td>
                 </tr>
-                {% set total = total + (product.product.price * product.quantity) %}
+                {% set total = total + (product.product.price * product.quantite) %}
             {% endfor %}
             </tbody>
         </table>

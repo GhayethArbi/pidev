@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Entity\Panier;
 use App\Entity\Product;
+use App\Repository\PanierRepository;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,43 +18,69 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     private $entityManager;
+    private $productRepository;
 
 
-    public function __construct(EntityManagerInterface $entityManager)
+
+    public function __construct(EntityManagerInterface $entityManager, ProductRepository $repo)
     {
         $this->entityManager = $entityManager;
-        }
+        $this->productRepository=$repo;
+    }
 
     #[Route('/cart', name: 'app_cart')]
-    public function index(Cart $cart): Response
+    public function index(PanierRepository $panierRepository): Response
     {
-        $cart->checkProductQuantity();
-        
+        $panier = $panierRepository->findAll();
         return $this->render('cart/index.html.twig', [
-            'cart' => $cart->getFull()
+            'cart' => $panier,
         ]);
     }
 
     #[Route('/cart/add/{id}', name: 'add_cart_item')]
-    public function add($id, Cart $cart): Response
+    public function add($id, PanierRepository $repo): Response
     {
-        $cart->add($id);
+        $product=$this->productRepository->find($id);
+        $cart=$repo->findOneBy(['product' => $product]);
+        if($cart==null)
+        {
+        $cart=new Panier();
+        $cart->setProduct($product);
+        $cart->setQuantite(1);
+        $cart->setTotalPrice($product->getPrice());
+        $cart->setUser($this->getUser());
+        }else{
+            $cart->setQuantite($cart->getQuantite()+1); 
+        }
+        $this->entityManager->persist($cart);
+
+        $this->entityManager->flush();
         // You can perform logic here to add the item to the cart
         return $this->redirectToRoute('app_cart'); // Redirect to cart page after adding item
     }
 
-    #[Route('/cart/decrease/{id}', name: 'decrease_cart_item')]
-    public function decrease($id, Cart $cart): Response
+    #[Route('/cart/delete/{id}', name: 'delete_cart_item')]
+    public function delete($id, PanierRepository $repo): Response
     {
-        $cart->decrease($id);
+        $product=$repo->find($id);
+        $this->entityManager->remove($product);
+        $this->entityManager->flush();
         // You can perform logic here to remove the item from the cart
         return $this->redirectToRoute('app_cart'); // Redirect to cart page after removing item
     }
 
-    #[Route('/cart/delete/{id}', name: 'delete_cart_item')]
-    public function delete($id, Cart $cart): Response
+    #[Route('/cart/decrease/{id}', name: 'decrease_cart_item')]
+    public function decrease($id,  PanierRepository $repo): Response
     {
-        $cart->delete($id);
+        $produit=$repo->find($id);
+
+        if($produit->getQuantite()>1){
+            $produit->setQuantite($produit->getQuantite()-1);
+            $this->entityManager->persist($produit);
+        }else{
+            $this->entityManager->remove($produit);
+        }
+        $this->entityManager->flush();
         // You can perform logic here to remove the item from the cart
         return $this->redirectToRoute('app_cart'); // Redirect to cart page after removing item
     }
@@ -81,5 +110,4 @@ class CartController extends AbstractController
         // Redirect to a success page or wherever needed
         return $this->redirectToRoute('create_order');
     }
-
 }

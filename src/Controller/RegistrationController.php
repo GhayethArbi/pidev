@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,6 +44,7 @@ class RegistrationController extends AbstractController
             $user->setIsBanned(false);
             $user->setRegistrationDate(new \DateTime());
             // Save
+
             
             $em->persist($user);
             $em->flush();

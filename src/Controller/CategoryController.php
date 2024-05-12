@@ -68,8 +68,6 @@ class CategoryController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/new', name: 'app_category_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -88,6 +86,7 @@ class CategoryController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/search', name: 'app_search_products_by_category', methods: ['GET'])]
     public function searchProductsByCategory(Request $request, ProductRepository $productRepository): Response
     {

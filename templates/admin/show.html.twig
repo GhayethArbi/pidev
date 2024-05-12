@@ -1,9 +1,9 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Recette{% endblock %}
 
 {% block body %}
-   
+<main id="main" class="main">
 <!-- Page Title -->
  <div class="pagetitle">
       <h1> Nutrition </h1>
@@ -48,5 +48,5 @@
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recette.id) }}">
     <button class="btn  bg-light text-dark"><i class="bi bi-trash">&nbsp Delete </i></button>
     </form>
-
+</main>
 {% endblock %}

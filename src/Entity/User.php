@@ -86,7 +86,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     private ?string $profileImage = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $registrationDate = null;//9
+    private ?\DateTimeInterface $registrationDate = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Panier $panier = null;//9
 
     public function getId(): ?int
     {
@@ -332,6 +335,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     public function setRegistrationDate(\DateTimeInterface $registrationDate): static
     {
         $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(Panier $panier): static
+    {
+        // set the owning side of the relation if necessary
+        if ($panier->getUser() !== $this) {
+            $panier->setUser($this);
+        }
+
+        $this->panier = $panier;
 
         return $this;
     }

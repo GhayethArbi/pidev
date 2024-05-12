@@ -5,17 +5,19 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{% block title %}Dashboard - Fitkeep{% endblock %}</title>
+  <title>{% block title %}FITNESS KEEP!{% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/asset_admin/img/logo.png" rel="icon">
-  <link href="/asset_admin/img/logo.png" rel="apple-touch-icon">
-{% block css %}
+  <link href="{{ asset('assets/img/fitkeep.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/fitkeep.png') }}" rel=" apple-touch-icon">
+  {% block css %}
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="/asset_admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,10 +36,10 @@
 <body>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
-{% block navbar %}
+    {% block navbar %}
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html.twig" class="logo d-flex align-items-center">
-        <img src= "{{ asset('asset_admin/img/logo.png')}}" alt="logo" />
+        <img src="{{ asset('asset_admin/img/logo.png')}}" alt="logo" />
         <span class="d-none d-lg-block">FitKeep</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -258,38 +260,38 @@
 
       </ul>
     </nav><!-- End Icons Navigation -->
-{% endblock %}
+    {% endblock %}
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     {% block sidebar %}
+
+
+
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
+        {% if 'app_dashbord'==app.request.attributes.get('_route') %}
+        <a class="nav-link " href="{{path('app_dashbord')}}">
+          {%else %}
+          <a class="nav-link collapsed" href="{{ path('app_dashbord') }}">
+            {% endif %}
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Module Activité</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-              <i class="bi bi-circle"></i><span>Activité physique</span>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <i class="bi bi-circle"></i><span>Objectifs</span>
-            </a>
-          </li>          
-        </ul>
-      </li><!-- End Components Nav -->
-
+        {% if 'app_users'==app.request.attributes.get('_route') %}
+        <a class="nav-link " href="{{ path('app_users') }}">
+          {%else%}
+          <a class="nav-link collapsed" href="{{ path('app_users') }}">
+            {% endif %}
+            <i class="bi bi-grid"></i>
+            <span>Users Table</span>
+          </a>
+      </li><!-- End Dashboard Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Module Nutrition</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -307,25 +309,56 @@
           </li>
         </ul>
       </li><!-- End Forms Nav -->
-
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Module Evennement</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-box-seam"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>Evennement</span>
+            <a href="/product">
+              <i class="bi bi-circle"></i><span>Products_List</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Avis</span>
+            <a href="/category">
+              <i class="bi bi-circle"></i><span>Category_List</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Icons Nav -->
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        {% if 'app_profile_admin'==app.request.attributes.get('_route') %}
+        <a class="nav-link " href="{{path('app_profile_admin')}}">
+          {%else%}
+          <a class="nav-link collapsed" href="{{ path('app_profile_admin') }}">
+            {% endif %}
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
+          </a>
+      </li><!-- End Profile Page Nav -->
+
+      <!--module Activite physique -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#getion-Obj-Act" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-heart-pulse"></i><span>gestion d'activité</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="getion-Obj-Act" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="http://127.0.0.1:8000/activite/physique/">
+              <i class="bi bi-circle"></i><span>Activité physique</span>
+            </a>
+          </li>
+          <li>
+            <a href="http://127.0.0.1:8000/objectif">
+              <i class="bi bi-circle"></i><span>Objectif</span>
             </a>
           </li>
         </ul>
       </li><!-- End Tables Nav -->
-
+      <!-- fin module Activite physique -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -349,94 +382,25 @@
         </ul>
       </li><!-- End Charts Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
+      <!-- End Blank Page Nav -->
 
     </ul>
+
+
     {% endblock %}
   </aside><!-- End Sidebar-->
   <main id="main" class="main">
-  {% block body %}
-  {% endblock %}
+    {% block body %}
+    {% endblock %}
   </main>
 
   <!-- ======= Footer ======= -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
 
-{% block js %}
+  {% block js %}
   <!-- Vendor JS Files -->
   <script src="/asset_admin/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/asset_admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

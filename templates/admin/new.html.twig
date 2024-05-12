@@ -1,8 +1,9 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}New Recette{% endblock %}
 
 {% block body %}
+<main id="main" class="main">
 <!-- Page Title -->
      <div class="pagetitle">
       <h1> Nutrition </h1>
@@ -16,4 +17,5 @@
     </div>
     <a href="{{ path('app_name_index') }}"><button class="btn btn-outline-dark"><i class="ri-arrow-left-fill"> &nbsp back to list</i></button></a>
     {{ include('admin/_form.html.twig') }}
+    </main>
 {% endblock %}
